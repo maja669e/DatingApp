@@ -1,2 +1,2 @@
 # DatingApp
-Dating app 
+Dating app, gruppe 7 - miniprojekt
