@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="myIcons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+    <th:block th:include="fragments/footer.html :: footerfiles"></th:block>
+    <title>Log ind</title>
+
+    <style>
+        /* Full-width input fields */
+        input[type=text], input[type=password] {
+            width: 80%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        /* Set a style for all buttons */
+        button {
+            background-color: #9076b3;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            cursor: pointer;
+            width: 15%;
+            border: none;
+            border-radius: 10px;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .container {
+            padding: 16px;
+            display: inline-block;
+            justify-content: space-between;
+        }
+
+        /* Full-width input fields */
+        input[type=text_sign], input[type=password_sign] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+        }
+
+        /* Extra styles for the cancel button */
+        .cancelbtn {
+            padding: 14px 20px;
+            background-color: #b75851;
+        }
+
+        /* Float cancel and signup buttons and add an equal width */
+        .cancelbtn, .signupbtn {
+            width: 20%;
+        }
+
+        /* Add padding to container elements */
+        .container {
+            padding: 16px;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: #9b96a3;
+            padding-top: 50px;
+            border-radius: 8px;
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+            border: 1px solid #888;
+
+        }
+
+        /* Style the horizontal ruler */
+        hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px;
+        }
+
+        /* The Close Button (x) */
+        .close {
+            position: absolute;
+            right: 35px;
+            top: 15px;
+            font-size: 40px;
+            font-weight: bold;
+            color: #f1f1f1;
+        }
+
+        .close:hover,
+        .close:focus {
+            opacity: 0.7;
+            cursor: pointer;
+        }
+
+        /* Change styles for cancel button and signup button on extra small screens */
+        @media screen and (max-width: 600px) {
+            .cancelbtn, .signupbtn {
+                width: 40%;
+                margin: 3vw;
+            }
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+<div id="frontpage"></div>
+<div id="frontpage_content">
+    <h1>Velkommen til Purple Dating</h1>
+    <h2>Scroll igennem en masse profiler og find dit perfekte match!</h2>
+    <div class="bg-text">
+
+
+        <form action="/udforsk" method="post">
+
+            <div class="container">
+                <label><b>Brugernavn</b></label>
+                <input type="text" placeholder="Indtast brugernavn" name="uname" required>
+
+                <label><b>Kodeord</b></label>
+                <input type="password" placeholder="Indtast kodeord" name="psw" required>
+
+                <button style="width:auto;" type="submit">Log ind</button>
+
+                <p>Ikke medlem endnu? Opret ret dig som bruger allerede nu.</p>
+                <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Opret bruger</button>
+
+                <div id="id01" class="modal">
+                    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+
+                    <form class="modal-content" action="/udforsk">
+
+                        <div class="container">
+                            <h1>Opret bruger</h1>
+                            <p>Udfyld venligst formularen.</p>
+                            <hr>
+                            <label><b>Email</b></label>
+                            <input type="text_sign" placeholder="Indtast brugernavn" name="email" required>
+
+                            <label><b>Kodeord</b></label>
+                            <input type="password_sign" placeholder="Indtast kodeord" name="psw" required>
+
+                            <label><b>Gentag kodeord</b></label>
+                            <input type="password_sign" placeholder="Gentag kodeord" name="psw-repeat" required>
+
+
+                            <div class="clearfix">
+                                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Fortryd</button>
+                                <button type="submit" class="signupbtn">Opret</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<div th:replace="fragments/footer.html :: footer"></div>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>
