@@ -115,14 +115,15 @@ footer {
     background-color: #9076b3;
     color: white;
     bottom: 0;
+    padding-top: 1vw;
 }
 
 #footer_info {
     flex-wrap: wrap;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     position: relative;
-    bottom: 0;
+    font-size: 12px;
 }
 
 footer a {
@@ -131,13 +132,14 @@ footer a {
 }
 
 .kontakt {
-    flex-basis: 100px;
-    margin: 1.5vw;
+    flex-basis: 200px;
+    margin-left: 1vw;
+    margin-right: 1vw;
 }
 
 
 a.fa-facebook,
-a.fa-instagram {
+a.fa-twitter {
     color: white;
     text-decoration: none;
     font-size: 5vw;
@@ -145,12 +147,12 @@ a.fa-instagram {
     width: 2vw;
 }
 
-a.fa-instagram {
+a.fa-twitter {
     margin-left: 4vw;
 }
 
 a.fa-facebook:before,
-a.fa-instagram:before {
+a.fa-twitter:before {
     color: white;
 }
 
@@ -166,7 +168,7 @@ a.fa-instagram:before {
     flex-basis: 200px;
     flex-grow: 1;
     text-align: center;
-    font-size: 12px;
+    font-size: 11px;
     margin: 0;
     padding: 2vw;
 }
@@ -203,9 +205,11 @@ a.fa-instagram:before {
         text-align: center;
     }
 
-
-    footer {
-        margin-top: 30vw;
+footer {
+    margin-top: 20vw;
+}
+    #footer_info {
+        justify-content: space-around;
     }
 
 }
@@ -241,20 +245,23 @@ a.fa-instagram:before {
     }
 
     a.fa-facebook,
-    a.fa-instagram {
+    a.fa-twitter {
         font-size: 2vw;
         height: 1vw;
         width: 1vw;
         margin: 0;
     }
 
-    a.fa-instagram {
+    a.fa-twitter {
         margin-left: 2vw;
     }
 
     footer a {
         color: white;
-        font-size: 15px;
+        font-size: 12px;
+    }
+    footer p {
+        font-size: 12px;
     }
 
 }
