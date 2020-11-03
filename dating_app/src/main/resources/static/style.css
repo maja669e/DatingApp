@@ -14,7 +14,7 @@ body {
 }
 
 h1 {
-    padding-top: 7vw;
+    padding-top: 8.5vw;
     text-align: center;
     font-size: 32px;
     color: #3b3838;
@@ -26,6 +26,9 @@ h2 {
     color: #3b3838;
 }
 
+hr {
+    width: 70%;
+}
 
 /*-------Navigation-------*/
 header {
@@ -51,15 +54,15 @@ header {
 .topnav a:first-child {
     background-image: url(/images/logo.png);
     background-size: cover;
-    width: 9.5vw;
-    height: 10.46vw;
+    width: 6.7vw;
+    height: 9vw;
     margin: 2vw;
+    padding: 1vw;
 }
 
 .topnav {
     overflow: hidden;
     width: 100%;
-
 }
 
 .topnav a:not(:first-child):hover {
@@ -206,7 +209,7 @@ a.fa-twitter:before {
     }
 
 footer {
-    margin-top: 20vw;
+    margin-top: 30vw;
 }
     #footer_info {
         justify-content: space-around;
@@ -222,10 +225,11 @@ footer {
     .topnav a:first-child {
         background-image: url(/images/logo.png);
         background-size: cover;
-        width: 4.5vw;
-        height: 5vw;
+        width: 3vw;
+        height: 4vw;
         margin: 0.5vw;
         margin-left: 2vw;
+        margin: 1vw;
     }
 
     .topnav a:not(:first-child) {
