@@ -218,8 +218,8 @@ a.fa-instagram:before {
     .topnav a:first-child {
         background-image: url(/images/logo.png);
         background-size: cover;
-        width: 4.53vw;
-        height: 5.01vw;
+        width: 4.5vw;
+        height: 5vw;
         margin: 0.5vw;
         margin-left: 2vw;
     }
