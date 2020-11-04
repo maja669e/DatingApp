@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
@@ -16,14 +16,23 @@
 <div th:replace="fragments/header.html :: header"></div>
 <h1>Min profil</h1>
 <hr>
+<<<<<<< HEAD
 
+=======
+<div class="image1">
+    <img src="/images/blank-profile-picture.jpg" alt="blank profile" width="300" height="350"/>
+</div>
+<div class="centerText">
+    <p>Navn: <br><span th:text="${datingUser.name}"> </span></p>
+    <p>Fødselsdato: <br><span th:text="${datingUser.birthdate}"> </span></p>
+    <p>telefonnummer: <br><span th:text="${datingUser.phoneNumber}"> </span></p>
+    <p>Mail: <br><span th:text="${datingUser.mail}"> </span></p>
+    <p>Køn: <br><span th:text="${datingUser.sex}"> </span></p>
+    <p>Beskrivelse: <br><span th:text="${datingUser.description}"> </span></p>
+</div>
+>>>>>>> 5ea56d6e37f8e87b50685b84374b8d3bb3c5aec1
 <div>
-    <p>Navn: <span th:text="${datingUser.name}"> </span></p>
-    <p>Fødselsdato: <span th:text="${datingUser.birthdate}"> </span></p>
-    <p>telefonnummer: <span th:text="${datingUser.phoneNumber}"> </span></p>
-    <p>Mail: <span th:text="${datingUser.mail}"> </span></p>
-    <p>Køn: <span th:text="${datingUser.sex}"> </span></p>
-    <p>Beskrivelse: <span th:text="${datingUser.description}"> </span></p>
+    <a href="/rediger"><button type="button" class="button">Rediger profil</button></a>
 </div>
 <br>
 

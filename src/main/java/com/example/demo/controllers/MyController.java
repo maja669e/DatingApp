@@ -49,9 +49,19 @@ public class MyController {
 
 
     @GetMapping("/profil")
+<<<<<<< HEAD
     public String profile(Model model) {
         DatingUser datingUser = new DatingUser(1, "Nicolai Okkels", "bla bla bla bla", LocalDate.of(1996, 2, 1), 20959300, "Mand", "blablabla@gmail.com", "010296");
+=======
+    public String profile(Model model){
+        DatingUser datingUser = new DatingUser("bla bla", "bla bla bla bla", LocalDate.of(1996,2,1), 88888888, "Mand", "blablabla@gmail.com", "1");
+>>>>>>> 5ea56d6e37f8e87b50685b84374b8d3bb3c5aec1
         model.addAttribute("datingUser", datingUser); //Temp to test
         return "profil";
+    }
+
+    @GetMapping("/rediger")
+    public String edit(){
+        return "rediger";
     }
 }
