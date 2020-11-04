@@ -26,6 +26,12 @@ h2 {
     color: #525050;
 }
 
+h4 {
+    margin-left: 5vw;
+    width: 8px;
+    color: #3b3838;
+}
+
 hr {
     width: 70%;
     border-bottom: inherit;
