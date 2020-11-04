@@ -1,18 +1,19 @@
 package com.example.demo.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class DatingUser extends BasicUser {
 
     protected String name;
     protected String description;
-    protected Date birthdate;
+    protected LocalDate birthdate;
     protected int phoneNumber;
     protected String sex;
     protected String orientation;
 
 
-    public DatingUser(String name, String description, Date birthdate, int phoneNumber, String sex, String orientation,
+    public DatingUser(String name, String description, LocalDate birthdate, int phoneNumber, String sex, String orientation,
                       String userName, String password) {
         super(userName, password);
         this.name = name;
@@ -31,7 +32,7 @@ public class DatingUser extends BasicUser {
         return description;
     }
 
-    public Date getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
@@ -55,7 +56,7 @@ public class DatingUser extends BasicUser {
         this.description = description;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 

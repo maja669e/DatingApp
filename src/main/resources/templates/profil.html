@@ -15,20 +15,16 @@
 
 <div th:replace="fragments/header.html :: header"></div>
 <h1>Min profil</h1>
-<h4>Navn: </h4>
+<div th:object="${datingUser}">
+    <h4>Fulde Navn: <span th:text="*{name}"> </span></h4>
+    <h4>Fødselsdato: <span th:text="*{birthdate}"> </span></h4>
+    <h4>telefonnummer: <span th:text="*{phoneNumber}"> </span></h4>
+    <h4>Mail: <span th:text="*{userName}"> </span></h4>
+    <h4>Køn: <span th:text="*{sex}"> </span></h4>
+    <h4>kønsorientering: <span th:text="*{orientation}"> </span></h4>
+</div>
+<br>
 
-<p>hej</p>
-<p>hej</p>
-<p>hej</p>
-<p>hej</p>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<p>hej</p>
-<p>hej</p>
 <div th:replace="fragments/footer.html :: footer"></div>
 
 <script src="script.js"></script>
