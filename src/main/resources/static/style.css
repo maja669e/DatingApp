@@ -27,10 +27,8 @@ h2 {
 }
 
 h4 {
-    text-align: center;
-    float: left;
-    margin: auto;
-    width: 50%;
+    margin-left: 5vw;
+    width: 8px;
     color: #3b3838;
 }
 
