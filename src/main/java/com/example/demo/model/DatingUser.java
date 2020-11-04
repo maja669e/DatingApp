@@ -1,19 +1,18 @@
 package com.example.demo.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 
-public class DatingUser extends BasicUser {
+public class DatingUser extends SuperUser {
 
-    protected String name;
-    protected String description;
-    protected LocalDate birthdate;
-    protected int phoneNumber;
-    protected String sex;
-    protected String orientation;
+    private String name;
+    private String description;
+    private LocalDate birthdate;
+    private int phoneNumber;
+    private String sex;
+    private String mail;
 
 
-    public DatingUser(String name, String description, LocalDate birthdate, int phoneNumber, String sex, String orientation,
+    public DatingUser(String name, String description, LocalDate birthdate, int phoneNumber, String sex,
                       String userName, String password) {
         super(userName, password);
         this.name = name;
@@ -21,7 +20,6 @@ public class DatingUser extends BasicUser {
         this.birthdate = birthdate;
         this.phoneNumber = phoneNumber;
         this.sex = sex;
-        this.orientation = orientation;
     }
 
     public String getName() {
@@ -44,8 +42,12 @@ public class DatingUser extends BasicUser {
         return sex;
     }
 
-    public String getOrientation() {
-        return orientation;
+    public String getMail(){
+        return userName;
+    }
+
+    public String getPassword(){
+        return password;
     }
 
     public void setName(String name) {
@@ -68,7 +70,4 @@ public class DatingUser extends BasicUser {
         this.sex = sex;
     }
 
-    public void setOrientation(String orientation) {
-        this.orientation = orientation;
-    }
 }

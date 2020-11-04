@@ -32,8 +32,9 @@ public class MyController {
     }
 
     @GetMapping("/profil")
-    public ModelAndView profile(ModelAndView modelAndView){
-        modelAndView.addObject("datingUser", new DatingUser("Nicolai Okkels", "bla bla bla bla", LocalDate.of(1996,2,1), 20959300, "Mand", "heteroseksuel", "blablabla@gmail.com", "010296")); //Temp to test
-        return modelAndView;
+    public String profile(Model model){
+        DatingUser datingUser = new DatingUser("Nicolai Okkels", "bla bla bla bla", LocalDate.of(1996,2,1), 20959300, "Mand", "blablabla@gmail.com", "010296");
+        model.addAttribute("datingUser", datingUser); //Temp to test
+        return "profil";
     }
 }
