@@ -26,6 +26,14 @@ h2 {
     color: #3b3838;
 }
 
+h4 {
+    text-align: center;
+    float: left;
+    margin: auto;
+    width: 50%;
+    color: #3b3838;
+}
+
 hr {
     width: 70%;
 }
