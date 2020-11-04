@@ -50,6 +50,18 @@ header {
     position: fixed;
 }
 
+#logout {
+    color: white;
+    background-color: green;
+    position: fixed;
+    border-radius: 5px;
+    justify-content: right;
+    font-size: 15px;
+    top: 0;
+    right: 0;
+    margin-bottom: 2vw;
+}
+
 .topnav a {
     float: left;
     display: block;
@@ -118,6 +130,78 @@ header {
     text-shadow: 2px 2px 8px rgba(7, 7, 7, 0.44);
     color: white;
     padding-top: 0px;
+}
+
+/*-----ADMIN-----*/
+table,
+th,
+td {
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1vw;
+    border-color: inherit;
+}
+
+th {
+    background-color: #6a737c;
+    color: white;
+}
+
+table {
+    box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.09);
+}
+
+tr {
+    text-align: left;
+}
+
+td:last-child,
+th:last-child {
+    text-align: right;
+    margin: 3vw;
+}
+
+th:last-child {
+    border-top-right-radius: 15px;
+}
+
+th:first-child {
+    border-top-left-radius: 15px;
+}
+
+th,
+td {
+    padding: 8px;
+}
+
+tr:nth-child(odd) {
+    background-color: #e6e8ea;
+}
+
+.adminlog {
+    margin-top: 3vw;
+    margin-left: 10%;
+    font-style: italic;
+}
+
+
+/*-------Button-----*/
+.button1 {
+    background-color: slategrey;
+    border: none;
+    color: white;
+    padding: 7px 10px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 5px;
+    filter: drop-shadow(0 2px 8px rgba(112, 128, 144, 0.27));
+}
+
+.button1:hover {
+    opacity: 0.8;
+    cursor: pointer;
 }
 
 
@@ -217,10 +301,14 @@ a.fa-twitter:before {
         display: block;
         text-align: center;
     }
+    .topnav a:nth-last-child(2) {
+        opacity: 0.7;
+    }
 
-footer {
-    margin-top: 30vw;
-}
+    footer {
+        margin-top: 30vw;
+    }
+
     #footer_info {
         justify-content: space-around;
     }
@@ -249,10 +337,20 @@ footer {
         margin-right: 8vw;
     }
 
-    a:current {
-        text-decoration: underline;
+    .topnav a:nth-last-child(2) {
+        display: flex;
+        position: fixed;
+        right: 0px;
+        top: -1px;
+        padding: 0.5vw;
+        border-radius: 5px;
+        margin: 0;
+        opacity: 0.7;
     }
 
+    .topnav a:nth-last-child(2):hover {
+        opacity: 1;
+    }
 
     .kontakt {
         flex-basis: 200px;
@@ -274,6 +372,7 @@ footer {
         color: white;
         font-size: 12px;
     }
+
     footer p {
         font-size: 12px;
     }

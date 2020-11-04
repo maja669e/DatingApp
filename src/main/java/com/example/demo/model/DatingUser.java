@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class DatingUser extends SuperUser {
 
+    private int ID;
     private String name;
     private String description;
     private LocalDate birthdate;
@@ -12,14 +13,23 @@ public class DatingUser extends SuperUser {
     private String mail;
 
 
-    public DatingUser(String name, String description, LocalDate birthdate, int phoneNumber, String sex,
+    public DatingUser(int ID, String name, String description, LocalDate birthdate, int phoneNumber, String sex,
                       String userName, String password) {
         super(userName, password);
+        this.ID = ID;
         this.name = name;
         this.description = description;
         this.birthdate = birthdate;
         this.phoneNumber = phoneNumber;
         this.sex = sex;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public String getName() {

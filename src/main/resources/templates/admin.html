@@ -12,108 +12,45 @@
     <th:block th:include="fragments/footer.html :: footerfiles"></th:block>
     <title>Admin</title>
 
-    <style>
-        table,
-        th,
-        td {
-            border-collapse: collapse;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 3vw;
-            border-color: none;
-        }
-
-        th {
-            background-color: #6a737c;
-            color: white;
-        }
-
-        table {
-            box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.09);
-        }
-
-        tr {
-            text-align: left;
-        }
-
-        td:last-child,
-        th:last-child {
-            text-align: right;
-            margin: 3vw;
-        }
-
-        th:last-child {
-            border-top-right-radius: 15px;
-        }
-
-        th:first-child {
-            border-top-left-radius: 15px;
-        }
-
-        th,
-        td {
-            padding: 8px;
-        }
-
-        tr:nth-child(odd) {
-            background-color: #e6e8ea;
-        }
-
-        /*-------Button-----*/
-        .button1 {
-            background-color: slategrey;
-            border: none;
-            color: white;
-            padding: 7px 10px;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 12px;
-            border-radius: 5px;
-            filter: drop-shadow(0 2px 8px rgba(112, 128, 144, 0.27));
-        }
-
-        .button1:hover {
-            opacity: 0.8;
-            cursor: pointer;
-        }
-    </style>
-
 </head>
 
 <body>
-<header id="myTopnav" th:fragment="header">
 
+<header id="myTopnav">
     <div class="topnav">
         <a></a>
+        <a></a>
+        <a></a>
+        <a></a>
+        <a href="/">
+            <img src="/images/logout.png" width="30px" height="35px"></a>
+        <a href="javascript:void(0);" class="icon" onclick="burgerMenu()">
+            <i class="fa fa-bars"></i>
+        </a>
     </div>
 
 </header>
-
 
 <h1>Admin</h1>
 <hr>
 <br>
 <h2>Slet brugere</h2>
 
+
+<p class="adminlog">Logget ind: <span th:text="${adminUser.name}"></span></p>
 <table style="width: 80%">
+
     <tr>
         <th>ID</th>
         <th>Navn</th>
         <th>Email</th>
         <th>Vælg</th>
     </tr>
-    <tr>
-        <td>x</td>
-        <td>x</td>
-        <td>x</td>
-        <td>
-            <span class="button1"> <img src="/images/trashcan.png" alt="trash" width="19px" height="20px"></span>
-        </td>
-    </tr>
-    <tr>
-        <td>x</td>
-        <td>x</td>
-        <td>x</td>
+
+    <tr th:each="datingUser:${datingUser}">
+        <td th:text="${datingUser.ID}"></td>
+        <td th:text="${datingUser.name}"></td>
+        <td th:text="${datingUser.mail}"></td>
         <td>
             <span class="button1"> <img src="/images/trashcan.png" alt="trash" width="19px" height="20px"></span>
         </td>
