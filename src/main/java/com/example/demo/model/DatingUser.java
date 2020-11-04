@@ -12,6 +12,17 @@ public class DatingUser extends BasicUser {
     protected String orientation;
 
 
+    public DatingUser(String name, String description, Date birthdate, int phoneNumber, String sex, String orientation,
+                      String userName, String password) {
+        super(userName, password);
+        this.name = name;
+        this.description = description;
+        this.birthdate = birthdate;
+        this.phoneNumber = phoneNumber;
+        this.sex = sex;
+        this.orientation = orientation;
+    }
+
     public String getName() {
         return name;
     }
