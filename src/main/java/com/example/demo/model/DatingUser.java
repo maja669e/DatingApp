@@ -4,12 +4,12 @@ import java.util.Date;
 
 public class DatingUser extends BasicUser {
 
-    private String name;
-    private String description;
-    private Date birthdate;
-    private int phoneNumber;
-    private String sex;
-    private String orientation;
+    protected String name;
+    protected String description;
+    protected Date birthdate;
+    protected int phoneNumber;
+    protected String sex;
+    protected String orientation;
 
 
     public String getName() {
