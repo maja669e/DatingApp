@@ -1,5 +1,4 @@
 package com.example.demo.model;
 
-public class DatingUser {
-
+public class AdminUser {
 }
