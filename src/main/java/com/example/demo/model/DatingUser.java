@@ -3,7 +3,6 @@ package com.example.demo.model;
 import java.time.LocalDate;
 
 public class DatingUser extends SuperUser {
-
     private int ID;
     private String name;
     private String description;
