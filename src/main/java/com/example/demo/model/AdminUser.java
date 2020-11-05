@@ -4,8 +4,8 @@ public class AdminUser extends SuperUser {
     private int ID;
     private String name;
 
-    public AdminUser(int ID, String name, String userName, String password) {
-        super(userName, password);
+    public AdminUser(int ID, String name, String email, String password) {
+        super(email, password);
         this.ID = ID;
         this.name = name;
     }
