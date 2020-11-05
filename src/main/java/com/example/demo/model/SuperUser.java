@@ -2,11 +2,11 @@ package com.example.demo.model;
 
 public abstract class SuperUser {
 
-    protected String userName;
+    protected String email;
     protected String password;
 
-    public SuperUser(String userName, String password) {
-        this.userName = userName;
+    public SuperUser(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 

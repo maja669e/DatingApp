@@ -41,7 +41,7 @@ public class MyController {
         for (int i = 0; i < datingUsers.size(); i++) {
             datingUsers.get(i).getID();
             datingUsers.get(i).getName();
-            datingUsers.get(i).getMail();
+            datingUsers.get(i).getEmail();
             model.addAttribute("datingUsers", datingUsers); //Temp to test
         }
 

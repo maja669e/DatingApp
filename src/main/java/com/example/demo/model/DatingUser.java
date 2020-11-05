@@ -9,12 +9,11 @@ public class DatingUser extends SuperUser {
     private LocalDate birthdate;
     private int phoneNumber;
     private String sex;
-    private String mail;
 
 
     public DatingUser(int ID, String name, String description, LocalDate birthdate, int phoneNumber, String sex,
-                      String userName, String password) {
-        super(userName, password);
+                      String email, String password) {
+        super(email, password);
         this.ID = ID;
         this.name = name;
         this.description = description;
@@ -51,8 +50,8 @@ public class DatingUser extends SuperUser {
         return sex;
     }
 
-    public String getMail(){
-        return userName;
+    public String getEmail(){
+        return email;
     }
 
     public String getPassword(){
