@@ -4,9 +4,7 @@ import com.example.demo.data.DataFacadeImpl;
 import com.example.demo.model.AdminUser;
 import com.example.demo.model.DatingUser;
 import com.example.demo.model.LoginController;
-import com.example.demo.model.LoginSampleException;
-import org.apache.tomcat.jni.Local;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.example.demo.model.LoginException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Controller
@@ -74,22 +71,20 @@ public class MyController {
     }
 
     @PostMapping("/login")
-    public String loginUser(WebRequest request) throws LoginSampleException {
+    public String loginUser(WebRequest request) throws LoginException {
         //Retrieve values from HTML form via WebRequest
         String email = request.getParameter("email");
-        String pwd = request.getParameter("password");
+        String password = request.getParameter("password");
 
-        // delegate work + data to login controller
-        DatingUser datingUser = loginController.login(email, pwd);
+        DatingUser datingUser = loginController.login(email, password);
         setSessionInfo(request, datingUser);
 
-        // Go to to page dependent on role
         return "/udforsk";
     }
 
 
-    @PostMapping("/register")
-    public String createUser(WebRequest request) throws LoginSampleException {
+    @PostMapping("/registrer")
+    public String createUser(WebRequest request) throws LoginException {
         //Retrieve values from HTML form via WebRequest
         String email = request.getParameter("email");
         String name = request.getParameter("name");
@@ -101,22 +96,21 @@ public class MyController {
         if (password1.equals(password2)) {
             DatingUser datingUser = loginController.createUser(name, /*birthdate, */ email, password1);
             setSessionInfo(request, datingUser);
-            // Go to page dependent on role
             return "/udforsk";
 
-        } else { // If passwords don't match, an exception is thrown
-            throw new LoginSampleException("The two passwords did not match");
+        } else {
+            throw new LoginException("De to kodeord passer ikke");
         }
 
     }
 
 
-    @GetMapping("/secretstuff")
-    public String getSecretStuff(WebRequest request) {
+    @GetMapping("/udforsk")
+    public String getDiscover(WebRequest request) {
         // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("datingUSer", WebRequest.SCOPE_SESSION);
 
-        // If user object is found on session, i.e. user is logged in, she/he can see secretstuff page
+        // If user object is found on session, i.e. user is logged in, she/he can see home page
         if (datingUser != null) {
             return "/udforsk";
         }
@@ -126,15 +120,13 @@ public class MyController {
 
 
     private void setSessionInfo(WebRequest request, DatingUser datingUser) {
-        // Place user info on session
         request.setAttribute("user", datingUser, WebRequest.SCOPE_SESSION);
-        // request.setAttribute("role", user.getRole(), WebRequest.SCOPE_SESSION);
     }
 
 
     @ExceptionHandler(Exception.class)
     public String anotherError(Model model, Exception exception) {
         model.addAttribute("message",exception.getMessage());
-        return "exceptionPage";
+        return "/fejlside";
     }
 }

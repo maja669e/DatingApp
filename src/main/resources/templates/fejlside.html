@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="myIcons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+    <th:block th:include="fragments/footer.html :: footerfiles"></th:block>
+    <title>Fejlside</title>
+</head>
+<body>
+<div th:replace="fragments/header.html :: header"></div>
+<h1>Der skete en fejl!</h1>
+<hr>
+<p><span th:text="" class="centerText"></span></p>
+<div th:replace="fragments/footer.html :: footer"></div>
+</body>
+</html>
