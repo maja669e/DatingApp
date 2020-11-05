@@ -7,18 +7,16 @@ public class DatingUser extends SuperUser {
     private String name;
     private String description;
     private LocalDate birthdate;
-    private int phoneNumber;
     private String sex;
 
 
-    public DatingUser(int ID, String name, String description, LocalDate birthdate, int phoneNumber, String sex,
+    public DatingUser(String name, /*LocalDate birthdate,*/
                       String email, String password) {
         super(email, password);
         this.ID = ID;
         this.name = name;
         this.description = description;
         this.birthdate = birthdate;
-        this.phoneNumber = phoneNumber;
         this.sex = sex;
     }
 
@@ -40,10 +38,6 @@ public class DatingUser extends SuperUser {
 
     public LocalDate getBirthdate() {
         return birthdate;
-    }
-
-    public int getPhoneNumber() {
-        return phoneNumber;
     }
 
     public String getSex() {
@@ -68,10 +62,6 @@ public class DatingUser extends SuperUser {
 
     public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
-    }
-
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public void setSex(String sex) {

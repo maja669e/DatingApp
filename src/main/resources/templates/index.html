@@ -45,7 +45,7 @@
         }
 
         /* Full-width input fields */
-        input[type=text_sign], input[type=password_sign] {
+        input[type=text], input[type=password] {
             width: 100%;
             padding: 15px;
             margin: 5px 0 22px 0;
@@ -133,57 +133,64 @@
 <div id="frontpage_content">
     <h1>Velkommen til Purple Dating<img src="/images/logo.png" alt="logo" height="53px" width="44px"></h1>
     <h2>Scroll igennem en masse profiler og find dit perfekte match!</h2>
-    <div class="bg-text">
 
 
-        <form action="/udforsk" method="post">
+    <form name="login" action="/login" method="POST">
 
-            <div class="container">
-                <label><b>Brugernavn</b></label>
-                <br>
-                <input type="text" placeholder="Indtast email eller telefonnummer" name="uname" required>
-                <br>
-                <label><b>Kodeord</b></label>
-                <br>
-                <input type="password" placeholder="Indtast kodeord" name="psw" required>
-                <br>
-                <button style="width:auto;" type="submit">Log ind</button>
+        <div class="container">
+            <label><b>Brugernavn</b></label>
+            <br>
+            <input type="text" placeholder="Indtast email" name="email" required>
+            <br>
+            <label><b>Kodeord</b></label>
+            <br>
+            <input type="password" placeholder="Indtast kodeord" name="password" required>
+            <br>
+            <button style="width:auto;" type="submit">Log ind</button>
 
+        </div>
 
+    </form>
 
-                <p>Ikke medlem endnu? Opret ret dig som bruger allerede nu.</p>
-                <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Opret bruger</button>
+    <p>Ikke medlem endnu? Opret ret dig som bruger allerede nu.</p>
+    <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Opret bruger
+    </button>
 
-                <div id="id01" class="modal">
-                    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+    <div id="id01" class="modal">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <div class="modal-content">
 
-                    <form class="modal-content" action="/udforsk">
+            <form name="register" action="/register" method="POST">
 
-                        <div class="container">
-                            <h1>Opret bruger</h1>
-                            <p>Udfyld venligst formularen.</p>
-                            <hr>
-                            <label><b>Email</b></label>
-                            <input type="text_sign" placeholder="Indtast brugernavn" name="email" required>
+                <div class="container">
+                    <h1>Opret bruger</h1>
+                    <p>Udfyld venligst formularen.</p>
+                    <hr>
 
-                            <label><b>Kodeord</b></label>
-                            <input type="password_sign" placeholder="Indtast kodeord" name="psw" required>
+                    <label><b>Navn</b></label>
+                    <input type="text" placeholder="Indtast navn" name="name">
 
-                            <label><b>Gentag kodeord</b></label>
-                            <input type="password_sign" placeholder="Gentag kodeord" name="psw-repeat" required>
+                    <label><b>Email</b></label>
+                    <input type="text" placeholder="Indtast email" name="email">
 
+                    <!--<label><b>Fødselsdag</b></label>
+                      <input type="text" placeholder="Eks: 1998/6/6" name="birthdate">-->
 
-                            <div class="clearfix">
-                                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Fortryd</button>
-                                <button type="submit" class="signupbtn">Opret</button>
-                            </div>
-                        </div>
-                    </form>
+                    <label><b>Kodeord</b></label>
+                    <input type="password" placeholder="Indtast kodeord" name="password1">
+
+                    <label><b>Gentag kodeord</b></label>
+                    <input type="password" placeholder="Gentag kodeord" name="password2">
+
+                    <div class="clearfix">
+                        <button type="button" onclick="document.getElementById('id01').style.display='none'"
+                                class="cancelbtn">Fortryd
+                        </button>
+                        <input type="submit" value="Opret"input>
+                    </div>
                 </div>
-
-            </div>
-
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -195,7 +202,7 @@
     var modal = document.getElementById('id01');
 
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
