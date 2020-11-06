@@ -83,7 +83,7 @@ public class MyController {
     }
 
 
-    @PostMapping("/registrer")
+    @PostMapping("/register")
     public String createUser(WebRequest request) throws LoginException {
         //Retrieve values from HTML form via WebRequest
         String email = request.getParameter("email");
@@ -105,7 +105,7 @@ public class MyController {
     }
 
 
-    @GetMapping("/udforsk")
+   /* @GetMapping("/udforsk")
     public String getDiscover(WebRequest request) {
         // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("datingUSer", WebRequest.SCOPE_SESSION);
@@ -116,7 +116,7 @@ public class MyController {
         }
         else
             return "redirect:/";
-    }
+    }*/
 
 
     private void setSessionInfo(WebRequest request, DatingUser datingUser) {
@@ -127,6 +127,6 @@ public class MyController {
     @ExceptionHandler(Exception.class)
     public String anotherError(Model model, Exception exception) {
         model.addAttribute("message",exception.getMessage());
-        return "/fejlside";
+        return "fejlside";
     }
 }
