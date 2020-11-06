@@ -5,10 +5,8 @@ public abstract class SuperUser {
     protected String email;
     protected String password;
     protected String role;
-    protected String name;
 
-    public SuperUser(String name ,String email, String password, String role) {
-        this.name = name;
+    public SuperUser(String email, String password, String role) {
         this.email = email;
         this.password = password;
         this.role = role;

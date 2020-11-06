@@ -3,14 +3,16 @@ package com.example.demo.model;
 import java.time.LocalDate;
 
 public class DatingUser extends SuperUser {
+    private String name;
     private String description;
     private LocalDate birthdate;
     private String gender;
 
 
     public DatingUser(String name, String email, String password,  LocalDate birthdate, String role) {
-        super(name, email, password, role);
+        super(email, password, role);
         this.birthdate = birthdate;
+        this.name = name;
     }
 
     public int getID() {
@@ -23,6 +25,10 @@ public class DatingUser extends SuperUser {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -45,10 +51,6 @@ public class DatingUser extends SuperUser {
         return password;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -68,6 +70,6 @@ public class DatingUser extends SuperUser {
 
     @Override
     public String setRole() {
-        return "Dating user";
+        return "datinguser";
     }
 }
