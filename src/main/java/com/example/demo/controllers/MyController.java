@@ -52,7 +52,7 @@ public class MyController {
             model.addAttribute("datingUsers", datingUsers); //Temp to test
         }
 
-        AdminUser adminUser = new AdminUser(1, "Phuc Nguyen", "phuc", "1234");
+        AdminUser adminUser = new AdminUser("Phuc Nguyen", "phuc", "1234");
         model.addAttribute("adminUser", adminUser);
         return "admin";
     }

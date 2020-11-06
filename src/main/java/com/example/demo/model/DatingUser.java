@@ -3,7 +3,6 @@ package com.example.demo.model;
 import java.time.LocalDate;
 
 public class DatingUser extends SuperUser {
-    private int ID;
     private String name;
     private String description;
     private LocalDate birthdate;
@@ -13,7 +12,6 @@ public class DatingUser extends SuperUser {
     public DatingUser(String name, /*LocalDate birthdate,*/
                       String email, String password) {
         super(email, password);
-        this.ID = ID;
         this.name = name;
         this.description = description;
         this.birthdate = birthdate;
