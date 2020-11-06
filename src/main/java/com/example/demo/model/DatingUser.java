@@ -9,7 +9,7 @@ public class DatingUser extends SuperUser {
     private String sex;
 
 
-    public DatingUser(String name, /*LocalDate birthdate,*/
+    public DatingUser(String name, LocalDate birthdate,
                       String email, String password) {
         super(email, password);
         this.name = name;
