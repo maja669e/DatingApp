@@ -5,17 +5,20 @@ import com.example.demo.model.AdminUser;
 import com.example.demo.model.DatingUser;
 import com.example.demo.model.LoginController;
 import com.example.demo.model.LoginException;
+import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Controller
 public class MyController {
@@ -33,10 +36,10 @@ public class MyController {
         return "matches";
     }
 
-    @GetMapping("/udforsk")
+   /* @GetMapping("/udforsk")
     public String explore() {
         return "udforsk";
-    }
+    }*/
 
     @GetMapping("/admin")
     public String admin(Model model) {
@@ -84,23 +87,35 @@ public class MyController {
         return "/udforsk";
     }
 
+   /* @GetMapping("/test")
+    @ResponseBody
+    public String test() throws LoginException{
+        LocalDate birthdate = LocalDate.of(1998, 6, 6);
+        DatingUser datingUser = loginController.createUser("Maja", birthdate, "hej@live.dk", "hej");
+        return datingUser.toString();
+
+    }*/
 
     @PostMapping("/register")
     public String createUser(WebRequest request) throws LoginException {
         //Retrieve values from HTML form via WebRequest
         String email = request.getParameter("email");
         String name = request.getParameter("name");
-        String birthdate = request.getParameter("birthdate");
+        //String birthdate = request.getParameter("birthdate");
+        LocalDate birthdate = LocalDate.of(1996,2,2);
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
 
         // If passwords match, work + data is delegated to logic controller
         if (password1.equals(password2)) {
+            /*
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd/");
             LocalDate localDate = LocalDate.parse(birthdate, formatter);
-            DatingUser datingUser = loginController.createDatingUser(name, email, password1, localDate);
+
+             */
+            DatingUser datingUser = loginController.createDatingUser(name, email, password1, birthdate);
             setSessionInfo(request, datingUser);
-            return "/udforsk" + datingUser.getRole();
+            return "/udforsk";
 
         } else{
             throw new LoginException("De to kodeord passer ikke");
@@ -109,7 +124,7 @@ public class MyController {
     }
 
 
-   /* @GetMapping("/udforsk")
+   @GetMapping("/udforsk")
     public String getDiscover(WebRequest request) {
         // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("datingUSer", WebRequest.SCOPE_SESSION);
@@ -120,17 +135,17 @@ public class MyController {
         }
         else
             return "redirect:/";
-    }*/
+    }
 
 
     private void setSessionInfo(WebRequest request, DatingUser datingUser) {
         request.setAttribute("user", datingUser, WebRequest.SCOPE_SESSION);
     }
 
-
+/*
     @ExceptionHandler(Exception.class)
     public String anotherError(Model model, Exception exception) {
         model.addAttribute("message",exception.getMessage());
         return "fejlside";
-    }
+    }*/
 }
