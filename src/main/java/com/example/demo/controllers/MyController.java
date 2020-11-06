@@ -16,7 +16,10 @@ import org.springframework.web.context.request.WebRequest;
 
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Controller
 public class MyController {
@@ -100,7 +103,8 @@ public class MyController {
         String email = request.getParameter("email");
         String name = request.getParameter("name");
         //LocalDate birthdate = request.getParameter("birthdate");
-        LocalDate birthdate = LocalDate.of(1998, 6, 6);
+
+        LocalDate birthdate = LocalDate.of(1998, 1, 1);
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
 
