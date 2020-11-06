@@ -31,10 +31,10 @@ public class MyController {
         return "matches";
     }
 
-    @GetMapping("/udforsk")
+   /* @GetMapping("/udforsk")
     public String explore() {
         return "udforsk";
-    }
+    }*/
 
     @GetMapping("/admin")
     public String admin(Model model) {
@@ -105,7 +105,7 @@ public class MyController {
     }
 
 
-   /* @GetMapping("/udforsk")
+   @GetMapping("/udforsk")
     public String getDiscover(WebRequest request) {
         // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("datingUSer", WebRequest.SCOPE_SESSION);
@@ -116,7 +116,7 @@ public class MyController {
         }
         else
             return "redirect:/";
-    }*/
+    }
 
 
     private void setSessionInfo(WebRequest request, DatingUser datingUser) {
