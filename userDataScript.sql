@@ -1,3 +1,6 @@
+-- -----------------------------------------------------
+-- users data
+-- -----------------------------------------------------
 INSERT INTO `datingapp`.`users` (`email`, `password`, `role`) VALUES ('admin@gmail.com', '1', 'admin');
 INSERT INTO `datingapp`.`users` (`email`, `password`, `role`) VALUES ('test1@gmail.com', '1', 'datinguser');
 INSERT INTO `datingapp`.`users` (`email`, `password`, `role`) VALUES ('test2@gmail.com', '1', 'datinguser');
@@ -14,7 +17,9 @@ INSERT INTO `datingapp`.`users` (`email`, `password`, `role`) VALUES ('test13@gm
 INSERT INTO `datingapp`.`users` (`email`, `password`, `role`) VALUES ('test14@gmail.com', '1', 'datinguser');
 INSERT INTO `datingapp`.`users` (`email`, `password`, `role`) VALUES ('test15@gmail.com', '1', 'datinguser');
 
-
+-- -----------------------------------------------------
+-- datingusers data
+-- -----------------------------------------------------
 INSERT INTO `datingapp`.`datingusers` (`name`, `birthdate`, `description`, `gender`) VALUES ('Nicklas', '1986-07-11', 'bla bla bla bla', 'Mand');
 INSERT INTO `datingapp`.`datingusers` (`name`, `birthdate`, `description`, `gender`) VALUES ('Oliver', '1996-01-02', 'bla bla bla bla', 'Mand');
 INSERT INTO `datingapp`.`datingusers` (`name`, `birthdate`, `description`, `gender`) VALUES ('Emilie', '1990-06-22', 'bla bla bla bla', 'Kvinde');
