@@ -3,6 +3,8 @@ package com.example.demo.model;
 //import login.data.DataFacadeImpl;
 
 
+import java.time.LocalDate;
+
 public class LoginController {
 
     // facade to datasource layer
@@ -16,9 +18,9 @@ public class LoginController {
         return facade.datingLogin(email, password);
     }
 
-    public DatingUser createUser(String name, /*LocalDate birthdate,*/ String email, String password) throws LoginException {
+    public DatingUser createDatingUser(String name, String email, String password, LocalDate birthdate) throws LoginException {
         // By default, new users are customers
-        DatingUser datingUser = new DatingUser(name, /*birthdate,*/ email, password);
+        DatingUser datingUser = new DatingUser(name, email, password, birthdate, "datinguser");
         facade.createDatingUser(datingUser);
         return datingUser;
     }

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 @Controller
@@ -39,9 +41,9 @@ public class MyController {
     @GetMapping("/admin")
     public String admin(Model model) {
         ArrayList<DatingUser> datingUsers = new ArrayList<>();
-        DatingUser datingUser1 = new DatingUser("Maja Bijedic",/*LocalDate.of(1998, 6, 6),*/ "afifdi@mail.dk", "123456");
-        DatingUser datingUser2 = new DatingUser("Nicolai Okkels",/* LocalDate.of(1996, 2, 1),*/ "1300ji@mail.dk", "123456");
-        DatingUser datingUser3 = new DatingUser("Bob Bobsen",/* LocalDate.of(1996, 2, 1), */"bob@mail.dk", "123456");
+        DatingUser datingUser1 = new DatingUser("Maja Bijedic", "afifdi@mail.dk", "123456", LocalDate.of(1998, 6, 6), "Dating user");
+        DatingUser datingUser2 = new DatingUser("Nicolai Okkels", "1300ji@mail.dk", "123456", LocalDate.of(1996, 2, 1), "Dating User");
+        DatingUser datingUser3 = new DatingUser("Bob Bobsen","bob@mail.dk", "123456", LocalDate.of(1996, 2, 1), "Dating user");
         datingUsers.add(datingUser1);
         datingUsers.add(datingUser2);
         datingUsers.add(datingUser3);
@@ -52,7 +54,7 @@ public class MyController {
             model.addAttribute("datingUsers", datingUsers); //Temp to test
         }
 
-        AdminUser adminUser = new AdminUser("Phuc Nguyen", "phuc", "1234");
+        AdminUser adminUser = new AdminUser("Phuc Nguyen", "phuc", "1234", "admin");
         model.addAttribute("adminUser", adminUser);
         return "admin";
     }
@@ -60,7 +62,7 @@ public class MyController {
 
     @GetMapping("/profil")
     public String profile(Model model) {
-        DatingUser datingUser = new DatingUser("bla bla", /*LocalDate.of(1996, 2, 1),*/ "blablabla@gmail.com", "1");
+        DatingUser datingUser = new DatingUser("bla bla" ,"blablabla@gmail.com", "1", LocalDate.of(1996, 2, 1), "Dating user");
         model.addAttribute("datingUser", datingUser); //Temp to test
         return "profil";
     }
@@ -88,17 +90,19 @@ public class MyController {
         //Retrieve values from HTML form via WebRequest
         String email = request.getParameter("email");
         String name = request.getParameter("name");
-        //LocalDate birthdate = request.getParameter("birthdate");
+        String birthdate = request.getParameter("birthdate");
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
 
         // If passwords match, work + data is delegated to logic controller
         if (password1.equals(password2)) {
-            DatingUser datingUser = loginController.createUser(name, /*birthdate, */ email, password1);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd/");
+            LocalDate localDate = LocalDate.parse(birthdate, formatter);
+            DatingUser datingUser = loginController.createDatingUser(name, email, password1, localDate);
             setSessionInfo(request, datingUser);
-            return "/udforsk";
+            return "/udforsk" + datingUser.getRole();
 
-        } else {
+        } else{
             throw new LoginException("De to kodeord passer ikke");
         }
 

@@ -1,11 +1,8 @@
 package com.example.demo.model;
 
 public class AdminUser extends SuperUser {
-    private String name;
-
-    public AdminUser(String name, String email, String password) {
-        super(email, password);
-        this.name = name;
+    public AdminUser(String name, String email, String password, String role) {
+        super(name, email, password, role);
     }
 
     public int getID() {
@@ -22,5 +19,15 @@ public class AdminUser extends SuperUser {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String getRole() {
+        return this.role;
+    }
+
+    @Override
+    public String setRole() {
+        return "admin";
     }
 }
