@@ -34,7 +34,8 @@ public class MyController {
     }*/
 
     @GetMapping("/admin")
-    public String admin(Model model) {
+    public String admin(WebRequest request, Model model) {
+        AdminUser adminUser = (AdminUser) request.getAttribute("adminUSer", WebRequest.SCOPE_SESSION);
         ArrayList<DatingUser> datingUsers = new ArrayList<>();
         DatingUser datingUser1 = new DatingUser("Maja Bijedic", "afifdi@mail.dk", "123456", LocalDate.of(1998, 6, 6), "Dating user");
         DatingUser datingUser2 = new DatingUser("Nicolai Okkels", "1300ji@mail.dk", "123456", LocalDate.of(1996, 2, 1), "Dating User");
@@ -49,7 +50,7 @@ public class MyController {
             model.addAttribute("datingUsers", datingUsers); //Temp to test
         }
 
-        AdminUser adminUser = new AdminUser("phuc", "1234", "admin");
+       // AdminUser adminUser = new AdminUser("phuc", "1234", "admin");
         model.addAttribute("adminUser", adminUser);
         return "admin";
     }
@@ -138,6 +139,7 @@ public class MyController {
 
     private void setSessionInfo(WebRequest request, SuperUser user) {
         request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
+        request.setAttribute("role", user.getRole(), WebRequest.SCOPE_SESSION);
     }
 
 /*

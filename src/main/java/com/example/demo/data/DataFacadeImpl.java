@@ -18,8 +18,8 @@ public class DataFacadeImpl implements DataFacade {
         return datingUser;
     }
 
-    @Override
+
     public AdminUser adminLogin(String email, String password) throws LoginException {
-        return null;
+        return userMapper.adminLogin(email, password);
     }
 }
