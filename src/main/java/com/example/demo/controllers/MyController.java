@@ -73,13 +73,13 @@ public class MyController {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        if(!email.equals("admin@gmail.com")){
-            DatingUser datingUser = loginController.datingLogin(email, password);
-            setSessionInfo(request, datingUser);
+        DatingUser datingUser = loginController.datingLogin(email, password);
+        AdminUser adminUser = loginController.adminLogin(email,password);
 
+        if(!datingUser.getRole().equals("admin")){
+            setSessionInfo(request, datingUser);
             return "/udforsk";
         } else{
-            AdminUser adminUser = loginController.adminLogin(email,password);
             setSessionInfo(request, adminUser);
             return "/admin";
         }
