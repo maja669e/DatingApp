@@ -5,6 +5,10 @@ public class AdminUser extends SuperUser {
         super(email, password, role);
     }
 
+    public String getEmail(){
+        return email;
+    }
+
     public int getID() {
         return ID;
     }

@@ -14,8 +14,12 @@ public class LoginController {
         this.facade = facade;
     }
 
-    public DatingUser login(String email, String password) throws LoginException {
+    public DatingUser datingLogin(String email, String password) throws LoginException {
         return facade.datingLogin(email, password);
+    }
+
+    public AdminUser adminLogin(String email, String password) throws LoginException {
+        return facade.adminLogin(email, password);
     }
 
     public DatingUser createDatingUser(String name, String email, String password, LocalDate birthdate) throws LoginException {

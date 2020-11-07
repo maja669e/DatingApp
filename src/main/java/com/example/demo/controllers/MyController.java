@@ -1,24 +1,16 @@
 package com.example.demo.controllers;
 
 import com.example.demo.data.DataFacadeImpl;
-import com.example.demo.model.AdminUser;
-import com.example.demo.model.DatingUser;
-import com.example.demo.model.LoginController;
-import com.example.demo.model.LoginException;
-import org.apache.tomcat.jni.Local;
+import com.example.demo.model.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 @Controller
 public class MyController {
@@ -81,10 +73,16 @@ public class MyController {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        DatingUser datingUser = loginController.login(email, password);
-        setSessionInfo(request, datingUser);
+        if(!email.equals("admin@gmail.com")){
+            DatingUser datingUser = loginController.datingLogin(email, password);
+            setSessionInfo(request, datingUser);
 
-        return "/udforsk";
+            return "/udforsk";
+        } else{
+            AdminUser adminUser = loginController.adminLogin(email,password);
+            setSessionInfo(request, adminUser);
+            return "/admin";
+        }
     }
 
    /* @GetMapping("/test")
@@ -138,8 +136,8 @@ public class MyController {
     }
 
 
-    private void setSessionInfo(WebRequest request, DatingUser datingUser) {
-        request.setAttribute("user", datingUser, WebRequest.SCOPE_SESSION);
+    private void setSessionInfo(WebRequest request, SuperUser user) {
+        request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
     }
 
 /*

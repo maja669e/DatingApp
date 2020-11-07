@@ -39,10 +39,49 @@ public class UserMapper {
     }
 
     public DatingUser datingLogin(String email, String password) throws LoginException {
-        return null;
+        try {
+            Connection con = DBManager.getConnection();
+            String SQL = "SELECT userid, role FROM users "
+                    + "WHERE email=? AND password=?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, email);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String role = rs.getString("role");
+                int id = rs.getInt("userid");
+                DatingUser datingUser = new DatingUser(email, password, role);
+                datingUser.setID(id);
+                return datingUser;
+            } else {
+                throw new LoginException("Could not validate user");
+            }
+        } catch (SQLException ex) {
+            throw new LoginException(ex.getMessage());
+        }
     }
 
     public AdminUser adminLogin(String email, String password) throws LoginException {
-        return null;
+        try {
+            Connection con = DBManager.getConnection();
+            String SQL = "SELECT userid, role FROM users "
+                    + "WHERE email=? AND password=?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, email);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String role = rs.getString("role");
+                int id = rs.getInt("userid");
+                AdminUser adminUser = new AdminUser(email, password, role);
+                adminUser.setID(id);
+                return adminUser;
+            } else {
+                throw new LoginException("Could not validate user");
+            }
+        } catch (SQLException ex) {
+            throw new LoginException(ex.getMessage());
+        }
     }
 }

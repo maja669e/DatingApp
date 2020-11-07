@@ -15,6 +15,10 @@ public class DatingUser extends SuperUser {
         this.name = name;
     }
 
+    public DatingUser(String email, String password, String role) {
+        super(email, password, role);
+    }
+
     public int getID() {
         return ID;
     }
