@@ -5,7 +5,9 @@ import com.example.demo.model.DatingUser;
 import com.example.demo.model.LoginException;
 
 import java.sql.*;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -41,7 +43,6 @@ public class UserMapper {
         }
     }
 
-    //TODO select name, description, birthdate and gender from db
     public DatingUser datingLogin(String email, String password) throws LoginException {
         try {
             Connection con = DBManager.getConnection();
@@ -51,34 +52,26 @@ public class UserMapper {
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
-/*
-            String SQL2 = "SELECT userid, name FROM datingusers; birthdate FROM datingusers, "
-                    + "description FROM datingusers, gender FROM datingusers";
-            PreparedStatement ps1 = con.prepareStatement(SQL2);
-            ResultSet rs1 = ps1.executeQuery();
 
- */
+            String SQL2 = "SELECT * FROM datingusers";
+            PreparedStatement ps2 = con.prepareStatement(SQL2);
+            ResultSet rs2 = ps2.executeQuery();
 
-/*
-            if (rs.next() && rs1.next()) {
+
+            if (rs.next() && rs2.next()) {
                 String role = rs.getString("role");
-                String name = rs1.getString("name");
-                String description = rs1.getString("description");
-                String temp = rs1.getString("birthdate");
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd/");
-                LocalDate birthDate = LocalDate.parse(temp, formatter);
-                String gender = rs1.getString("gender");
+                String name = rs2.getString("name");
+                String description = rs2.getString("description");
+                String temp = rs2.getString("birthdate");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate birthDate = LocalDate.parse(temp,formatter);
+
+                String gender = rs2.getString("gender");
                 int id = rs.getInt("userid");
                 DatingUser datingUser = new DatingUser(name, email, password, birthDate, role, description, gender);
                 datingUser.setID(id);
                 return datingUser;
- */
-            if (rs.next()) {
-                String role = rs.getString("role");
-                int id = rs.getInt("userid");
-                DatingUser datingUser = new DatingUser(email, password, role);
-                datingUser.setID(id);
-                return datingUser;
+
             } else {
                 throw new LoginException("Could not validate user");
             }
@@ -110,13 +103,13 @@ public class UserMapper {
         }
     }
 
-    public ArrayList<DatingUser> getAllUsers() {
+
+    public ArrayList<DatingUser> getAllDatingUsers() {
         ArrayList<DatingUser> datingUsers = new ArrayList<>();
         DatingUser datingUser = new DatingUser();
 
         try {
             Connection con = DBManager.getConnection();
-
 
             String SQL = "SELECT * FROM users";
             PreparedStatement ps = con.prepareStatement(SQL);
@@ -130,22 +123,30 @@ public class UserMapper {
             String name = null;
             while (rs.next() && rs2.next()) {
 
-
                 int ID = rs.getInt("userid");
                 String email = rs.getString("email");
                 String role = rs.getString("role");
+
                 if (role.equals("datinguser")) {
                     datingUser = new DatingUser(ID, email, name);
                     datingUsers.add(datingUser);
                 }
-                name = rs2.getString("name");
 
+                name = rs2.getString("name");
             }
 
         } catch (SQLException ex) {
             ex.getMessage();
         }
         return datingUsers;
+    }
+
+    public ArrayList<DatingUser> removeDatingUser() {
+        return null;
+    }
+
+    public DatingUser editDatingUser() {
+        return null;
     }
 }
 

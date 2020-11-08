@@ -3,10 +3,8 @@ package com.example.demo.controllers;
 import com.example.demo.data.DataFacadeImpl;
 import com.example.demo.data.UserMapper;
 import com.example.demo.model.*;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
@@ -28,9 +26,9 @@ public class MyController {
 
     @GetMapping("/matches")
     public String matches(WebRequest request) {
-        SuperUser user = (DatingUser) request.getAttribute("datingUser", WebRequest.SCOPE_SESSION);
+        DatingUser datingUser = (DatingUser) request.getAttribute("datingUser", WebRequest.SCOPE_SESSION);
 
-        if (user != null) {
+        if (datingUser != null) {
             return "/matches";
         } else
             return "redirect:/";
@@ -40,16 +38,28 @@ public class MyController {
     public String admin(WebRequest request, Model model) {
         AdminUser adminUser = (AdminUser) request.getAttribute("adminUser", WebRequest.SCOPE_SESSION);
 
-        UserMapper userMapper = new UserMapper();
-        ArrayList<DatingUser> datingUsers = userMapper.getAllUsers();
+        ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers();
 
         System.out.println("test: " + datingUsers);
 
         model.addAttribute("datingUsers", datingUsers);
 
 
+        // AdminUser adminUser = new AdminUser("admin@gmail.com", "1", "admin");
+/*
+        for (int i = 0; i < datingUsers.size(); i++) {
+            if (datingUsers.get(i).getEmail().equals("admin@gmail.com")) {
+                String email = datingUsers.get(i).getEmail();
+                String password = datingUsers.get(i).getPassword();
+                String role = datingUsers.get(i).getRole();
+                AdminUser adminUser2 = new AdminUser(email, password, role);
+                model.addAttribute("adminUser", adminUser2);
+            }*/
+
         AdminUser adminUser2 = new AdminUser("adminuser@gmail.com", "1", "admin");
         model.addAttribute("adminUser", adminUser2);
+
+
 
 
         return "admin";
@@ -59,12 +69,15 @@ public class MyController {
     public String profile(WebRequest request, Model model) {
         DatingUser datingUser = (DatingUser) request.getAttribute("datingUser", WebRequest.SCOPE_SESSION);
         model.addAttribute("datingUser", datingUser);
-
         System.out.println(datingUser);
+        /*
         if (datingUser != null) {
             return "/profil";
         } else
             return "redirect:/";
+
+        */
+        return "profil";
     }
 
     @GetMapping("/rediger")
@@ -80,14 +93,14 @@ public class MyController {
 
         if (!email.equals("admin@gmail.com")) {
             DatingUser datingUser = loginController.datingLogin(email, password);
-            setDatingSessionInfo(request, datingUser);
+            setSessionInfo(request, datingUser);
             System.out.println(datingUser.toString());
-            return "/udforsk";
+            return "redirect:/udforsk";
         } else {
             AdminUser adminUser = loginController.adminLogin(email, password);
-            setAdminSessionInfo(request, adminUser);
+            setSessionInfo(request, adminUser);
             System.out.println(adminUser.toString());
-            return "/" + adminUser.getRole();
+            return "redirect:/" + adminUser.getRole();
         }
     }
 
@@ -104,7 +117,7 @@ public class MyController {
         // If passwords match, work + data is delegated to logic controller
         if (password1.equals(password2)) {
             DatingUser datingUser = loginController.createDatingUser(name, email, password1, birthdate);
-            setDatingSessionInfo(request, datingUser);
+            setSessionInfo(request, datingUser);
             return "/udforsk";
 
         } else {
@@ -120,21 +133,20 @@ public class MyController {
         DatingUser datingUser = (DatingUser) request.getAttribute("datingUser", WebRequest.SCOPE_SESSION);
 
         // If user object is found on session, i.e. user is logged in, she/he can see home page
+        /*
         if (datingUser != null) {
             return "/udforsk";
         } else
             return "redirect:/";
+
+         */
+        return "/udforsk";
     }
 
 
-    private void setDatingSessionInfo(WebRequest request, DatingUser datingUser) {
-        request.setAttribute("datinguser", datingUser, WebRequest.SCOPE_SESSION);
-        request.setAttribute("role", datingUser.getRole(), WebRequest.SCOPE_SESSION);
-    }
-
-    private void setAdminSessionInfo(WebRequest request, AdminUser adminUser) {
-        request.setAttribute("adminuser", adminUser, WebRequest.SCOPE_SESSION);
-        request.setAttribute("role", adminUser.getRole(), WebRequest.SCOPE_SESSION);
+    private void setSessionInfo(WebRequest request, SuperUser user) {
+        request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
+        request.setAttribute("role", user.getRole(), WebRequest.SCOPE_SESSION);
     }
 
 
