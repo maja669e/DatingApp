@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 public abstract class SuperUser {
     protected int ID;
+
     protected String email;
     protected String password;
     protected String role;
@@ -12,7 +13,12 @@ public abstract class SuperUser {
         this.role = role;
     }
 
+    protected SuperUser() {
+    }
+
     public abstract String getRole();
     public abstract String setRole();
 
+
+    public abstract void setEmail(String email);
 }

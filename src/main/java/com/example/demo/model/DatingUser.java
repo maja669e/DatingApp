@@ -9,11 +9,15 @@ public class DatingUser extends SuperUser {
     private String gender;
 
 
-    public DatingUser(String name, String email, String password,  LocalDate birthdate, String role) {
+    public DatingUser(){
+    }
+
+    public DatingUser(String name, String email, String password, LocalDate birthdate, String role) {
         super(email, password, role);
         this.birthdate = birthdate;
         this.name = name;
     }
+
 
     public DatingUser(String email, String password, String role) {
         super(email, password, role);
@@ -47,11 +51,11 @@ public class DatingUser extends SuperUser {
         return gender;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return password;
     }
 
@@ -76,4 +80,10 @@ public class DatingUser extends SuperUser {
     public String setRole() {
         return "datinguser";
     }
+
+    @Override
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 }

@@ -5,6 +5,7 @@ import com.example.demo.model.DatingUser;
 import com.example.demo.model.LoginException;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class UserMapper {
 
@@ -67,7 +68,7 @@ public class UserMapper {
             Connection con = DBManager.getConnection();
             String SQL = "SELECT userid, role FROM users "
                     + "WHERE email=? AND password=?";
-            PreparedStatement ps = con.prepareStatement(SQL);
+            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
@@ -84,4 +85,82 @@ public class UserMapper {
             throw new LoginException(ex.getMessage());
         }
     }
+
+    public DatingUser getAllUsers() {
+
+        ArrayList<DatingUser> datingUsers = new ArrayList<>();
+        DatingUser datingUser = new DatingUser();
+        try {
+            Connection con = DBManager.getConnection();
+            // Prepare SQL.
+            String SQL = "SELECT userid, /*name,*/ email FROM datingusers";
+
+            // Set prepared statement.
+            PreparedStatement ps = con.prepareStatement(SQL);
+
+            // Execute SQL.
+            ResultSet rs = ps.executeQuery();
+
+            // Get data from database.
+
+            while (rs.next()) {
+
+                datingUser.setID(rs.getInt("userid"));
+                //datingUser.setName(rs.getString("name"));
+                datingUser.setEmail(rs.getString("email"));
+
+                ResultSet ids = ps.getGeneratedKeys();
+                ids.next();
+                int id = ids.getInt(1);
+                datingUser.setID(id);
+
+                datingUsers.add(datingUser);
+
+            }
+
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return datingUser;
+    }
+    public ArrayList<DatingUser> getAllUsers2() {
+
+        ArrayList<DatingUser> datingUsers = new ArrayList<>();
+        DatingUser datingUser = new DatingUser();
+        try {
+            Connection con = DBManager.getConnection();
+            // Prepare SQL.
+            String SQL = "SELECT userid, /*name,*/ email FROM datingusers";
+
+            // Set prepared statement.
+            PreparedStatement ps = con.prepareStatement(SQL);
+
+            // Execute SQL.
+            ResultSet rs = ps.executeQuery();
+
+            // Get data from database.
+
+            while (rs.next()) {
+
+                datingUser.setID(rs.getInt("userid"));
+                //datingUser.setName(rs.getString("name"));
+                datingUser.setEmail(rs.getString("email"));
+
+                ResultSet ids = ps.getGeneratedKeys();
+                ids.next();
+                int id = ids.getInt(1);
+                datingUser.setID(id);
+
+                datingUsers.add(datingUser);
+
+            }
+
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return datingUsers;
+    }
+
 }
+
+

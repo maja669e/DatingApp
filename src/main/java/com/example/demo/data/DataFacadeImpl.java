@@ -5,6 +5,8 @@ import com.example.demo.model.DataFacade;
 import com.example.demo.model.DatingUser;
 import com.example.demo.model.LoginException;
 
+import java.util.ArrayList;
+
 
 public class DataFacadeImpl implements DataFacade {
     private UserMapper userMapper = new UserMapper();
@@ -21,5 +23,13 @@ public class DataFacadeImpl implements DataFacade {
 
     public AdminUser adminLogin(String email, String password) throws LoginException {
         return userMapper.adminLogin(email, password);
+    }
+
+    public DatingUser getAllUsers() {
+        return userMapper.getAllUsers();
+    }
+
+    public ArrayList<DatingUser> getAllUsers2() {
+        return userMapper.getAllUsers2();
     }
 }
