@@ -118,15 +118,21 @@ public class UserMapper {
             Connection con = DBManager.getConnection();
 
             String SQL = "SELECT * FROM users";
-            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = con.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
+
+            String SQL2 = "SELECT * FROM datingusers";
+            PreparedStatement ps2 = con.prepareStatement(SQL2);
+            ResultSet rs2 = ps2.executeQuery();
 
             // Get data from database.
 
-            while (rs.next()) {
+            while (rs.next()&& rs2.next()) {
                 int ID = rs.getInt("userid");
                 String email = rs.getString("email");
-                datingUser = new DatingUser(ID, email);
+                String name = rs2.getString("name");
+                
+                datingUser = new DatingUser(ID, email, name);
                 datingUsers.add(datingUser);
 
                 System.out.println(ID + " " + email);
