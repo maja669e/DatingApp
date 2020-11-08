@@ -44,9 +44,22 @@ public class MyController {
 
         model.addAttribute("datingUsers", datingUsers);
 
-        // AdminUser adminUser = new AdminUser("admin@gmail.com", "1", "admin");
 
-        model.addAttribute("adminUser", adminUser);
+        // AdminUser adminUser = new AdminUser("admin@gmail.com", "1", "admin");
+/*
+        for (int i = 0; i < datingUsers.size(); i++) {
+            if (datingUsers.get(i).getEmail().equals("admin@gmail.com")) {
+                String email = datingUsers.get(i).getEmail();
+                String password = datingUsers.get(i).getPassword();
+                String role = datingUsers.get(i).getRole();
+                AdminUser adminUser2 = new AdminUser(email, password, role);
+                model.addAttribute("adminUser", adminUser2);
+            }
+
+        }
+
+ */
+
         return "admin";
     }
 
@@ -54,8 +67,8 @@ public class MyController {
     public String profile(WebRequest request, Model model) {
         DatingUser datingUser = (DatingUser) request.getAttribute("datingUser", WebRequest.SCOPE_SESSION);
         model.addAttribute("datingUser", datingUser);
-       /* System.out.println(datingUser);
-
+        System.out.println(datingUser);
+        /*
         if (datingUser != null) {
             return "/profil";
         } else
