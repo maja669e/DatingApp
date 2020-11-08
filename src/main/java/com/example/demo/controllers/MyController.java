@@ -39,15 +39,16 @@ public class MyController {
     @GetMapping("/admin")
     public String admin(WebRequest request, Model model) {
         AdminUser adminUser = (AdminUser) request.getAttribute("adminUser", WebRequest.SCOPE_SESSION);
+
         UserMapper userMapper = new UserMapper();
+        ArrayList<DatingUser> datingUsers = userMapper.getAllUsers();
 
-        ArrayList<DatingUser> datingUsers = new ArrayList<>();
-
-        datingUsers.add(userMapper.getAllUsers());
+        System.out.println("test: " + datingUsers);
 
         model.addAttribute("datingUsers", datingUsers);
 
-       // AdminUser adminUser = new AdminUser("admin@gmail.com", "1", "admin");
+
+        // AdminUser adminUser = new AdminUser("admin@gmail.com", "1", "admin");
 
         model.addAttribute("adminUser", adminUser);
         return "admin";

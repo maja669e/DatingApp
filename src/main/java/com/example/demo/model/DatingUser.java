@@ -29,6 +29,11 @@ public class DatingUser extends SuperUser {
         super(email, password, role);
     }
 
+    public DatingUser(int ID, String email) {
+        this.ID = ID;
+        this.email = email;
+    }
+
 
     public int getID() {
         return ID;

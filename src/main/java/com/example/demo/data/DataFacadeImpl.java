@@ -25,7 +25,7 @@ public class DataFacadeImpl implements DataFacade {
         return userMapper.adminLogin(email, password);
     }
 
-    public DatingUser getAllUsers() {
+    public ArrayList<DatingUser> getAllUsers() {
         return userMapper.getAllUsers();
     }
 
