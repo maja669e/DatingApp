@@ -40,14 +40,11 @@ public class MyController {
     public String admin(WebRequest request, Model model) {
         // AdminUser adminUser = (AdminUser) request.getAttribute("adminUser", WebRequest.SCOPE_SESSION);
         UserMapper userMapper = new UserMapper();
-        DatingUser datingUser = userMapper.getAllUsers();
-        ArrayList<DatingUser> list = new ArrayList<>();
-        list.add(datingUser);
-        for (int i = 0; i < list.size(); i++) {
-            list.get(i).getID();
-            list.get(i).getEmail();
-        }
-        model.addAttribute("datingUsers", list);
+
+        ArrayList<DatingUser> datingUsers = new ArrayList<>();
+        datingUsers.add(userMapper.getAllUsers());
+        
+        model.addAttribute("datingUsers", datingUsers);
 
 
         AdminUser adminUser = new AdminUser("admin@gmail.com", "1", "admin");

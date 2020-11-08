@@ -29,7 +29,4 @@ public class DataFacadeImpl implements DataFacade {
         return userMapper.getAllUsers();
     }
 
-    public ArrayList<DatingUser> getAllUsers2() {
-        return userMapper.getAllUsers2();
-    }
 }

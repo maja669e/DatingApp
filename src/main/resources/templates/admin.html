@@ -44,7 +44,7 @@
 
     <tr>
         <th>ID</th>
-       <!-- <th>Navn</th>-->
+        <th>Navn</th>
         <th>Email</th>
         <th>Vælg</th>
     </tr>
@@ -53,7 +53,7 @@
 
     <tr th:each="datingUser:${datingUsers}">
         <td th:text="${datingUser.ID}"></td>
-        <!--<td th:text="${datingUser.name}"></td>-->
+        <td th:text="${datingUser.name}"></td>
         <td th:text="${datingUser.email}"></td>
         <td>
             <span class="button1"> <img src="/images/trashcan.png" alt="trash" width="19px" height="20px"></span>

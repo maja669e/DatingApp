@@ -88,32 +88,43 @@ public class UserMapper {
 
     public DatingUser getAllUsers() {
 
-        ArrayList<DatingUser> datingUsers = new ArrayList<>();
         DatingUser datingUser = new DatingUser();
+
         try {
             Connection con = DBManager.getConnection();
             // Prepare SQL.
-            String SQL = "SELECT userid, /*name,*/ email FROM datingusers";
-
-            // Set prepared statement.
+          /*  String SQL = "SELECT userid, email from users";
             PreparedStatement ps = con.prepareStatement(SQL);
-
-            // Execute SQL.
             ResultSet rs = ps.executeQuery();
+
+            String SQL2 = "SELECT name from datingusers";
+            PreparedStatement ps2 = con.prepareStatement(SQL2);
+            ResultSet rs2 = ps2.executeQuery();
+
+            ResultSet ids = ps.getGeneratedKeys();
+            ids.next();
+            int id = ids.getInt(1);
+            datingUser.setID(id);*/
+
+            String SQL = "SELECT userid, name from datingusers";
+
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+
 
             // Get data from database.
 
             while (rs.next()) {
+                 datingUser = new DatingUser();
+                ArrayList<DatingUser> datingUsers = new ArrayList<>();
+                 datingUser.setID(rs.getInt("userid"));
+              //  datingUser.setEmail(rs.getString("email"));
+                datingUser.setName(rs.getString("name"));
 
-                datingUser.setID(rs.getInt("userid"));
-                //datingUser.setName(rs.getString("name"));
-                datingUser.setEmail(rs.getString("email"));
-
-                ResultSet ids = ps.getGeneratedKeys();
+               /* ResultSet ids = ps.getGeneratedKeys();
                 ids.next();
                 int id = ids.getInt(1);
-                datingUser.setID(id);
-
+                datingUser.setID(id);*/
                 datingUsers.add(datingUser);
 
             }
@@ -123,43 +134,7 @@ public class UserMapper {
         }
         return datingUser;
     }
-    public ArrayList<DatingUser> getAllUsers2() {
 
-        ArrayList<DatingUser> datingUsers = new ArrayList<>();
-        DatingUser datingUser = new DatingUser();
-        try {
-            Connection con = DBManager.getConnection();
-            // Prepare SQL.
-            String SQL = "SELECT userid, /*name,*/ email FROM datingusers";
-
-            // Set prepared statement.
-            PreparedStatement ps = con.prepareStatement(SQL);
-
-            // Execute SQL.
-            ResultSet rs = ps.executeQuery();
-
-            // Get data from database.
-
-            while (rs.next()) {
-
-                datingUser.setID(rs.getInt("userid"));
-                //datingUser.setName(rs.getString("name"));
-                datingUser.setEmail(rs.getString("email"));
-
-                ResultSet ids = ps.getGeneratedKeys();
-                ids.next();
-                int id = ids.getInt(1);
-                datingUser.setID(id);
-
-                datingUsers.add(datingUser);
-
-            }
-
-        } catch (SQLException ex) {
-            ex.getMessage();
-        }
-        return datingUsers;
-    }
 
 }
 
