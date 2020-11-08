@@ -24,8 +24,13 @@ public class MyController {
     }
 
     @GetMapping("/matches")
-    public String matches() {
-        return "matches";
+    public String matches(WebRequest request) {
+        SuperUser user = (DatingUser) request.getAttribute("datingUser", WebRequest.SCOPE_SESSION);
+
+        if (user != null) {
+            return "/matches";
+        } else
+            return "redirect:/";
     }
 
    /* @GetMapping("/udforsk")
@@ -37,12 +42,15 @@ public class MyController {
     public String admin(WebRequest request, Model model) {
         AdminUser adminUser = (AdminUser) request.getAttribute("adminUSer", WebRequest.SCOPE_SESSION);
         ArrayList<DatingUser> datingUsers = new ArrayList<>();
+        /*
         DatingUser datingUser1 = new DatingUser("Maja Bijedic", "afifdi@mail.dk", "123456", LocalDate.of(1998, 6, 6), "Dating user");
         DatingUser datingUser2 = new DatingUser("Nicolai Okkels", "1300ji@mail.dk", "123456", LocalDate.of(1996, 2, 1), "Dating User");
-        DatingUser datingUser3 = new DatingUser("Bob Bobsen","bob@mail.dk", "123456", LocalDate.of(1996, 2, 1), "Dating user");
+        DatingUser datingUser3 = new DatingUser("Bob Bobsen", "bob@mail.dk", "123456", LocalDate.of(1996, 2, 1), "Dating user");
+
         datingUsers.add(datingUser1);
         datingUsers.add(datingUser2);
         datingUsers.add(datingUser3);
+         */
         for (int i = 0; i < datingUsers.size(); i++) {
             datingUsers.get(i).getID();
             datingUsers.get(i).getName();
@@ -50,17 +58,23 @@ public class MyController {
             model.addAttribute("datingUsers", datingUsers); //Temp to test
         }
 
-       // AdminUser adminUser = new AdminUser("phuc", "1234", "admin");
+        // AdminUser adminUser = new AdminUser("phuc", "1234", "admin");
         model.addAttribute("adminUser", adminUser);
         return "admin";
     }
 
 
     @GetMapping("/profil")
-    public String profile(Model model) {
-        DatingUser datingUser = new DatingUser("bla bla" ,"blablabla@gmail.com", "1", LocalDate.of(1996, 2, 1), "Dating user");
-        model.addAttribute("datingUser", datingUser); //Temp to test
-        return "profil";
+    public String profile(WebRequest request, Model model) {
+        SuperUser user = (DatingUser) request.getAttribute("datingUser", WebRequest.SCOPE_SESSION);
+
+        model.addAttribute("datingUser", user);
+
+        if (user != null) {
+            return "/profil";
+        } else
+            return "redirect:/";
+
     }
 
     @GetMapping("/rediger")
@@ -75,14 +89,17 @@ public class MyController {
         String password = request.getParameter("password");
 
         DatingUser datingUser = loginController.datingLogin(email, password);
-        AdminUser adminUser = loginController.adminLogin(email,password);
+        AdminUser adminUser = loginController.adminLogin(email, password);
 
-        if(!datingUser.getRole().equals("admin")){
+        if (datingUser != null && datingUser.getRole().equals("datinguser")) {
             setSessionInfo(request, datingUser);
+            System.out.println(datingUser.toString());
             return "/udforsk";
-        } else{
+        } else if (adminUser != null && adminUser.getRole().equals("admin")) {
             setSessionInfo(request, adminUser);
             return "/admin";
+        } else {
+            return "redirect:/";
         }
     }
 
@@ -101,7 +118,7 @@ public class MyController {
         String email = request.getParameter("email");
         String name = request.getParameter("name");
         //String birthdate = request.getParameter("birthdate");
-        LocalDate birthdate = LocalDate.of(1996,2,2);
+        LocalDate birthdate = LocalDate.of(1996, 2, 2);
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
 
@@ -116,14 +133,14 @@ public class MyController {
             setSessionInfo(request, datingUser);
             return "/udforsk";
 
-        } else{
+        } else {
             throw new LoginException("De to kodeord passer ikke");
         }
 
     }
 
 
-   @GetMapping("/udforsk")
+    @GetMapping("/udforsk")
     public String getDiscover(WebRequest request) {
         // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("datingUSer", WebRequest.SCOPE_SESSION);
@@ -131,8 +148,7 @@ public class MyController {
         // If user object is found on session, i.e. user is logged in, she/he can see home page
         if (datingUser != null) {
             return "/udforsk";
-        }
-        else
+        } else
             return "redirect:/";
     }
 

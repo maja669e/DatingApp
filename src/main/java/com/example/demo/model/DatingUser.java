@@ -9,14 +9,17 @@ public class DatingUser extends SuperUser {
     private String gender;
 
 
-    public DatingUser(String name, String email, String password,  LocalDate birthdate, String role) {
+    public DatingUser(String name, String email, String password, LocalDate birthdate, String role, String description, String gender) {
         super(email, password, role);
         this.birthdate = birthdate;
         this.name = name;
+        this.description = description;
+        this.gender = gender;
     }
 
-    public DatingUser(String email, String password, String role) {
+    public DatingUser(String email, String password, String role, String name) {
         super(email, password, role);
+        this.name = name;
     }
 
     public int getID() {
@@ -65,6 +68,22 @@ public class DatingUser extends SuperUser {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+    //used for testing
+
+
+    @Override
+    public String toString() {
+        return "DatingUser{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", birthdate=" + birthdate +
+                ", gender='" + gender + '\'' +
+                ", ID=" + ID +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 
     @Override

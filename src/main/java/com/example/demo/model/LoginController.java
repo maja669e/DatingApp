@@ -23,8 +23,8 @@ public class LoginController {
     }
 
     public DatingUser createDatingUser(String name, String email, String password, LocalDate birthdate) throws LoginException {
-        // By default, new users are customers
-        DatingUser datingUser = new DatingUser(name, email, password, birthdate, "datinguser");
+        // By default, new users are dating users
+        DatingUser datingUser = new DatingUser(name, email, password, birthdate, "datinguser", "","");
         facade.createDatingUser(datingUser);
         return datingUser;
     }

@@ -5,6 +5,8 @@ import com.example.demo.model.DatingUser;
 import com.example.demo.model.LoginException;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class UserMapper {
 
@@ -38,6 +40,7 @@ public class UserMapper {
         }
     }
 
+    //TODO select name, description, birthdate and gender from db
     public DatingUser datingLogin(String email, String password) throws LoginException {
         try {
             Connection con = DBManager.getConnection();
@@ -48,10 +51,22 @@ public class UserMapper {
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
 
+            String SQL2 = "SELECT userid, name FROM datingusers; birthdate FROM datingusers, "
+                    + "description FROM datingusers, gender FROM datingusers";
+            PreparedStatement ps1 = con.prepareStatement(SQL2);
+            ResultSet rs1 = ps1.executeQuery();
+
+
             if (rs.next()) {
                 String role = rs.getString("role");
+                String name = rs.getString("name");
+                String description = rs.getString("description");
+                String temp = rs.getString("birthdate");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd/");
+                LocalDate birthDate = LocalDate.parse(temp, formatter);
+                String gender = rs.getString("gender");
                 int id = rs.getInt("userid");
-                DatingUser datingUser = new DatingUser(email, password, role);
+                DatingUser datingUser = new DatingUser(name, email, password, birthDate, role, description, gender);
                 datingUser.setID(id);
                 return datingUser;
             } else {
