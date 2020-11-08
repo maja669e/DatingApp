@@ -110,56 +110,37 @@ public class UserMapper {
         }
     }
 
-    public DatingUser getAllUsers() {
-
+    public ArrayList<DatingUser> getAllUsers() {
         DatingUser datingUser = new DatingUser();
+        ArrayList<DatingUser> datingUsers = new ArrayList<>();
 
         try {
             Connection con = DBManager.getConnection();
-            // Prepare SQL.
-          /*  String SQL = "SELECT userid, email from users";
-            PreparedStatement ps = con.prepareStatement(SQL);
+
+            String SQL = "SELECT * FROM users";
+            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = ps.executeQuery();
-
-            String SQL2 = "SELECT name from datingusers";
-            PreparedStatement ps2 = con.prepareStatement(SQL2);
-            ResultSet rs2 = ps2.executeQuery();
-
-            ResultSet ids = ps.getGeneratedKeys();
-            ids.next();
-            int id = ids.getInt(1);
-            datingUser.setID(id);*/
-
-            String SQL = "SELECT userid, name from datingusers";
-
-            PreparedStatement ps = con.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
-
 
             // Get data from database.
 
             while (rs.next()) {
-                datingUser = new DatingUser();
-                ArrayList<DatingUser> datingUsers = new ArrayList<>();
-                datingUser.setID(rs.getInt("userid"));
-                //  datingUser.setEmail(rs.getString("email"));
-                datingUser.setName(rs.getString("name"));
-
-               /* ResultSet ids = ps.getGeneratedKeys();
-                ids.next();
-                int id = ids.getInt(1);
-                datingUser.setID(id);*/
+                int ID = rs.getInt("userid");
+                String email = rs.getString("email");
+                datingUser = new DatingUser(ID, email);
                 datingUsers.add(datingUser);
 
+                System.out.println(ID + " " + email);
+               /* ArrayList<DatingUser> datingUsers = new ArrayList<>();
+                datingUser.setID(rs.getInt("userid"));
+                datingUser.setEmail(rs.getString("email"));
+                datingUsers.add(datingUser);*/
             }
 
         } catch (SQLException ex) {
             ex.getMessage();
         }
-        return datingUser;
+        return datingUsers;
     }
-
-
 }
 
 
