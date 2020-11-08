@@ -3,10 +3,8 @@ package com.example.demo.controllers;
 import com.example.demo.data.DataFacadeImpl;
 import com.example.demo.data.UserMapper;
 import com.example.demo.model.*;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
@@ -40,13 +38,11 @@ public class MyController {
     public String admin(WebRequest request, Model model) {
         AdminUser adminUser = (AdminUser) request.getAttribute("adminUser", WebRequest.SCOPE_SESSION);
 
-        UserMapper userMapper = new UserMapper();
-        ArrayList<DatingUser> datingUsers = userMapper.getAllUsers();
+        ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers();
 
         System.out.println("test: " + datingUsers);
 
         model.addAttribute("datingUsers", datingUsers);
-
 
         // AdminUser adminUser = new AdminUser("admin@gmail.com", "1", "admin");
 

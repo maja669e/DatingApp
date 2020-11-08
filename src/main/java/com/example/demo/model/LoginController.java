@@ -4,6 +4,7 @@ package com.example.demo.model;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class LoginController {
 
@@ -27,5 +28,9 @@ public class LoginController {
         DatingUser datingUser = new DatingUser(name, email, password, birthdate, "datinguser", "","");
         facade.createDatingUser(datingUser);
         return datingUser;
+    }
+
+    public ArrayList<DatingUser> getAllDatingUsers(){
+        return facade.getAllDatingUsers();
     }
 }

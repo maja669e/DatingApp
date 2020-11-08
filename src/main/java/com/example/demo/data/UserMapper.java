@@ -110,15 +110,15 @@ public class UserMapper {
         }
     }
 
-    public ArrayList<DatingUser> getAllUsers() {
-        DatingUser datingUser = new DatingUser();
+    public ArrayList<DatingUser> getAllDatingUsers() {
+        DatingUser datingUser;
         ArrayList<DatingUser> datingUsers = new ArrayList<>();
 
         try {
             Connection con = DBManager.getConnection();
 
             String SQL = "SELECT * FROM users";
-            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = con.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
 
             // Get data from database.
@@ -126,20 +126,26 @@ public class UserMapper {
             while (rs.next()) {
                 int ID = rs.getInt("userid");
                 String email = rs.getString("email");
-                datingUser = new DatingUser(ID, email);
-                datingUsers.add(datingUser);
-
-                System.out.println(ID + " " + email);
-               /* ArrayList<DatingUser> datingUsers = new ArrayList<>();
-                datingUser.setID(rs.getInt("userid"));
-                datingUser.setEmail(rs.getString("email"));
-                datingUsers.add(datingUser);*/
+                String role = rs.getString("role");
+                if(role.equals("datinguser")){
+                    datingUser = new DatingUser(ID, email);
+                    datingUsers.add(datingUser);
+                }
             }
+            return datingUsers;
 
         } catch (SQLException ex) {
             ex.getMessage();
         }
         return datingUsers;
+    }
+
+    public ArrayList<DatingUser> removeDatingUser(){
+        return null;
+    }
+
+    public DatingUser editDatingUser(){
+        return null;
     }
 }
 
