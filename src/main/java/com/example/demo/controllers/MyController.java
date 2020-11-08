@@ -47,16 +47,10 @@ public class MyController {
 
         model.addAttribute("datingUsers", datingUsers);
 
-        for (int i = 0; i < datingUsers.size(); i++) {
-            if (datingUsers.get(i).getEmail().equals("admin@gmail.com")) {
-                String email = datingUsers.get(i).getEmail();
-                String password = datingUsers.get(i).getPassword();
-                String role = datingUsers.get(i).getRole();
-                AdminUser adminUser2 = new AdminUser(email, password, role);
-                model.addAttribute("adminUser", adminUser2);
-            }
 
-        }
+        AdminUser adminUser2 = new AdminUser("adminuser@gmail.com", "1", "admin");
+        model.addAttribute("adminUser", adminUser2);
+
 
         return "admin";
     }

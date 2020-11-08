@@ -111,11 +111,12 @@ public class UserMapper {
     }
 
     public ArrayList<DatingUser> getAllUsers() {
-        DatingUser datingUser = new DatingUser();
         ArrayList<DatingUser> datingUsers = new ArrayList<>();
+        DatingUser datingUser = new DatingUser();
 
         try {
             Connection con = DBManager.getConnection();
+
 
             String SQL = "SELECT * FROM users";
             PreparedStatement ps = con.prepareStatement(SQL);
@@ -126,20 +127,19 @@ public class UserMapper {
             ResultSet rs2 = ps2.executeQuery();
 
             // Get data from database.
+            String name = null;
+            while (rs.next() && rs2.next()) {
 
-            while (rs.next()&& rs2.next()) {
+
                 int ID = rs.getInt("userid");
                 String email = rs.getString("email");
-                String name = rs2.getString("name");
-                
-                datingUser = new DatingUser(ID, email, name);
-                datingUsers.add(datingUser);
+                String role = rs.getString("role");
+                if (role.equals("datinguser")) {
+                    datingUser = new DatingUser(ID, email, name);
+                    datingUsers.add(datingUser);
+                }
+                name = rs2.getString("name");
 
-                System.out.println(ID + " " + email);
-               /* ArrayList<DatingUser> datingUsers = new ArrayList<>();
-                datingUser.setID(rs.getInt("userid"));
-                datingUser.setEmail(rs.getString("email"));
-                datingUsers.add(datingUser);*/
             }
 
         } catch (SQLException ex) {
