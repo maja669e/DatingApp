@@ -28,9 +28,9 @@ public class MyController {
 
     @GetMapping("/matches")
     public String matches(WebRequest request) {
-        SuperUser user = (DatingUser) request.getAttribute("datingUser", WebRequest.SCOPE_SESSION);
+        DatingUser datingUser = (DatingUser) request.getAttribute("datingUser", WebRequest.SCOPE_SESSION);
 
-        if (user != null) {
+        if (datingUser != null) {
             return "/matches";
         } else
             return "redirect:/";
@@ -57,12 +57,15 @@ public class MyController {
     public String profile(WebRequest request, Model model) {
         DatingUser datingUser = (DatingUser) request.getAttribute("datingUser", WebRequest.SCOPE_SESSION);
         model.addAttribute("datingUser", datingUser);
+       /* System.out.println(datingUser);
 
-        System.out.println(datingUser);
         if (datingUser != null) {
             return "/profil";
         } else
             return "redirect:/";
+
+        */
+        return "profil";
     }
 
     @GetMapping("/rediger")
@@ -78,14 +81,14 @@ public class MyController {
 
         if (!email.equals("admin@gmail.com")) {
             DatingUser datingUser = loginController.datingLogin(email, password);
-            setDatingSessionInfo(request, datingUser);
+            setSessionInfo(request, datingUser);
             System.out.println(datingUser.toString());
-            return "/udforsk";
+            return "redirect:/udforsk";
         } else {
             AdminUser adminUser = loginController.adminLogin(email, password);
-            setAdminSessionInfo(request, adminUser);
+            setSessionInfo(request, adminUser);
             System.out.println(adminUser.toString());
-            return "/" + adminUser.getRole();
+            return "redirect:/" + adminUser.getRole();
         }
     }
 
@@ -102,7 +105,7 @@ public class MyController {
         // If passwords match, work + data is delegated to logic controller
         if (password1.equals(password2)) {
             DatingUser datingUser = loginController.createDatingUser(name, email, password1, birthdate);
-            setDatingSessionInfo(request, datingUser);
+            setSessionInfo(request, datingUser);
             return "/udforsk";
 
         } else {
@@ -118,21 +121,20 @@ public class MyController {
         DatingUser datingUser = (DatingUser) request.getAttribute("datingUser", WebRequest.SCOPE_SESSION);
 
         // If user object is found on session, i.e. user is logged in, she/he can see home page
+        /*
         if (datingUser != null) {
             return "/udforsk";
         } else
             return "redirect:/";
+
+         */
+        return "/udforsk";
     }
 
 
-    private void setDatingSessionInfo(WebRequest request, DatingUser datingUser) {
-        request.setAttribute("datinguser", datingUser, WebRequest.SCOPE_SESSION);
-        request.setAttribute("role", datingUser.getRole(), WebRequest.SCOPE_SESSION);
-    }
-
-    private void setAdminSessionInfo(WebRequest request, AdminUser adminUser) {
-        request.setAttribute("adminuser", adminUser, WebRequest.SCOPE_SESSION);
-        request.setAttribute("role", adminUser.getRole(), WebRequest.SCOPE_SESSION);
+    private void setSessionInfo(WebRequest request, SuperUser user) {
+        request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
+        request.setAttribute("role", user.getRole(), WebRequest.SCOPE_SESSION);
     }
 
 
