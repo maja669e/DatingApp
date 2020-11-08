@@ -7,6 +7,7 @@ import com.example.demo.model.LoginException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class UserMapper {
 
@@ -50,23 +51,32 @@ public class UserMapper {
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
-
+/*
             String SQL2 = "SELECT userid, name FROM datingusers; birthdate FROM datingusers, "
                     + "description FROM datingusers, gender FROM datingusers";
             PreparedStatement ps1 = con.prepareStatement(SQL2);
             ResultSet rs1 = ps1.executeQuery();
 
+ */
 
-            if (rs.next()) {
+/*
+            if (rs.next() && rs1.next()) {
                 String role = rs.getString("role");
-                String name = rs.getString("name");
-                String description = rs.getString("description");
-                String temp = rs.getString("birthdate");
+                String name = rs1.getString("name");
+                String description = rs1.getString("description");
+                String temp = rs1.getString("birthdate");
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd/");
                 LocalDate birthDate = LocalDate.parse(temp, formatter);
-                String gender = rs.getString("gender");
+                String gender = rs1.getString("gender");
                 int id = rs.getInt("userid");
                 DatingUser datingUser = new DatingUser(name, email, password, birthDate, role, description, gender);
+                datingUser.setID(id);
+                return datingUser;
+ */
+            if (rs.next()) {
+                String role = rs.getString("role");
+                int id = rs.getInt("userid");
+                DatingUser datingUser = new DatingUser(email, password, role);
                 datingUser.setID(id);
                 return datingUser;
             } else {
@@ -99,4 +109,57 @@ public class UserMapper {
             throw new LoginException(ex.getMessage());
         }
     }
+
+    public DatingUser getAllUsers() {
+
+        DatingUser datingUser = new DatingUser();
+
+        try {
+            Connection con = DBManager.getConnection();
+            // Prepare SQL.
+          /*  String SQL = "SELECT userid, email from users";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+
+            String SQL2 = "SELECT name from datingusers";
+            PreparedStatement ps2 = con.prepareStatement(SQL2);
+            ResultSet rs2 = ps2.executeQuery();
+
+            ResultSet ids = ps.getGeneratedKeys();
+            ids.next();
+            int id = ids.getInt(1);
+            datingUser.setID(id);*/
+
+            String SQL = "SELECT userid, name from datingusers";
+
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+
+
+            // Get data from database.
+
+            while (rs.next()) {
+                datingUser = new DatingUser();
+                ArrayList<DatingUser> datingUsers = new ArrayList<>();
+                datingUser.setID(rs.getInt("userid"));
+                //  datingUser.setEmail(rs.getString("email"));
+                datingUser.setName(rs.getString("name"));
+
+               /* ResultSet ids = ps.getGeneratedKeys();
+                ids.next();
+                int id = ids.getInt(1);
+                datingUser.setID(id);*/
+                datingUsers.add(datingUser);
+
+            }
+
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return datingUser;
+    }
+
+
 }
+
+

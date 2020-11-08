@@ -31,13 +31,15 @@
 
 </header>
 
+
 <h1>Admin</h1>
 <hr>
 <br>
 <h2>Slet brugere</h2>
 
 
-<!--<p class="adminlog">Logget ind: <span th:text="${adminUser.email}"></span></p>-->
+<!--<p class="adminlog">Logget ind som: <span th:text="${adminUser.email}"></span></p>-->
+
 <table style="width: 80%">
 
     <tr>
@@ -48,9 +50,9 @@
     </tr>
 
     <tr th:each="datingUser:${datingUsers}">
-        <!--<td th:text="${datingUser.ID}"></td>
+        <td th:text="${datingUser.ID}"></td>
         <td th:text="${datingUser.name}"></td>
-        <td th:text="${datingUser.email}"></td>-->
+        <td th:text="${datingUser.email}"></td>
         <td>
             <span class="button1"> <img src="/images/trashcan.png" alt="trash" width="19px" height="20px"></span>
         </td>
@@ -58,6 +60,7 @@
 
 
 </table>
+
 <div th:replace="fragments/footer.html :: footer"></div>
 
 <script src="script.js"></script>

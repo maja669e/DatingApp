@@ -26,4 +26,19 @@ public class AdminUser extends SuperUser {
     public String setRole() {
         return "admin";
     }
+
+    @Override
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "AdminUser{" +
+                "ID=" + ID +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                '}';
+    }
 }
