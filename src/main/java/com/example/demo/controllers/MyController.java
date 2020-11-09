@@ -76,6 +76,7 @@ public class MyController {
 
     @PostMapping("/login")
     public String loginUser(WebRequest request) throws LoginException {
+        //Retrieve values from HTML form via WebRequest
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
@@ -94,6 +95,7 @@ public class MyController {
 
     @PostMapping("/register")
     public String createUser(WebRequest request) throws LoginException {
+        //Retrieve values from HTML form via WebRequest
         String email = request.getParameter("email");
         String name = request.getParameter("name");
         //String birthdate = request.getParameter("birthdate");
@@ -101,6 +103,7 @@ public class MyController {
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
 
+        // If passwords match, work + data is delegated to logic controller
         if (password1.equals(password2)) {
             DatingUser datingUser = loginController.createDatingUser(name, email, password1, birthdate);
             setSessionInfo(request, datingUser);
@@ -115,6 +118,7 @@ public class MyController {
 
     @GetMapping("/udforsk")
     public String getDiscover(WebRequest request) {
+        // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("datingUser", WebRequest.SCOPE_SESSION);
 
         System.out.println(datingUser);
