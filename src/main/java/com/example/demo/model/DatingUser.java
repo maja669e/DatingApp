@@ -1,15 +1,15 @@
 package com.example.demo.model;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 public class DatingUser extends SuperUser {
     private String name;
     private String description;
     private LocalDate birthdate;
     private String gender;
-
-    public DatingUser(){
-    }
+    private String message;
+    private int pictureid;
 
     public DatingUser(String name, String email, String password, LocalDate birthdate, String role, String description, String gender) {
         super(email, password, role);
@@ -19,6 +19,8 @@ public class DatingUser extends SuperUser {
         this.gender = gender;
     }
 
+    public DatingUser() {
+    }
 
     public DatingUser(String name, String email, String password, String role) {
         super(email, password, role);
@@ -35,7 +37,27 @@ public class DatingUser extends SuperUser {
         this.name = name;
     }
 
+    public int getPictureid() {
+        return pictureid;
+    }
 
+    public void setPictureid(int pictureid) {
+        this.pictureid = pictureid;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String setMessage(String message) {
+        this.message = message;
+        return message;
+    }
+
+    public int getAge() {
+        int age = Period.between(birthdate, LocalDate.now()).getYears();
+        return age;
+    }
 
     public int getID() {
         return ID;
@@ -85,7 +107,6 @@ public class DatingUser extends SuperUser {
         this.gender = gender;
     }
     //used for testing
-
 
     @Override
     public String toString() {

@@ -60,28 +60,27 @@ public class MyController {
         model.addAttribute("adminUser", adminUser2);
 
 
-
-
         return "admin";
     }
 
     @GetMapping("/profil")
     public String profile(WebRequest request, Model model) {
-        DatingUser datingUser = (DatingUser) request.getAttribute("datingUser", WebRequest.SCOPE_SESSION);
+        //DatingUser datingUser = (DatingUser) request.getAttribute("datingUser", WebRequest.SCOPE_SESSION);
+        DatingUser datingUser = new DatingUser("test", "test@test.dk", "1", LocalDate.of(1996,2,1),"datinguser", "test test test", "test");
         model.addAttribute("datingUser", datingUser);
         System.out.println(datingUser);
-        /*
+
         if (datingUser != null) {
             return "/profil";
         } else
             return "redirect:/";
-
-        */
-        return "profil";
+        
     }
 
     @GetMapping("/rediger")
     public String edit() {
+        //DatingUser datingUser = (DatingUser) request.getAttribute("datingUser", WebRequest.SCOPE_SESSION);
+        DatingUser datingUser = new DatingUser("test", "test@test.dk", "1", LocalDate.of(1996,2,1),"datinguser", "test test test", "test");
         return "rediger";
     }
 
@@ -131,22 +130,24 @@ public class MyController {
     public String getDiscover(WebRequest request) {
         // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("datingUser", WebRequest.SCOPE_SESSION);
+        //setSessionInfo(request,datingUser);
 
-        // If user object is found on session, i.e. user is logged in, she/he can see home page
-        /*
+        System.out.println(datingUser);
+/*
         if (datingUser != null) {
             return "/udforsk";
         } else
             return "redirect:/";
 
-         */
+ */
+
         return "/udforsk";
     }
 
 
     private void setSessionInfo(WebRequest request, SuperUser user) {
         request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
-        request.setAttribute("role", user.getRole(), WebRequest.SCOPE_SESSION);
+        //request.setAttribute("role", user.getRole(), WebRequest.SCOPE_SESSION);
     }
 
 

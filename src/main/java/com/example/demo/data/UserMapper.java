@@ -5,9 +5,7 @@ import com.example.demo.model.DatingUser;
 import com.example.demo.model.LoginException;
 
 import java.sql.*;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -24,9 +22,9 @@ public class UserMapper {
             ps.executeUpdate();
 
             //ps.setString(5, datingUser.getDescription());
-            // ps.setString(4, datingUser.getGender());
+            //ps.setString(4, datingUser.getGender());
 
-            String SQL2 = "INSERT INTO datingusers (name, birthdate) VALUES (?, ?)";
+            String SQL2 = "INSERT INTO users (name, birthdate) VALUES (?, ?)";
             PreparedStatement ps1 = con.prepareStatement(SQL2, Statement.RETURN_GENERATED_KEYS);
             ps1.setString(1, datingUser.getName());
             ps1.setString(2, String.valueOf(datingUser.getBirthdate()));
@@ -46,30 +44,28 @@ public class UserMapper {
     public DatingUser datingLogin(String email, String password) throws LoginException {
         try {
             Connection con = DBManager.getConnection();
-            String SQL = "SELECT userid, role FROM users "
+            String SQL = "SELECT * FROM users "
                     + "WHERE email=? AND password=?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
 
-            String SQL2 = "SELECT * FROM datingusers";
-            PreparedStatement ps2 = con.prepareStatement(SQL2);
-            ResultSet rs2 = ps2.executeQuery();
-
-
-            if (rs.next() && rs2.next()) {
+            if (rs.next()) {
                 String role = rs.getString("role");
-                String name = rs2.getString("name");
-                String description = rs2.getString("description");
-                String temp = rs2.getString("birthdate");
+                String name = rs.getString("name");
+                int picture = rs.getInt("picture");
+                String description = rs.getString("description");
+                String temp = rs.getString("birthdate");
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDate birthDate = LocalDate.parse(temp,formatter);
+                LocalDate birthDate = LocalDate.parse(temp, formatter);
 
-                String gender = rs2.getString("gender");
+                String gender = rs.getString("gender");
                 int id = rs.getInt("userid");
                 DatingUser datingUser = new DatingUser(name, email, password, birthDate, role, description, gender);
                 datingUser.setID(id);
+                datingUser.setPictureid(id);
+
                 return datingUser;
 
             } else {
@@ -103,10 +99,9 @@ public class UserMapper {
         }
     }
 
-
     public ArrayList<DatingUser> getAllDatingUsers() {
         ArrayList<DatingUser> datingUsers = new ArrayList<>();
-        DatingUser datingUser = new DatingUser();
+        DatingUser datingUser;
 
         try {
             Connection con = DBManager.getConnection();
@@ -115,24 +110,17 @@ public class UserMapper {
             PreparedStatement ps = con.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
 
-            String SQL2 = "SELECT * FROM datingusers";
-            PreparedStatement ps2 = con.prepareStatement(SQL2);
-            ResultSet rs2 = ps2.executeQuery();
-
             // Get data from database.
-            String name = null;
-            while (rs.next() && rs2.next()) {
+            while (rs.next()) {
 
                 int ID = rs.getInt("userid");
                 String email = rs.getString("email");
                 String role = rs.getString("role");
-
+                String name = rs.getString("name");
                 if (role.equals("datinguser")) {
                     datingUser = new DatingUser(ID, email, name);
                     datingUsers.add(datingUser);
                 }
-
-                name = rs2.getString("name");
             }
 
         } catch (SQLException ex) {
@@ -141,12 +129,25 @@ public class UserMapper {
         return datingUsers;
     }
 
-    public ArrayList<DatingUser> removeDatingUser() {
+    public DatingUser removeDatingUser() {
         return null;
     }
 
     public DatingUser editDatingUser() {
         return null;
+    }
+
+    public void sendMessage(String message, DatingUser datingUser) throws LoginException {
+        try {
+            Connection con = DBManager.getConnection();
+            String SQL = "INSERT INTO message (message) VALUES (?)";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, datingUser.setMessage(message + "/from: " + datingUser));
+            ps.executeUpdate();
+
+        } catch (SQLException ex) {
+            throw new LoginException(ex.getMessage());
+        }
     }
 }
 
