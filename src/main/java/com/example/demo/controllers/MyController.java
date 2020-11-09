@@ -67,6 +67,7 @@ public class MyController {
     public String profile(WebRequest request, Model model) {
         //DatingUser datingUser = (DatingUser) request.getAttribute("datingUser", WebRequest.SCOPE_SESSION);
         DatingUser datingUser = new DatingUser("test", "test@test.dk", "1", LocalDate.of(1996,2,1),"datinguser", "test test test", "test");
+        datingUser.setID(7);
         model.addAttribute("datingUser", datingUser);
         System.out.println(datingUser);
 
