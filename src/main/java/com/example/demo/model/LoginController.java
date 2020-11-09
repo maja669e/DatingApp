@@ -30,7 +30,5 @@ public class LoginController {
         return datingUser;
     }
 
-    public ArrayList<DatingUser> getAllDatingUsers(){
-        return facade.getAllDatingUsers();
-    }
+
 }

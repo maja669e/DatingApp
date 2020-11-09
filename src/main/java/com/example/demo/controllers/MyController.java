@@ -37,8 +37,9 @@ public class MyController {
     @GetMapping("/admin")
     public String admin(WebRequest request, Model model) {
         AdminUser adminUser = (AdminUser) request.getAttribute("adminUser", WebRequest.SCOPE_SESSION);
+        UserMapper userMapper = new UserMapper();
 
-        ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers();
+        ArrayList<DatingUser> datingUsers = userMapper.getAllDatingUsers();
 
         System.out.println("test: " + datingUsers);
 

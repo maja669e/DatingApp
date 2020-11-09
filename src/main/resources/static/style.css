@@ -11,6 +11,10 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
+    background-image: url("images/backgroundbody.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 h1 {
@@ -141,6 +145,7 @@ td {
     margin-right: auto;
     margin-top: 1vw;
     border-color: inherit;
+
 }
 
 th {
@@ -154,6 +159,7 @@ table {
 
 tr {
     text-align: left;
+    background-color: white;
 }
 
 td:last-child,
@@ -176,7 +182,7 @@ td {
 }
 
 tr:nth-child(odd) {
-    background-color: #e6e8ea;
+    background-color: #e9e3e9;
 }
 
 .adminlog {
@@ -209,8 +215,8 @@ tr:nth-child(odd) {
 footer {
     margin-top: 8vw;
     width: 100%;
-    background-color: #9076b3;
-    color: white;
+    background-color: #f2f2f2;
+    color: #525050;
     bottom: 0;
     padding-top: 1vw;
 }
@@ -224,7 +230,7 @@ footer {
 }
 
 footer a {
-    color: white;
+    color: #525050;
     font-size: 13px;
 }
 
@@ -237,7 +243,7 @@ footer a {
 
 a.fa-facebook,
 a.fa-twitter {
-    color: white;
+    color: #525050;
     text-decoration: none;
     font-size: 5vw;
     height: 2vw;
@@ -250,7 +256,7 @@ a.fa-twitter {
 
 a.fa-facebook:before,
 a.fa-twitter:before {
-    color: white;
+    color: #525050;
 }
 
 .fa {
@@ -399,7 +405,6 @@ a.fa-twitter:before {
     }
 
     footer a {
-        color: white;
         font-size: 12px;
     }
 
