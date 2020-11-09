@@ -10,9 +10,69 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
     <th:block th:include="fragments/footer.html :: footerfiles"></th:block>
     <title>Udforsk</title>
+    <style>
+        .row {
+            color: #525050;
+            display: grid;
+            grid-template-columns: auto auto auto;
+            justify-content: center;
+            grid-gap: 5vw;
+        }
+
+        .row img {
+            width: 20vw;
+            height: 22vw;
+            border: none;
+        }
+
+        .column {
+            background-color: white;
+            box-shadow: 1px 5px 6px 1px rgba(0, 0, 0, 0.20);
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+
+        .column p {
+            margin-left: 1vw;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .column span {
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        #buttonsUdforsk {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #buttonsUdforsk button {
+            border: none;
+            padding: 0.8vw;
+            margin: 1vw;
+            color: white;
+            border-radius: 15px;
+        }
+
+        #buttonsUdforsk button:hover {
+            cursor: pointer;
+            opacity: 0.7;
+        }
+
+        .likebtn {
+            background-color: darkseagreen;
+        }
+
+        .picsbtn {
+            background-color: #9076b3;
+        }
+
+
+    </style>
 </head>
 <body>
-
 
 
 <div th:replace="fragments/header.html :: header"></div>
@@ -20,20 +80,26 @@
 <h1>Udforsk</h1>
 <hr>
 
-<p>hej</p>
-<p>hej</p>
-<p>hej</p>
-<p>hej</p>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<p>hej</p>
-<p>hej</p>
+
+<div class="row">
+    <div class="column" th:each="datingUser:${datingUsers}">
+        <img th:src="@{${'/images/' + datingUser.ID + '.jpg'}}" alt="blank profile">
+        <p>Navn: <span th:text="${datingUser.name}"></span></p>
+        <!-- <p>Fødselsdag:<span th:text="${datingUser.age}"></span></p>-->
+        <p>Køn: <span th:text="${datingUser.gender}"></span></p>
+        <p>Om mig: <span th:text="${datingUser.description}"></span></p>
+        <div id="buttonsUdforsk">
+            <button class="picsbtn" type="button">Se billeder</button>
+            <button class="likebtn" type="button">Like &#127892;</button>
+        </div>
+    </div>
+</div>
+
+
 <div th:replace="fragments/footer.html :: footer"></div>
 
-<script src="script.js"></script>
+<script src="script.js">
+
+</script>
 </body>
 </html>

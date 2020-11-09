@@ -3,6 +3,7 @@ package com.example.demo.data;
 import com.example.demo.model.AdminUser;
 import com.example.demo.model.DatingUser;
 import com.example.demo.model.LoginException;
+import org.apache.tomcat.jni.Local;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -56,6 +57,7 @@ public class UserMapper {
                 String name = rs.getString("name");
                 int picture = rs.getInt("picture");
                 String description = rs.getString("description");
+
                 String temp = rs.getString("birthdate");
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 LocalDate birthDate = LocalDate.parse(temp, formatter);
@@ -117,8 +119,20 @@ public class UserMapper {
                 String email = rs.getString("email");
                 String role = rs.getString("role");
                 String name = rs.getString("name");
+                String password = rs.getString("password");
+                String description = rs.getString("description");
+                String gender = rs.getString("gender");
+                int picture = rs.getInt("picture");
+
+               /* String temp = rs.getString("birthdate");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate birthDate = LocalDate.parse(temp, formatter);*/
+
+
+
                 if (role.equals("datinguser")) {
-                    datingUser = new DatingUser(ID, email, name);
+                    datingUser = new DatingUser(ID, name, email, password, role, description, picture, gender);
+                    datingUser.setPictureid(ID);
                     datingUsers.add(datingUser);
                 }
             }
@@ -129,9 +143,20 @@ public class UserMapper {
         return datingUsers;
     }
 
-    public DatingUser removeDatingUser() {
-        return null;
+    public DatingUser removeDatingUser(DatingUser datingUser, String name) {
+        try {
+            Connection con = DBManager.getConnection();
+            String SQL = "DELETE from users where userid = ?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, datingUser.getID());
+            ps.executeUpdate();
+
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return datingUser;
     }
+
 
     public DatingUser editDatingUser() {
         return null;

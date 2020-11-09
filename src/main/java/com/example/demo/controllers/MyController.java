@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.data.DataFacadeImpl;
 import com.example.demo.data.UserMapper;
 import com.example.demo.model.*;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,26 +41,14 @@ public class MyController {
         UserMapper userMapper = new UserMapper();
 
         ArrayList<DatingUser> datingUsers = userMapper.getAllDatingUsers();
-
-        System.out.println("test: " + datingUsers);
-
+        //System.out.println("test: " + datingUsers);
         model.addAttribute("datingUsers", datingUsers);
+        String name = request.getParameter("name");
 
 
-        // AdminUser adminUser = new AdminUser("admin@gmail.com", "1", "admin");
-/*
-        for (int i = 0; i < datingUsers.size(); i++) {
-            if (datingUsers.get(i).getEmail().equals("admin@gmail.com")) {
-                String email = datingUsers.get(i).getEmail();
-                String password = datingUsers.get(i).getPassword();
-                String role = datingUsers.get(i).getRole();
-                AdminUser adminUser2 = new AdminUser(email, password, role);
-                model.addAttribute("adminUser", adminUser2);
-            }*/
 
         AdminUser adminUser2 = new AdminUser("adminuser@gmail.com", "1", "admin");
         model.addAttribute("adminUser", adminUser2);
-
 
         return "admin";
     }
@@ -129,10 +118,14 @@ public class MyController {
 
 
     @GetMapping("/udforsk")
-    public String getDiscover(WebRequest request) {
+    public String getDiscover(WebRequest request, Model model) {
         // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("datingUser", WebRequest.SCOPE_SESSION);
-        //setSessionInfo(request,datingUser);
+        setSessionInfo(request,datingUser);
+        UserMapper userMapper = new UserMapper();
+        ArrayList<DatingUser> datingUsers = userMapper.getAllDatingUsers();
+
+        model.addAttribute("datingUsers", datingUsers);
 
         System.out.println(datingUser);
 /*
@@ -140,7 +133,6 @@ public class MyController {
             return "/udforsk";
         } else
             return "redirect:/";
-
  */
 
         return "/udforsk";
