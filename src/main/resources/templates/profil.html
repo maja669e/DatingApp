@@ -19,7 +19,7 @@
 
 <div class="image1">
     <!--<img src="/images/blank-profile-picture.jpg" alt="blank profile" width="300" height="350"/>-->
-    <img th:src="@{${'/images/' + datingUser.ID + '.jpg'}}" alt="blank profile" width="300" height="350"/>
+    <img th:src="@{${'/images/' + datingUser.ID + '.jpg'}}" alt="blank profile" border-style="0" width="300" height="350"/>
 </div>
 <div class="centerText">
     <p>Navn: <br><span th:text="${datingUser.name}"> </span></p>
