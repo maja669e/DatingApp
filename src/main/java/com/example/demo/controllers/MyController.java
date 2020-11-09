@@ -6,6 +6,7 @@ import com.example.demo.model.*;
 import org.apache.catalina.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
@@ -37,14 +38,16 @@ public class MyController {
 
     @GetMapping("/admin")
     public String admin(WebRequest request, Model model) {
-        AdminUser adminUser = (AdminUser) request.getAttribute("adminUser", WebRequest.SCOPE_SESSION);
-        UserMapper userMapper = new UserMapper();
+        //AdminUser adminUser = (AdminUser) request.getAttribute("adminUser", WebRequest.SCOPE_SESSION);
 
+        UserMapper userMapper = new UserMapper();
         ArrayList<DatingUser> datingUsers = userMapper.getAllDatingUsers();
         //System.out.println("test: " + datingUsers);
+
+        System.out.println("test: " + datingUsers);
+
         model.addAttribute("datingUsers", datingUsers);
         String name = request.getParameter("name");
-
 
 
         AdminUser adminUser2 = new AdminUser("adminuser@gmail.com", "1", "admin");
@@ -124,8 +127,8 @@ public class MyController {
         setSessionInfo(request,datingUser);
         UserMapper userMapper = new UserMapper();
         ArrayList<DatingUser> datingUsers = userMapper.getAllDatingUsers();
-
         model.addAttribute("datingUsers", datingUsers);
+
 
         System.out.println(datingUser);
 /*
@@ -141,13 +144,13 @@ public class MyController {
 
     private void setSessionInfo(WebRequest request, SuperUser user) {
         request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
-        //request.setAttribute("role", user.getRole(), WebRequest.SCOPE_SESSION);
     }
 
 
-    /*@ExceptionHandler(Exception.class)
+    @ExceptionHandler(LoginException.class)
+    @PostMapping("/fejlside")
     public String anotherError(Model model, Exception exception) {
         model.addAttribute("message",exception.getMessage());
-        return "fejlside";
-    }*/
+        return "/fejlside";
+    }
 }
