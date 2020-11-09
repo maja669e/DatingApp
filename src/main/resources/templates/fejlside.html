@@ -12,10 +12,26 @@
     <title>Fejlside</title>
 </head>
 <body>
-<div th:replace="fragments/header.html :: header"></div>
-<h1>Der skete en fejl!</h1>
+<header id="myTopnav">
+    <div class="topnav">
+        <a></a>
+        <a></a>
+        <a></a>
+        <a></a>
+        <a href="/">
+            <img src="/images/logout.png" width="30px" height="35px"></a>
+        <a href="javascript:void(0);" class="icon" onclick="burgerMenu()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+
+</header>
+<h1>Fejlside!</h1>
 <hr>
-<p><span th:text="" class="centerText"></span></p>
+<br>
+<div class="centerText">
+    <p>Fejl: <span th:text="${message}"></span></p>
+</div>
 <div th:replace="fragments/footer.html :: footer"></div>
 </body>
 </html>

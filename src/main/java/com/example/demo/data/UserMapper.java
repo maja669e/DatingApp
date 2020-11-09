@@ -69,7 +69,7 @@ public class UserMapper {
                 return datingUser;
 
             } else {
-                throw new LoginException("Could not validate user");
+                throw new LoginException("Kan ikke valider bruger - prøv igen");
             }
         } catch (SQLException ex) {
             throw new LoginException(ex.getMessage());
@@ -92,7 +92,7 @@ public class UserMapper {
                 adminUser.setID(id);
                 return adminUser;
             } else {
-                throw new LoginException("Could not validate user");
+                throw new LoginException("Kan ikke valider bruger - prøv igen");
             }
         } catch (SQLException ex) {
             throw new LoginException(ex.getMessage());

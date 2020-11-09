@@ -5,6 +5,7 @@ import com.example.demo.data.UserMapper;
 import com.example.demo.model.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
@@ -36,25 +37,13 @@ public class MyController {
 
     @GetMapping("/admin")
     public String admin(WebRequest request, Model model) {
-        AdminUser adminUser = (AdminUser) request.getAttribute("adminUser", WebRequest.SCOPE_SESSION);
+        //AdminUser adminUser = (AdminUser) request.getAttribute("adminUser", WebRequest.SCOPE_SESSION);
 
         ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers();
 
         System.out.println("test: " + datingUsers);
 
         model.addAttribute("datingUsers", datingUsers);
-
-
-        // AdminUser adminUser = new AdminUser("admin@gmail.com", "1", "admin");
-/*
-        for (int i = 0; i < datingUsers.size(); i++) {
-            if (datingUsers.get(i).getEmail().equals("admin@gmail.com")) {
-                String email = datingUsers.get(i).getEmail();
-                String password = datingUsers.get(i).getPassword();
-                String role = datingUsers.get(i).getRole();
-                AdminUser adminUser2 = new AdminUser(email, password, role);
-                model.addAttribute("adminUser", adminUser2);
-            }*/
 
         AdminUser adminUser2 = new AdminUser("adminuser@gmail.com", "1", "admin");
         model.addAttribute("adminUser", adminUser2);
@@ -87,7 +76,6 @@ public class MyController {
 
     @PostMapping("/login")
     public String loginUser(WebRequest request) throws LoginException {
-        //Retrieve values from HTML form via WebRequest
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
@@ -106,7 +94,6 @@ public class MyController {
 
     @PostMapping("/register")
     public String createUser(WebRequest request) throws LoginException {
-        //Retrieve values from HTML form via WebRequest
         String email = request.getParameter("email");
         String name = request.getParameter("name");
         //String birthdate = request.getParameter("birthdate");
@@ -114,7 +101,6 @@ public class MyController {
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
 
-        // If passwords match, work + data is delegated to logic controller
         if (password1.equals(password2)) {
             DatingUser datingUser = loginController.createDatingUser(name, email, password1, birthdate);
             setSessionInfo(request, datingUser);
@@ -129,9 +115,7 @@ public class MyController {
 
     @GetMapping("/udforsk")
     public String getDiscover(WebRequest request) {
-        // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("datingUser", WebRequest.SCOPE_SESSION);
-        //setSessionInfo(request,datingUser);
 
         System.out.println(datingUser);
 /*
@@ -148,13 +132,13 @@ public class MyController {
 
     private void setSessionInfo(WebRequest request, SuperUser user) {
         request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
-        //request.setAttribute("role", user.getRole(), WebRequest.SCOPE_SESSION);
     }
 
 
-    /*@ExceptionHandler(Exception.class)
+    @ExceptionHandler(LoginException.class)
+    @PostMapping("/fejlside")
     public String anotherError(Model model, Exception exception) {
         model.addAttribute("message",exception.getMessage());
-        return "fejlside";
-    }*/
+        return "/fejlside";
+    }
 }
