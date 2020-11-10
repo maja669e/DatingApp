@@ -145,24 +145,6 @@ public class DatingUserMapper {
         return datingUsers;
     }
 
-    public DatingUser removeDatingUser(DatingUser datingUser, String name) {
-        try {
-            Connection con = DBManager.getConnection();
-            String SQL = "DELETE from users where userid = ?";
-            PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setInt(1, datingUser.getID());
-            ps.executeUpdate();
-
-        } catch (SQLException ex) {
-            ex.getMessage();
-        }
-        return datingUser;
-    }
-
-
-    public DatingUser editDatingUser() {
-        return null;
-    }
 
     public void sendMessage(String message, DatingUser datingUser) throws LoginException {
         try {
