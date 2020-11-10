@@ -31,7 +31,7 @@
 
 <div class="row">
     <div class="column" th:each="datingUser:${datingUsers}">
-        <img th:src="@{${'/images/' + datingUser.ID + '.jpg'}}" alt="blank profile">
+        <img th:src="@{${'/images/' + datingUser.pictureid + '.jpg'}}" alt="blank profile">
         <p>Navn: <span th:text="${datingUser.name}"></span></p>
         <!-- <p>Fødselsdag:<span th:text="${datingUser.age}"></span></p>-->
         <p>Køn: <span th:text="${datingUser.gender}"></span></p>

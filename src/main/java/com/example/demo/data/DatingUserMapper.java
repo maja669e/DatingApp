@@ -15,13 +15,14 @@ public class DatingUserMapper {
     public void createDatingUser(DatingUser datingUser) throws LoginException {
         try {
             Connection con = DBManager.getConnection();
-            String SQL = "INSERT INTO users (email, password, role, name, birthdate) VALUES (?, ?, ?, ?, ?)";
+            String SQL = "INSERT INTO users (email, password, role, name, birthdate,picture) VALUES (?, ?, ?, ?, ?,?)";
             PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, datingUser.getEmail());
             ps.setString(2, datingUser.getPassword());
             ps.setString(3, datingUser.setRole());
             ps.setString(4, datingUser.getName());
             ps.setString(5, String.valueOf(datingUser.getBirthdate()));
+            ps.setString(6, String.valueOf(0));
             ps.executeUpdate();
 
             ResultSet ids = ps.getGeneratedKeys();
@@ -70,7 +71,7 @@ public class DatingUserMapper {
         }
     }
 
-    public void editUser(DatingUser datingUser,String name, String email, String gender, String description) throws LoginException {
+    public void editUser(DatingUser datingUser, String name, String email, String gender, String description) throws LoginException {
         try {
             Connection con = DBManager.getConnection();
             String SQL = "UPDATE users set email = ?, name = ?, gender = ?, description= ? WHERE userid = ?";
@@ -100,7 +101,6 @@ public class DatingUserMapper {
             throw new LoginException(ex.getMessage());
         }
     }
-
 
 
     public ArrayList<DatingUser> getAllDatingUsers() {
@@ -133,7 +133,9 @@ public class DatingUserMapper {
 
                 if (role.equals("datinguser")) {
                     datingUser = new DatingUser(ID, name, email, password, role, description, picture, gender);
-                    datingUser.setPictureid(ID);
+                    if (picture != 0) {
+                        datingUser.setPictureid(ID);
+                    }
                     datingUsers.add(datingUser);
                 }
             }
