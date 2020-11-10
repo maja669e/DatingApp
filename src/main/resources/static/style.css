@@ -137,6 +137,106 @@ header {
     padding-top: 0px;
 }
 
+
+/* Full-width input fields */
+.container_logind input[type=text], .container_logind input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #9076b3;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    cursor: pointer;
+    width: 15%;
+    border: none;
+    border-radius: 10px;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.container_logind {
+    padding: 16px;
+    display: inline-block;
+    justify-content: space-between;
+}
+
+/* Full-width input fields */
+.container_register input[type=text], input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    padding: 14px 20px;
+    background-color: #b75851;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+    width: 20%;
+}
+
+/* Add padding to container elements */
+.container_register {
+    padding: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: #9b96a3;
+    padding-top: 50px;
+    border-radius: 8px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+
+}
+
+
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+
 /*-----ADMIN-----*/
 table,
 th,
@@ -213,6 +313,66 @@ tr:nth-child(odd) {
 
 
 /*-------Udforsk-----*/
+
+.row {
+    color: #525050;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+    grid-gap: 5vw;
+}
+
+.row img {
+    width: 20vw;
+    height: 22vw;
+    border: none;
+}
+
+.column {
+    background-color: white;
+    box-shadow: 1px 5px 6px 1px rgba(0, 0, 0, 0.20);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.column p {
+    margin-left: 1vw;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.column span {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.buttonsUdforsk {
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttonsUdforsk button {
+    border: none;
+    padding: 0.5vw;
+    margin: 1vw;
+    color: white;
+    border-radius: 15px;
+    width: 35%;
+}
+
+.buttonsUdforsk button:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.likebtn {
+    background-color: darkseagreen;
+}
+
+.picsbtn {
+    background-color: #9076b3;
+}
+
 
 
 /*-------Footer-------*/
@@ -293,8 +453,8 @@ a.fa-twitter:before {
     border: none;
     border-radius: 10px;
     font-size: 12px;
-    margin:0 auto;
-    display:block;
+    margin: 0 auto;
+    display: block;
 }
 
 .button:hover {
@@ -307,7 +467,7 @@ a.fa-twitter:before {
     margin: 0 auto;
 }
 
-.centerText p{
+.centerText p {
     margin-left: auto;
     margin-right: auto;
     width: 300px;
@@ -316,9 +476,10 @@ a.fa-twitter:before {
 /*-------Media queries-------*/
 
 @media screen and (max-width: 700px) {
-    h1{
+    h1 {
         padding-top: 15vw;
     }
+
     .topnav a:not(:first-child) {
         display: none;
     }
@@ -344,8 +505,14 @@ a.fa-twitter:before {
         display: block;
         text-align: center;
     }
+
     .topnav a:nth-last-child(2) {
         opacity: 0.7;
+    }
+
+    .cancelbtn, .signupbtn {
+        width: 40%;
+        margin: 3vw;
     }
 
     footer {
@@ -367,6 +534,7 @@ a.fa-twitter:before {
         width: 100%;
         height: 40vw;
     }
+
     #buttonsUdforsk button {
         padding: 1.4vw;
     }

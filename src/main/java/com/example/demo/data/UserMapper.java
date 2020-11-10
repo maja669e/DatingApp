@@ -15,27 +15,19 @@ public class UserMapper {
     public void createDatingUser(DatingUser datingUser) throws LoginException {
         try {
             Connection con = DBManager.getConnection();
-            String SQL = "INSERT INTO users (email, password, role) VALUES (?, ?, ?)";
+            String SQL = "INSERT INTO users (email, password, role, name, birthdate) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, datingUser.getEmail());
             ps.setString(2, datingUser.getPassword());
             ps.setString(3, datingUser.setRole());
+            ps.setString(4, datingUser.getName());
+            ps.setString(5, String.valueOf(datingUser.getBirthdate()));
             ps.executeUpdate();
-
-            //ps.setString(5, datingUser.getDescription());
-            //ps.setString(4, datingUser.getGender());
-
-            String SQL2 = "INSERT INTO users (name, birthdate) VALUES (?, ?)";
-            PreparedStatement ps1 = con.prepareStatement(SQL2, Statement.RETURN_GENERATED_KEYS);
-            ps1.setString(1, datingUser.getName());
-            ps1.setString(2, String.valueOf(datingUser.getBirthdate()));
-            ps1.executeUpdate();
 
             ResultSet ids = ps.getGeneratedKeys();
             ids.next();
             int id = ids.getInt(1);
             datingUser.setID(id);
-
 
         } catch (SQLException ex) {
             throw new LoginException(ex.getMessage());

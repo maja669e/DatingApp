@@ -111,7 +111,7 @@ public class MyController {
         if (password1.equals(password2)) {
             DatingUser datingUser = loginController.createDatingUser(name, email, password1, birthdate);
             setSessionInfo(request, datingUser);
-            return "/udforsk";
+            return "redirect:/udforsk";
 
         } else {
             throw new LoginException("De to kodeord passer ikke");
