@@ -82,7 +82,7 @@ public class MyController {
             DatingUser datingUser = loginController.datingLogin(email, password);
             setSessionInfo(request, datingUser);
             System.out.println(datingUser.toString());
-            return "datinguserpages/udforsk";
+            return "redirect:/udforsk";
         } else {
             AdminUser adminUser = loginController.adminLogin(email, password);
             setSessionInfo(request, adminUser);
