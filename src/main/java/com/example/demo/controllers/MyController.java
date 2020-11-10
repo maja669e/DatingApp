@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 
@@ -27,8 +28,9 @@ public class MyController {
     }
 
     @GetMapping("/matches")
-    public String matches(WebRequest request) {
-        DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+    public String matches(@RequestParam("id") int id, WebRequest request, Model model) {
+        ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers(); //allusers
+        DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION); //session of user
 
         if (datingUser != null) {
             return "datinguserpages/matches";
@@ -60,16 +62,30 @@ public class MyController {
             return "datinguserpages/profil";
         } else
             return "redirect:/";
-        
+
     }
 
     @GetMapping("/rediger")
-    public String edit(WebRequest request) {
+    public String edit(WebRequest request, Model model) {
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        model.addAttribute("datingUser", datingUser);
+
         if (datingUser != null) {
             return "datinguserpages/rediger";
         } else
             return "redirect:/";
+    }
+
+    @PostMapping("redigeretprofil")
+    public String postEdit(WebRequest request) throws LoginException {
+        DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String gender = request.getParameter("gender");
+        String decription = request.getParameter("description");
+        loginController.editUser(datingUser, name, email, gender, decription);
+
+        return "redirect:/profil";
     }
 
     @PostMapping("/login")
@@ -81,12 +97,10 @@ public class MyController {
         if (!email.equals("admin@gmail.com")) {
             DatingUser datingUser = loginController.datingLogin(email, password);
             setSessionInfo(request, datingUser);
-            System.out.println(datingUser.toString());
             return "redirect:/udforsk";
         } else {
             AdminUser adminUser = loginController.adminLogin(email, password);
             setSessionInfo(request, adminUser);
-            System.out.println(adminUser.toString());
             return "redirect:/" + adminUser.getRole();
         }
 
@@ -122,10 +136,11 @@ public class MyController {
     public String getDiscover(WebRequest request, Model model) {
         // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
-        setSessionInfo(request,datingUser);
+        setSessionInfo(request, datingUser);
         ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers();
+
         model.addAttribute("datingUsers", datingUsers);
-        System.out.println(datingUser);
+
 
         if (datingUser != null) {
             return "datinguserpages/udforsk";
@@ -143,7 +158,7 @@ public class MyController {
     @ExceptionHandler(LoginException.class)
     @PostMapping("/fejlside")
     public String anotherError(Model model, Exception exception) {
-        model.addAttribute("message",exception.getMessage());
+        model.addAttribute("message", exception.getMessage());
         return "/fejlside";
     }
 }

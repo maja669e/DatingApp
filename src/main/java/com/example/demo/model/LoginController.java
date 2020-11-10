@@ -30,6 +30,10 @@ public class LoginController {
         return datingUser;
     }
 
+    public void editUser(DatingUser datingUser, String name, String email, String gender, String description) throws LoginException {
+       facade.editUser(datingUser, name,email,gender,description);
+    }
+
     public ArrayList<DatingUser> getAllDatingUsers(){
         return facade.getAllDatingUsers();
     }

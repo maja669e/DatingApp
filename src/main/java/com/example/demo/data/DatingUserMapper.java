@@ -70,6 +70,59 @@ public class DatingUserMapper {
         }
     }
 
+    public void editUser(DatingUser datingUser,String name, String email, String gender, String description) throws LoginException {
+        try {
+            Connection con = DBManager.getConnection();
+            String SQL = "UPDATE users set email = ?, name = ?, gender = ?, description= ? WHERE userid = ?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, email);
+            ps.setString(2, name);
+            ps.setString(3, gender);
+            ps.setString(4, description);
+            int userid = datingUser.getID();
+            ps.setInt(5, userid);
+            ps.executeUpdate();
+
+        } catch (SQLException ex) {
+            throw new LoginException(ex.getMessage());
+        }
+    }
+
+/*
+    public DatingUser getDatingUser(int id) throws LoginException {
+        try {
+            Connection con = DBManager.getConnection();
+            String SQL = "SELECT * FROM users " + "WHERE userid=?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()){
+                String role = rs.getString("role");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String name = rs.getString("name");
+                int pictureid = rs.getInt("picture");
+                String description = rs.getString("description");
+
+                String temp = rs.getString("birthdate");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate birthDate = LocalDate.parse(temp, formatter);
+
+                String gender = rs.getString("gender");
+                id = rs.getInt("userid");
+                DatingUser datingUser = new DatingUser(name, email, password, birthDate, role, description, gender, pictureid);
+                datingUser.setID(id);
+                datingUser.setPictureid(id);
+                return datingUser;
+            }
+
+        } catch (SQLException ex) {
+            throw new LoginException(ex.getMessage());
+        }
+    }
+ */
+
     public ArrayList<DatingUser> getAllDatingUsers() {
         ArrayList<DatingUser> datingUsers = new ArrayList<>();
         DatingUser datingUser;
@@ -96,7 +149,6 @@ public class DatingUserMapper {
                /* String temp = rs.getString("birthdate");
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 LocalDate birthDate = LocalDate.parse(temp, formatter);*/
-
 
 
                 if (role.equals("datinguser")) {

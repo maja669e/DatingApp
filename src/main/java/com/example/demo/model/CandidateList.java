@@ -10,8 +10,14 @@ public class CandidateList {
         candidates.remove(candidateNumber);
     }
 
-    public void addCandidate(DatingUser user) {
-        candidates.add(user);
+    public boolean addCandidate(ArrayList<DatingUser> datingUsers, int id){
+        for (DatingUser datingUser : datingUsers) {
+            if(datingUser.getID() == id){
+                candidates.add(datingUser);
+                return true;
+            }
+        }
+        return false;
     }
 
     public ArrayList<DatingUser> getCandidates() {

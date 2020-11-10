@@ -30,4 +30,7 @@ public class DataFacadeImpl implements DataFacade {
         return userMapper.getAllDatingUsers();
     }
 
+    public void editUser(DatingUser datingUser, String name, String email, String gender, String description) throws LoginException {
+        userMapper.editUser(datingUser, name,email,gender,description);
+    }
 }

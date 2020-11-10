@@ -25,8 +25,15 @@
 
 <h1>Rediger profil</h1>
 <hr>
-
-
+<div class="centerText">
+<form th:action="@{/redigeretprofil}" method="post">
+    <p>Mail: <input type="text" th:field="${datingUser.email}" name="email"/></p>
+    <p>First Name: <input type="text" th:field="${datingUser.name}" name="name"/></p>
+    <p>Beskrivelse: <input type="text" th:field="${datingUser.description}" name="description"/></p>
+    <p>Køn: <input type="text" th:field="${datingUser.gender}" name="gender"/></p>
+    <input type="submit" value="rediger profil" class="btn btn-create"/>
+</form>
+</div>
 <div th:replace="fragments/footer.html :: footer"></div>
 
 <script src="script.js"></script>
