@@ -1,9 +1,6 @@
 package com.example.demo.data;
 
-import com.example.demo.model.AdminUser;
-import com.example.demo.model.DataFacade;
-import com.example.demo.model.DatingUser;
-import com.example.demo.model.LoginException;
+import com.example.demo.model.*;
 
 import java.util.ArrayList;
 
@@ -26,8 +23,8 @@ public class DataFacadeImpl implements DataFacade {
         return  adminMapper.adminLogin(email, password);
     }
 
-    public ArrayList<DatingUser> getAllDatingUsers() {
-        return userMapper.getAllDatingUsers();
+    public ArrayList<DatingUser> getAllDatingUsers(SuperUser loginUser) {
+        return userMapper.getAllDatingUsers(loginUser);
     }
 
     public void editUser(DatingUser datingUser, String name, String email, String gender, String description) throws LoginException {

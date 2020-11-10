@@ -17,6 +17,7 @@ public abstract class SuperUser {
 
     }
 
+    public abstract int getID();
     public abstract String getRole();
     public abstract String setRole();
 

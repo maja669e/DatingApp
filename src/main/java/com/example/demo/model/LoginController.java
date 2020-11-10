@@ -38,7 +38,7 @@ public class LoginController {
         facade.deleteUser(userid);
     }
 
-    public ArrayList<DatingUser> getAllDatingUsers(){
-        return facade.getAllDatingUsers();
+    public ArrayList<DatingUser> getAllDatingUsers(SuperUser loginUser){
+        return facade.getAllDatingUsers(loginUser);
     }
 }

@@ -3,6 +3,7 @@ package com.example.demo.data;
 import com.example.demo.model.AdminUser;
 import com.example.demo.model.DatingUser;
 import com.example.demo.model.LoginException;
+import com.example.demo.model.SuperUser;
 import org.apache.tomcat.jni.Local;
 
 import java.sql.*;
@@ -103,7 +104,7 @@ public class DatingUserMapper {
     }
 
 
-    public ArrayList<DatingUser> getAllDatingUsers() {
+    public ArrayList<DatingUser> getAllDatingUsers(SuperUser loginUser) {
         ArrayList<DatingUser> datingUsers = new ArrayList<>();
         DatingUser datingUser;
 
@@ -125,20 +126,18 @@ public class DatingUserMapper {
                 String description = rs.getString("description");
                 String gender = rs.getString("gender");
                 int picture = rs.getInt("picture");
+                    if (role.equals("datinguser")) {
+                        datingUser = new DatingUser(ID, name, email, password, role, description, picture, gender);
+                        if (picture != 0) {
+                            datingUser.setPictureid(ID);
+                        }
 
-               /* String temp = rs.getString("birthdate");
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDate birthDate = LocalDate.parse(temp, formatter);*/
-
-
-                if (role.equals("datinguser")) {
-                    datingUser = new DatingUser(ID, name, email, password, role, description, picture, gender);
-                    if (picture != 0) {
-                        datingUser.setPictureid(ID);
+                        if(!(loginUser.getID() == datingUser.getID())){
+                            datingUsers.add(datingUser);
+                        }
                     }
-                    datingUsers.add(datingUser);
                 }
-            }
+
 
         } catch (SQLException ex) {
             ex.getMessage();

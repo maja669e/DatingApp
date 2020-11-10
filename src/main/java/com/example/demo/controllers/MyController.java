@@ -30,8 +30,8 @@ public class MyController {
 
     @GetMapping("/matches")
     public String matches(@RequestParam("id") int id, WebRequest request, Model model) {
-        ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers(); //allusers
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION); //session of user
+        ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers(datingUser);
 
         if (datingUser != null) {
             return "datinguserpages/matches";
@@ -43,7 +43,7 @@ public class MyController {
     public String admin(WebRequest request, Model model) {
         AdminUser adminUser = (AdminUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
 
-        ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers();
+        ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers(adminUser);
 
         model.addAttribute("datingUsers", datingUsers);
         model.addAttribute("adminUser", adminUser);
@@ -146,7 +146,7 @@ public class MyController {
         // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
         setSessionInfo(request, datingUser);
-        ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers();
+        ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers(datingUser);
 
         model.addAttribute("datingUsers", datingUsers);
 
