@@ -13,12 +13,12 @@ public abstract class SuperUser {
         this.role = role;
     }
 
-    protected SuperUser() {
+    public SuperUser(){
+
     }
 
     public abstract String getRole();
     public abstract String setRole();
-
 
     public abstract void setEmail(String email);
 }

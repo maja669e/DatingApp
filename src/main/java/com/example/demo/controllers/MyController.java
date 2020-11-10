@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.data.DataFacadeImpl;
 import com.example.demo.model.*;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -42,7 +43,6 @@ public class MyController {
         ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers();
 
         model.addAttribute("datingUsers", datingUsers);
-
         model.addAttribute("adminUser", adminUser);
 
         if (adminUser != null) {
@@ -109,7 +109,7 @@ public class MyController {
         if (password1.equals(password2)) {
             DatingUser datingUser = loginController.createDatingUser(name, email, password1, birthDate);
             setSessionInfo(request, datingUser);
-            return "/udforsk";
+            return "redirect:/udforsk";
 
         } else {
             throw new LoginException("De to kodeord passer ikke");
@@ -119,17 +119,18 @@ public class MyController {
 
 
     @GetMapping("/udforsk")
-    public String getDiscover(WebRequest request) {
+    public String getDiscover(WebRequest request, Model model) {
         // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
-
+        setSessionInfo(request,datingUser);
+        ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers();
+        model.addAttribute("datingUsers", datingUsers);
         System.out.println(datingUser);
 
         if (datingUser != null) {
             return "datinguserpages/udforsk";
         } else
             return "redirect:/";
-
     }
 
 

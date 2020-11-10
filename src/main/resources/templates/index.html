@@ -9,127 +9,22 @@
     <meta name="theme-color" content="#ffffff">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
     <th:block th:include="fragments/footer.html :: footerfiles"></th:block>
+    <link rel="apple-touch-icon" sizes="180x180" href="myIcons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="myIcons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="myIcons/favicon-16x16.png">
+    <link rel="manifest" href="myIcons/site.webmanifest">
+    <link rel="mask-icon" href="myIcons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="myIcons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="myIcons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
     <title>Log ind</title>
 
-    <style>
-        /* Full-width input fields */
-        input[type=text], input[type=password] {
-            width: 80%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-        }
-
-        /* Set a style for all buttons */
-        button {
-            background-color: #9076b3;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            cursor: pointer;
-            width: 15%;
-            border: none;
-            border-radius: 10px;
-        }
-
-        button:hover {
-            opacity: 0.8;
-        }
-
-        .container {
-            padding: 16px;
-            display: inline-block;
-            justify-content: space-between;
-        }
-
-        /* Full-width input fields */
-        input[type=text], input[type=password] {
-            width: 100%;
-            padding: 15px;
-            margin: 5px 0 22px 0;
-            display: inline-block;
-            border: none;
-            background: #f1f1f1;
-        }
-
-        /* Extra styles for the cancel button */
-        .cancelbtn {
-            padding: 14px 20px;
-            background-color: #b75851;
-        }
-
-        /* Float cancel and signup buttons and add an equal width */
-        .cancelbtn, .signupbtn {
-            width: 20%;
-        }
-
-        /* Add padding to container elements */
-        .container {
-            padding: 16px;
-        }
-
-        /* The Modal (background) */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: #9b96a3;
-            padding-top: 50px;
-            border-radius: 8px;
-        }
-
-        /* Modal Content/Box */
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-            border: 1px solid #888;
-
-        }
-
-        /* Style the horizontal ruler */
-        hr {
-            border: 1px solid #f1f1f1;
-            margin-bottom: 25px;
-        }
-
-        /* The Close Button (x) */
-        .close {
-            position: absolute;
-            right: 35px;
-            top: 15px;
-            font-size: 40px;
-            font-weight: bold;
-            color: #f1f1f1;
-        }
-
-        .close:hover,
-        .close:focus {
-            opacity: 0.7;
-            cursor: pointer;
-        }
-
-        /* Change styles for cancel button and signup button on extra small screens */
-        @media screen and (max-width: 600px) {
-            .cancelbtn, .signupbtn {
-                width: 40%;
-                margin: 3vw;
-            }
-        }
-
-
-    </style>
 </head>
 
-<body>
 
 <div id="frontpage"></div>
+
 <div id="frontpage_content">
     <h1>Velkommen til Purple Dating<img src="/images/logo.png" alt="logo" height="53px" width="44px"></h1>
     <h2>Scroll igennem en masse profiler og find dit perfekte match!</h2>
@@ -137,7 +32,7 @@
 
     <form name="login" action="/login" method="POST">
 
-        <div class="container">
+        <div class="container_logind">
             <label><b>Brugernavn</b></label>
             <br>
             <input type="text" placeholder="Indtast email" name="email" required>
@@ -147,9 +42,7 @@
             <input type="password" placeholder="Indtast kodeord" name="password" required>
             <br>
             <button style="width:auto;" type="submit">Log ind</button>
-
         </div>
-
     </form>
 
     <p>Ikke medlem endnu? Opret ret dig som bruger allerede nu.</p>
@@ -157,56 +50,48 @@
     </button>
 
     <div id="id01" class="modal">
-        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <span onclick="document.getElementById('id01').style.display='none'" class="close"
+              title="Close Modal">&times;</span>
         <div class="modal-content">
 
             <form name="register" action="/register" method="POST">
 
-                <div class="container">
+                <div class="container_register">
                     <h1>Opret bruger</h1>
                     <p>Udfyld venligst formularen.</p>
-                    <hr>
 
                     <label><b>Navn</b></label>
-                    <input type="text" placeholder="Indtast navn" name="name">
+                    <input type="text" placeholder="Indtast navn" name="name" required>
 
                     <label><b>Email</b></label>
-                    <input type="text" placeholder="Indtast email" name="email">
+                    <input type="text" placeholder="Indtast email" name="email" required>
 
                     <label><b>Fødselsdag</b></label>
-                      <input type="text" placeholder="Eks: 1998/6/6" name="birthdate">
+                    <input type="text" placeholder="Eks: 1998-6-6" name="birthdate" required>
 
                     <label><b>Kodeord</b></label>
-                    <input type="password" placeholder="Indtast kodeord" name="password1">
+                    <input type="password" placeholder="Indtast kodeord" name="password1" required>
 
                     <label><b>Gentag kodeord</b></label>
-                    <input type="password" placeholder="Gentag kodeord" name="password2">
+                    <input type="password" placeholder="Gentag kodeord" name="password2" required>
 
                     <div class="clearfix">
                         <button type="button" onclick="document.getElementById('id01').style.display='none'"
                                 class="cancelbtn">Fortryd
                         </button>
-                        <input type="submit" value="Opret"input>
+                        <button class="signupbtn" type="submit" value="Opret">Opret</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
+</div>
 
 <div th:replace="fragments/footer.html :: footer"></div>
 
-<script>
-    // Get the modal
-    var modal = document.getElementById('id01');
+<script src="script.js">
 
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
 </script>
 </body>
 </html>

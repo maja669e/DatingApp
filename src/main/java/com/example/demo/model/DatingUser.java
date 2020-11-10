@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 public class DatingUser extends SuperUser {
     private String name;
@@ -10,6 +11,7 @@ public class DatingUser extends SuperUser {
     private String gender;
     private String message;
     private int pictureid;
+    private int age;
 
     public DatingUser(String name, String email, String password, LocalDate birthdate, String role, String description, String gender, int pictureid) {
         super(email, password, role);
@@ -20,6 +22,15 @@ public class DatingUser extends SuperUser {
         this.gender = gender;
     }
 
+    public DatingUser(int ID, String name, String email, String password, String role, String description, int picture, String gender) {
+        super(email, password, role);
+        this.ID = ID;
+        this.name = name;
+        this.description = description;
+        this.pictureid = picture;
+        this.gender = gender;
+
+    }
     public DatingUser() {
     }
 
@@ -56,7 +67,7 @@ public class DatingUser extends SuperUser {
     }
 
     public int getAge() {
-        int age = Period.between(birthdate, LocalDate.now()).getYears();
+        age = Period.between(birthdate, LocalDate.now()).getYears();
         return age;
     }
 
