@@ -11,9 +11,10 @@ public class DatingUser extends SuperUser {
     private String message;
     private int pictureid;
 
-    public DatingUser(String name, String email, String password, LocalDate birthdate, String role, String description, String gender) {
+    public DatingUser(String name, String email, String password, LocalDate birthdate, String role, String description, String gender, int pictureid) {
         super(email, password, role);
         this.birthdate = birthdate;
+        this.pictureid = pictureid;
         this.name = name;
         this.description = description;
         this.gender = gender;

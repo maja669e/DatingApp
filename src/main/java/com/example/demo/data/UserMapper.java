@@ -54,7 +54,7 @@ public class UserMapper {
             if (rs.next()) {
                 String role = rs.getString("role");
                 String name = rs.getString("name");
-                int picture = rs.getInt("picture");
+                int pictureid = rs.getInt("picture");
                 String description = rs.getString("description");
                 String temp = rs.getString("birthdate");
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -62,7 +62,7 @@ public class UserMapper {
 
                 String gender = rs.getString("gender");
                 int id = rs.getInt("userid");
-                DatingUser datingUser = new DatingUser(name, email, password, birthDate, role, description, gender);
+                DatingUser datingUser = new DatingUser(name, email, password, birthDate, role, description, gender, pictureid);
                 datingUser.setID(id);
                 datingUser.setPictureid(id);
 

@@ -25,7 +25,7 @@ public class LoginController {
 
     public DatingUser createDatingUser(String name, String email, String password, LocalDate birthdate) throws LoginException {
         // By default, new users are dating users
-        DatingUser datingUser = new DatingUser(name, email, password, birthdate, "datinguser", "","");
+        DatingUser datingUser = new DatingUser(name, email, password, birthdate, "datinguser", "","",0);
         facade.createDatingUser(datingUser);
         return datingUser;
     }
