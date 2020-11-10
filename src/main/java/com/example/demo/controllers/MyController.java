@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import java.time.LocalDate;
@@ -90,10 +91,10 @@ public class MyController {
     }
 
     @PostMapping("deleteDatingUser")
-    public String delete(WebRequest request) throws LoginException {
+    public String delete(WebRequest request, RedirectAttributes redirectAttributes) throws LoginException {
         int userid = Integer.parseInt(request.getParameter("userid"));
         loginController.deleteUser(userid);
-
+        redirectAttributes.addFlashAttribute("message",  "ID nr: " + userid + " er nu slettet");
         return "redirect:/admin";
     }
 
