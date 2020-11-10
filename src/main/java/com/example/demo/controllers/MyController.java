@@ -88,6 +88,15 @@ public class MyController {
         return "redirect:/profil";
     }
 
+    @PostMapping("deleteDatingUser")
+    public String delete(WebRequest request) throws LoginException {
+        //String userid = request.getParameter("userid");
+        //int temp = Integer.parseInt(userid);
+        loginController.deleteUser(15);
+
+        return "redirect:/admin";
+    }
+
     @PostMapping("/login")
     public String loginUser(WebRequest request) throws LoginException {
         //Retrieve values from HTML form via WebRequest

@@ -88,40 +88,20 @@ public class DatingUserMapper {
         }
     }
 
-/*
-    public DatingUser getDatingUser(int id) throws LoginException {
+    public void deleteUser(int userid) throws LoginException {
         try {
             Connection con = DBManager.getConnection();
-            String SQL = "SELECT * FROM users " + "WHERE userid=?";
+            String SQL = "DELETE FROM users WHERE userid = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-
-            if(rs.next()){
-                String role = rs.getString("role");
-                String email = rs.getString("email");
-                String password = rs.getString("password");
-                String name = rs.getString("name");
-                int pictureid = rs.getInt("picture");
-                String description = rs.getString("description");
-
-                String temp = rs.getString("birthdate");
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDate birthDate = LocalDate.parse(temp, formatter);
-
-                String gender = rs.getString("gender");
-                id = rs.getInt("userid");
-                DatingUser datingUser = new DatingUser(name, email, password, birthDate, role, description, gender, pictureid);
-                datingUser.setID(id);
-                datingUser.setPictureid(id);
-                return datingUser;
-            }
+            ps.setInt(1, userid);
+            ps.executeUpdate();
 
         } catch (SQLException ex) {
             throw new LoginException(ex.getMessage());
         }
     }
- */
+
+
 
     public ArrayList<DatingUser> getAllDatingUsers() {
         ArrayList<DatingUser> datingUsers = new ArrayList<>();

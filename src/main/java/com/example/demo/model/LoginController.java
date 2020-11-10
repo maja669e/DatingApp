@@ -34,6 +34,10 @@ public class LoginController {
        facade.editUser(datingUser, name,email,gender,description);
     }
 
+    public void deleteUser(int userid) throws LoginException{
+        facade.deleteUser(userid);
+    }
+
     public ArrayList<DatingUser> getAllDatingUsers(){
         return facade.getAllDatingUsers();
     }

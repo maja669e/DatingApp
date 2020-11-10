@@ -9,6 +9,7 @@ public interface DataFacade {
     public AdminUser adminLogin(String email, String password) throws LoginException;
     public ArrayList<DatingUser> getAllDatingUsers();
     public void editUser(DatingUser datingUser,String name, String email, String gender, String description) throws LoginException;
+    public void deleteUser(int userid) throws LoginException;
 }
 
 
