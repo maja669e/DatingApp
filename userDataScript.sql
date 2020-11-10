@@ -16,3 +16,17 @@ INSERT INTO `datingapp`.`users` (`email`,`password`,`name`,`birthdate`, `descrip
 INSERT INTO `datingapp`.`users` (`email`,`password`,`name`,`birthdate`, `description`, `gender`, `picture`) VALUES ('test12@gmail.com', '1','Anna', '1986-01-02', 'bla bla bla bla', 'Kvinde', '12');
 INSERT INTO `datingapp`.`users` (`email`,`password`,`name`,`birthdate`, `description`, `gender`, `picture`) VALUES ('test13@gmail.com', '1','Kamilla', '1993-11-02', 'bla bla bla bla', 'Kvinde', '13');
 INSERT INTO `datingapp`.`users` (`email`,`password`,`name`,`birthdate`, `description`, `gender`, `picture`) VALUES ('test14@gmail.com', '1','Ludwig', '1986-01-17', 'bla bla bla bla', 'Mand', '14');
+-- -----------------------------------------------------
+-- messages data
+-- -----------------------------------------------------
+INSERT INTO `datingapp`.`messages` (`senderid`, `receiveid`, `message`) VALUES ('2', '12', 'bla bla bla bla bla ');
+INSERT INTO `datingapp`.`messages` (`senderid`, `receiveid`, `message`) VALUES ('3', '11', 'bla bla bla bla bla ');
+INSERT INTO `datingapp`.`messages` (`senderid`, `receiveid`, `message`) VALUES ('4', '10', 'bla bla bla bla bla ');
+INSERT INTO `datingapp`.`messages` (`senderid`, `receiveid`, `message`) VALUES ('5', '9', 'bla bla bla bla bla ');
+INSERT INTO `datingapp`.`messages` (`senderid`, `receiveid`, `message`) VALUES ('6', '8', 'bla bla bla bla bla ');
+INSERT INTO `datingapp`.`messages` (`senderid`, `receiveid`, `message`) VALUES ('7', '7', 'bla bla bla bla bla ');
+INSERT INTO `datingapp`.`messages` (`senderid`, `receiveid`, `message`) VALUES ('8', '6', 'bla bla bla bla bla ');
+INSERT INTO `datingapp`.`messages` (`senderid`, `receiveid`, `message`) VALUES ('9', '5', 'bla bla bla bla bla ');
+INSERT INTO `datingapp`.`messages` (`senderid`, `receiveid`, `message`) VALUES ('10', '4', 'bla bla bla bla bla ');
+INSERT INTO `datingapp`.`messages` (`senderid`, `receiveid`, `message`) VALUES ('11', '3', 'bla bla bla bla bla ');
+INSERT INTO `datingapp`.`messages` (`senderid`, `receiveid`, `message`) VALUES ('12', '2', 'bla bla bla bla bla ');

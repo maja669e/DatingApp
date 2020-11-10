@@ -25,16 +25,15 @@ CREATE TABLE IF NOT EXISTS `datingapp`.`users` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `datingapp`.`messages` (
   `messageid` INT NOT NULL AUTO_INCREMENT,
-  `userid` INT NOT NULL,
+  `senderid` INT NOT NULL,
   `receiveid` INT NOT NULL,
   `message` VARCHAR(200) NULL DEFAULT NULL,
   PRIMARY KEY (`messageid`),
   UNIQUE INDEX `messageid_UNIQUE` (`messageid` ASC) VISIBLE,
-  UNIQUE INDEX `userid_UNIQUE` (`userid` ASC) VISIBLE,
   INDEX `receiveid_idx` (`receiveid` ASC) VISIBLE,
   CONSTRAINT `receiveid`
     FOREIGN KEY (`receiveid`)
     REFERENCES `datingapp`.`users` (`userid`),
   CONSTRAINT `userid`
-    FOREIGN KEY (`userid`)
+    FOREIGN KEY (`senderid`)
     REFERENCES `datingapp`.`users` (`userid`))
