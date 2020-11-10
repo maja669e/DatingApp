@@ -149,7 +149,7 @@ header {
 }
 
 /* Set a style for all buttons */
-button {
+.btnlogin, .cancelbtn, .signupbtn, .btnopret {
     background-color: #9076b3;
     color: white;
     padding: 14px 20px;
@@ -292,6 +292,42 @@ tr:nth-child(odd) {
     font-style: italic;
 }
 
+.alert{
+    color: transparent;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 0.2vw;
+    border-radius: 15px;
+    position: relative;
+    animation-name: example;
+    animation-duration: 6s;
+}
+.alert p {
+    margin: 1vw;
+}
+@keyframes example {
+    0% {
+        color: white;
+        left: -700px;
+        background-color: #b75851;
+    }
+    40% {
+        color: white;
+        left: 0;
+        background-color: #b75851;
+    }
+    90%{
+        color: white;
+        background-color: #b75851;
+        opacity: 1;
+    }
+
+    100%{
+        opacity: 0;
+        color: transparent;
+    }
+}
+
 
 /*-------Button-----*/
 .button1 {
@@ -307,8 +343,8 @@ tr:nth-child(odd) {
 }
 
 .button1:hover {
-    opacity: 0.8;
     cursor: pointer;
+    opacity: 0.7;
 }
 
 
@@ -351,18 +387,13 @@ tr:nth-child(odd) {
     justify-content: space-between;
 }
 
-.buttonsUdforsk button {
+.buttonsUdforsk .likebtn, .buttonsUdforsk .picsbtn {
     border: none;
     padding: 0.5vw;
     margin: 1vw;
     color: white;
     border-radius: 15px;
     width: 35%;
-}
-
-.buttonsUdforsk button:hover {
-    cursor: pointer;
-    opacity: 0.7;
 }
 
 .likebtn {
@@ -443,7 +474,7 @@ a.fa-twitter:before {
 /*-------Footer slut-----*/
 
 /*-------Buttons-----*/
-.button {
+.buttonrediger {
     background-color: #9076b3;
     color: white;
     text-align: center;
@@ -455,22 +486,39 @@ a.fa-twitter:before {
     font-size: 12px;
     margin: 0 auto;
     display: block;
+    justify-content: center;
 }
 
-.button:hover {
+.buttonrediger:hover {
     opacity: 0.8;
 }
 
 .image1 img {
-    border: 2px solid #000000;
     display: block;
     margin: 0 auto;
+    border: inherit;
+    box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.09);
 }
 
 .centerText p {
     margin-left: auto;
     margin-right: auto;
     width: 300px;
+}
+
+
+/*-------Rediger--------*/
+.centerText_rediger {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.inputfelt {
+    border-radius: 15px;
+    border: none;
+    box-shadow: 2px 4px 4px 1px rgba(0, 0, 0, 0.1);
+    padding: 1vw;
 }
 
 /*-------Media queries-------*/
@@ -535,7 +583,7 @@ a.fa-twitter:before {
         height: 40vw;
     }
 
-    #buttonsUdforsk button {
+    .buttonsUdforsk .likebtn, .buttonsUdforsk .picsbtn {
         padding: 1.4vw;
     }
 

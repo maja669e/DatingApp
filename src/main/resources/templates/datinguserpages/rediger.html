@@ -25,16 +25,16 @@
 
 <h1>Rediger profil</h1>
 <hr>
-<div class="centerText">
+<div class="centerText_rediger">
     <form th:action="@{/redigeretprofil}" method="post">
-        <p>Mail: <input type="text" th:field="${datingUser.email}" name="email"/></p>
-        <p>First Name: <input type="text" th:field="${datingUser.name}" name="name"/></p>
-        <p>Beskrivelse: <textarea id="myTextArea"
-                                  rows="3"
-                                  cols="80" th:field="${datingUser.description}"></textarea>
+        <p>Mail: <br><input class="inputfelt" type="text" th:field="${datingUser.email}" name="email"/></p>
+        <p>First Name: <br><input class="inputfelt" type="text" th:field="${datingUser.name}" name="name"/></p>
+        <p>Beskrivelse:<br> <textarea class="inputfelt" id="myTextArea"
+                                  rows="4"
+                                  cols="60" th:field="${datingUser.description}"></textarea>
         </p>
-        <p>Køn: <input type="text" th:field="${datingUser.gender}" name="gender"/></p>
-        <input type="submit" value="rediger profil" class="btn btn-create"/>
+        <p>Køn:<br> <input class="inputfelt" type="text" th:field="${datingUser.gender}" name="gender"/></p>
+        <input class="buttonrediger" type="submit" value="Bekræft"/>
     </form>
 </div>
 <div th:replace="fragments/footer.html :: footer"></div>

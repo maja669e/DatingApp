@@ -20,7 +20,6 @@
     <meta name="msapplication-config" content="myIcons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
     <title>Admin</title>
-
 </head>
 
 <body>
@@ -48,6 +47,11 @@
 
 <p class="adminlog">Logget ind som: <span th:text="${adminUser.email}"></span></p>
 
+<div th:if="${message}" class="alert">
+    <p th:text="${message}"></p>
+</div>
+
+
 <table style="width: 80%">
 
     <tr>
@@ -58,14 +62,14 @@
     </tr>
 
     <form th:action="@{/deleteDatingUser}" method="post">
-    <tr th:each="datingUser:${datingUsers}">
-        <td th:text="${datingUser.ID}"></td>
-        <td th:text="${datingUser.name}"></td>
-        <td th:text="${datingUser.email}"></td>
-        <td>
-            <button th:name="userid" th:value="${datingUser.ID}" type="submit" class="button1"> <img src="/images/trashcan.png" alt="trash" width="19px" height="20px"></button>
-        </td>
-    </tr>
+        <tr th:each="datingUser:${datingUsers}">
+            <td th:text="${datingUser.ID}"></td>
+            <td th:text="${datingUser.name}"></td>
+            <td th:text="${datingUser.email}"></td>
+            <td>
+                <button th:name="userid" th:value="${datingUser.ID}" type="submit" class="button1"> <img src="/images/trashcan.png" alt="trash" width="19px" height="20px"></button>
+            </td>
+        </tr>
     </form>
 
 
