@@ -15,6 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Objects;
 
 @Controller
 public class MyController {
@@ -90,9 +91,8 @@ public class MyController {
 
     @PostMapping("deleteDatingUser")
     public String delete(WebRequest request) throws LoginException {
-        //String userid = request.getParameter("userid");
-        //int temp = Integer.parseInt(userid);
-        loginController.deleteUser(15);
+        int userid = Integer.parseInt(request.getParameter("userid"));
+        loginController.deleteUser(userid);
 
         return "redirect:/admin";
     }
