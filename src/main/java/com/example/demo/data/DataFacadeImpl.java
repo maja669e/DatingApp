@@ -9,7 +9,8 @@ import java.util.ArrayList;
 
 
 public class DataFacadeImpl implements DataFacade {
-    private UserMapper userMapper = new UserMapper();
+    private DatingUserMapper userMapper = new DatingUserMapper();
+    private AdminUserMapper adminMapper =new AdminUserMapper();
 
     public DatingUser datingLogin(String email, String password) throws LoginException {
         return userMapper.datingLogin(email, password);
@@ -22,7 +23,7 @@ public class DataFacadeImpl implements DataFacade {
 
 
     public AdminUser adminLogin(String email, String password) throws LoginException {
-        return userMapper.adminLogin(email, password);
+        return  adminMapper.adminLogin(email, password);
     }
 
     public ArrayList<DatingUser> getAllDatingUsers() {

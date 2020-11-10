@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class UserMapper {
+public class DatingUserMapper {
 
     public void createDatingUser(DatingUser datingUser) throws LoginException {
         try {
@@ -62,29 +62,6 @@ public class UserMapper {
 
                 return datingUser;
 
-            } else {
-                throw new LoginException("Kan ikke valider bruger - prøv igen");
-            }
-        } catch (SQLException ex) {
-            throw new LoginException(ex.getMessage());
-        }
-    }
-
-    public AdminUser adminLogin(String email, String password) throws LoginException {
-        try {
-            Connection con = DBManager.getConnection();
-            String SQL = "SELECT userid, role FROM users "
-                    + "WHERE email=? AND password=?";
-            PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setString(1, email);
-            ps.setString(2, password);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                String role = rs.getString("role");
-                int id = rs.getInt("userid");
-                AdminUser adminUser = new AdminUser(email, password, role);
-                adminUser.setID(id);
-                return adminUser;
             } else {
                 throw new LoginException("Kan ikke valider bruger - prøv igen");
             }
