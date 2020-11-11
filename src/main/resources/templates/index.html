@@ -19,9 +19,8 @@
     <meta name="msapplication-config" content="myIcons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
     <title>Log ind</title>
-
 </head>
-
+<body>
 
 <div id="frontpage"></div>
 
@@ -29,6 +28,9 @@
     <h1>Velkommen til Purple Dating<img src="/images/logo.png" alt="logo" height="53px" width="44px"></h1>
     <h2>Scroll igennem en masse profiler og find dit perfekte match!</h2>
 
+    <div th:if="${message}" class="fejl">
+        <p th:text="${message}"></p>
+    </div>
 
     <form name="login" action="/login" method="POST">
 
@@ -41,12 +43,12 @@
             <br>
             <input type="password" placeholder="Indtast kodeord" name="password" required>
             <br>
-            <button style="width:auto;" type="submit">Log ind</button>
+            <button class="btnlogin" style="width:auto;" type="submit">Log ind</button>
         </div>
     </form>
 
     <p>Ikke medlem endnu? Opret ret dig som bruger allerede nu.</p>
-    <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Opret bruger
+    <button  class="btnopret" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Opret bruger
     </button>
 
     <div id="id01" class="modal">
@@ -86,7 +88,7 @@
         </div>
     </div>
 </div>
-</div>
+
 
 <div th:replace="fragments/footer.html :: footer"></div>
 

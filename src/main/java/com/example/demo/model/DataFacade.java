@@ -10,7 +10,7 @@ public interface DataFacade {
     public ArrayList<DatingUser> getAllDatingUsers(SuperUser loginUser);
     public void editUser(DatingUser datingUser,String name, String email, String gender, String description) throws LoginException;
     public void deleteUser(int userid) throws LoginException;
-    public DatingUser updateDatingUser(DatingUser datingUser);
+    public DatingUser updateDatingUser(DatingUser datingUser, int userid);
 }
 
 
