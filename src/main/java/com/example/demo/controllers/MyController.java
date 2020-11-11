@@ -24,8 +24,10 @@ public class MyController {
     //use case controller (GRASP Controller) - injects concrete facade instance into controller
     private LoginController loginController = new LoginController(new DataFacadeImpl());
 
+    @ExceptionHandler(LoginException.class)
     @GetMapping("/")
-    public String login() {
+    public String login(Model model, Exception exception) {
+        model.addAttribute("message", exception.getMessage());
         return "index";
     }
 
@@ -165,10 +167,10 @@ public class MyController {
     }
 
 
-    @ExceptionHandler(LoginException.class)
+   /* @ExceptionHandler(LoginException.class)
     @PostMapping("/fejlside")
     public String anotherError(Model model, Exception exception) {
         model.addAttribute("message", exception.getMessage());
         return "/fejlside";
-    }
+    }*/
 }
