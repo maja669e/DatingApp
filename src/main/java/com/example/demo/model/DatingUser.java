@@ -31,23 +31,6 @@ public class DatingUser extends SuperUser {
         this.gender = gender;
 
     }
-    public DatingUser() {
-    }
-
-    public DatingUser(String name, String email, String password, String role) {
-        super(email, password, role);
-        this.name = name;
-    }
-
-    public DatingUser(String email, String password, String role) {
-        super(email, password, role);
-    }
-
-    public DatingUser(int ID, String email, String name) {
-        this.ID = ID;
-        this.email = email;
-        this.name = name;
-    }
 
     public int getPictureid() {
         return pictureid;
@@ -117,21 +100,6 @@ public class DatingUser extends SuperUser {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-    //used for testing
-
-    @Override
-    public String toString() {
-        return "DatingUser{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", birthdate=" + birthdate +
-                ", gender='" + gender + '\'' +
-                ", ID=" + ID +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                '}';
     }
 
     @Override

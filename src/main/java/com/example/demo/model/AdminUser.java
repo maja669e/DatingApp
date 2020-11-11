@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 public class AdminUser extends SuperUser {
+    
     public AdminUser(String email, String password, String role) {
         super(email, password, role);
     }
@@ -32,13 +33,4 @@ public class AdminUser extends SuperUser {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "AdminUser{" +
-                "ID=" + ID +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                '}';
-    }
 }

@@ -89,10 +89,7 @@ public class MyController {
 
         model.addAttribute("datingUser", updatedDatingUser);
 
-        if (updatedDatingUser != null) {
-            return "datinguserpages/profil";
-        } else
-            return "redirect:/";
+        return "datinguserpages/profil";
 
     }
 
