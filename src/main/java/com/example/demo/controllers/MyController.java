@@ -126,6 +126,7 @@ public class MyController {
         if (!email.equals("admin@gmail.com")) {
             DatingUser datingUser = loginController.datingLogin(email, password);
             setSessionInfo(request, datingUser);
+            CandidateList.getCandidates().clear();
             return "redirect:/udforsk";
         } else {
             AdminUser adminUser = loginController.adminLogin(email, password);
@@ -169,7 +170,7 @@ public class MyController {
         ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers(datingUser);
 
         model.addAttribute("datingUsers", datingUsers);
-        
+
         if (datingUser != null) {
             return "datinguserpages/udforsk";
         } else
