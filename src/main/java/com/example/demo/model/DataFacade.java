@@ -11,6 +11,7 @@ public interface DataFacade {
     public void editUser(DatingUser datingUser,String name, String email, String gender, String description) throws LoginException;
     public void deleteUser(int userid) throws LoginException;
     public DatingUser updateDatingUser(int userid);
+    public void sendMessage(String message, int senderid, int receiveid);
 }
 
 

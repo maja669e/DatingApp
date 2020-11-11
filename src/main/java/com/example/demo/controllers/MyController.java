@@ -176,7 +176,6 @@ public class MyController {
     public String getDiscover(WebRequest request, Model model) {
         // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
-        //setSessionInfo(request, datingUser);
         ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers(datingUser);
 
         model.addAttribute("datingUsers", datingUsers);
@@ -188,10 +187,15 @@ public class MyController {
     }
 
     @PostMapping("sendMessage")
-    public String sendMessage(WebRequest request, Model model) {
+    public String sendMessage(WebRequest request) {
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        String message = request.getParameter("message");
+        int candidateid = Integer.parseInt(request.getParameter("candidateid"));
+        System.out.println(candidateid);
 
-        return "redirect:/beskeder";
+        loginController.sendMessage(message,datingUser.getID(),candidateid);
+
+        return "redirect:/matches";
 
     }
 
@@ -200,16 +204,13 @@ public class MyController {
     @GetMapping("/beskeder")
     public String messages(WebRequest request, Model model) {
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
-        int userid = Integer.parseInt(request.getParameter("userid"));
-        model.addAttribute("datingUser", datingUser);
 
+        int candidateid = Integer.parseInt(request.getParameter("candidateid"));
         ArrayList<DatingUser> candidates = CandidateList.getCandidates();
+        DatingUser candidate = CandidateList.getCandidate(candidates, candidateid);
 
-        DatingUser candidate = CandidateList.getCandidate(candidates, userid);
-
+        model.addAttribute("datingUser", datingUser);
         model.addAttribute("candidate", candidate);
-        System.out.println(userid);
-        System.out.println(candidate);
 
         if (datingUser != null) {
             return "datinguserpages/beskeder";

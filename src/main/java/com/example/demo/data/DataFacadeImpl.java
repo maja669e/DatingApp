@@ -38,4 +38,8 @@ public class DataFacadeImpl implements DataFacade {
     public DatingUser updateDatingUser(int userid){
         return userMapper.updateDatingUser(userid);
     }
+
+    public void sendMessage(String message, int senderid, int receiveid){
+        userMapper.sendMessage(message,senderid,receiveid);
+    }
 }

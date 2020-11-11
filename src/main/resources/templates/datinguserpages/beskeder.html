@@ -29,17 +29,17 @@
 <hr>
 
 <div class="centerText_rediger">
+    <form th:action="@{/sendMessage}" method="post">
+        <p>Modtager: <br><input class="inputfelt" type="text" th:field="${candidate.name}" name="candidateName"/></p>
+        <p>Besked:<br> <textarea class="inputfelt" id="myTextArea"
+                                 rows="4"
+                                 cols="60" th:field="${datingUser.message}" name="message"></textarea>
+        </p>
 
-
-  <p>Modtager: <br><input class="inputfelt" type="text" th:field="${candidate.ID}" name="userid"/></p>
-    <p>Besked:<br> <textarea class="inputfelt" id="myTextArea"
-                             rows="4"
-                             cols="60" th:field="${datingUser.message}"></textarea>
-    </p>
-
-    <div class="buttonsUdforsk">
-        <button class="picsbtn" type="submit">Send</button>
-    </div>
+        <div class="buttonsUdforsk">
+            <button th:name="candidateid" th:value="${candidate.ID}" class="picsbtn" type="submit">Send</button>
+        </div>
+    </form>
 </div>
 
 

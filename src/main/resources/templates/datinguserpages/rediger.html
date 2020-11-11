@@ -31,7 +31,7 @@
         <p>Navn: <br><input class="inputfelt" type="text" th:field="${datingUser.name}" name="name"/></p>
         <p>Beskrivelse:<br> <textarea class="inputfelt" id="myTextArea"
                                   rows="4"
-                                  cols="60" th:field="${datingUser.description}"></textarea>
+                                  cols="60" th:field="${datingUser.description}" name="description"></textarea>
         </p>
         <p>Køn:<br> <input class="inputfelt" type="text" th:field="${datingUser.gender}" name="gender"/></p>
         <input class="buttonrediger" type="submit" value="Bekræft"/>

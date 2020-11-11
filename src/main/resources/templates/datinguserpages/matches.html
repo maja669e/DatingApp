@@ -26,25 +26,25 @@
 <h1>Matches</h1>
 <hr>
 
-    <div class="row">
-        <div class="column" th:each="candidate:${candidates}">
-            <img th:src="@{${'/images/' + candidate.pictureid + '.jpg'}}" alt="blank profile">
-            <p>Navn: <span th:text="${candidate.name}"></span></p>
-            <!-- <p>Fødselsdag:<span th:text="${datingUser.age}"></span></p>-->
-            <p>Køn: <span th:text="${candidate.gender}"></span></p>
-            <p>Om mig: <span th:text="${candidate.description}"></span></p>
+<div class="row">
+    <div class="column" th:each="candidate:${candidates}">
+        <img th:src="@{${'/images/' + candidate.pictureid + '.jpg'}}" alt="blank profile">
+        <p>Navn: <span th:text="${candidate.name}"></span></p>
+        <!-- <p>Fødselsdag:<span th:text="${datingUser.age}"></span></p>-->
+        <p>Køn: <span th:text="${candidate.gender}"></span></p>
+        <p>Om mig: <span th:text="${candidate.description}"></span></p>
 
 
-            <div class="buttonsUdforsk">
-                <form th:action="@{/sendMessage}" method="post" >
-               <button th:name="userid" th:value="${candidate.message}" class="likebtn" type="submit">Send besked
-               </button></form>
-                <form th:action="@{/removeCandidate}" method="post">
+        <div class="buttonsUdforsk">
+            <form th:action="@{/beskeder}" method="get">
+                <button th:name="candidateid" th:value="${candidate.ID}" class="likebtn" type="submit">Send besked</button>
+            </form>
+            <form th:action="@{/removeCandidate}" method="post">
                 <button th:name="candidateid" th:value="${candidate.ID}" class="picsbtn" type="submit">Fjern match</button>
-                </form>
-            </div>
+            </form>
         </div>
     </div>
+</div>
 
 
 <div th:replace="fragments/footer.html :: footer"></div>

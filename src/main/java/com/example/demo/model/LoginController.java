@@ -45,4 +45,8 @@ public class LoginController {
     public DatingUser updateDatingUser(int userid){
         return facade.updateDatingUser(userid);
     }
+
+    public void sendMessage(String message, int senderid, int receiveid){
+        facade.sendMessage(message,senderid,receiveid);
+    }
 }

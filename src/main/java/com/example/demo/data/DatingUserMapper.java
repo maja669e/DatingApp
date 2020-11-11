@@ -194,18 +194,21 @@ public class DatingUserMapper {
         return updated;
     }
 
-    public void sendMessage(String message, DatingUser datingUser) throws LoginException {
+    public void sendMessage(String message, int senderid, int receiveid){
         try {
             Connection con = DBManager.getConnection();
-            String SQL = "INSERT INTO message (message) VALUES (?)";
+            String SQL = "INSERT INTO messages (senderid, receiveid, message) VALUES (?,?,?)";
             PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setString(1, datingUser.setMessage(message + "/from: " + datingUser));
+            ps.setInt(1,senderid);
+            ps.setInt(2,receiveid);
+            ps.setString(3, message);
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            throw new LoginException(ex.getMessage());
+            System.out.println("Kunne ikke sende besked");
         }
     }
+
 }
 
 
