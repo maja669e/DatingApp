@@ -56,6 +56,16 @@ public class MyController {
         return "redirect:/udforsk";
     }
 
+    @PostMapping("removeCandidate")
+    public String removeCandidate(WebRequest request) {
+        int candidateid = Integer.parseInt(request.getParameter("candidateid"));
+
+        ArrayList<DatingUser> candidates = CandidateList.getCandidates();
+        CandidateList.removeCandidate(candidates, candidateid);
+
+        return "redirect:/matches";
+    }
+
     @GetMapping("/admin")
     public String admin(WebRequest request, Model model) {
         AdminUser adminUser = (AdminUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);

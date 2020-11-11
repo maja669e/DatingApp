@@ -6,8 +6,14 @@ public class CandidateList {
 
     static ArrayList<DatingUser> candidates = new ArrayList<>();
 
-    public void removeCandidate(int candidateNumber) {
-        candidates.remove(candidateNumber);
+    public static boolean removeCandidate(ArrayList<DatingUser> candidates, int candidateNumber) {
+        for (DatingUser datingUser : candidates) {
+            if(datingUser.getID() == candidateNumber){
+                candidates.remove(datingUser);
+                return true;
+            }
+        }
+        return false;
     }
 
     public static boolean addCandidate(ArrayList<DatingUser> datingUsers, int id){
