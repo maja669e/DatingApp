@@ -34,6 +34,11 @@ public class DatingUser extends SuperUser {
     public DatingUser() {
     }
 
+    @Override
+    public CandidateList getCandidateList() {
+        return candidateList;
+    }
+
     public DatingUser(String name, String email, String password, String role) {
         super(email, password, role);
         this.name = name;

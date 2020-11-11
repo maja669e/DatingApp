@@ -86,7 +86,7 @@ public class DatingUserMapper {
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            throw new LoginException(ex.getMessage());
+            throw new LoginException("Kunne ikke redigere brugeren");
         }
     }
 
@@ -109,7 +109,7 @@ public class DatingUserMapper {
             ps2.executeUpdate();
 
         } catch (SQLException ex) {
-            throw new LoginException(ex.getMessage());
+            throw new LoginException("Kunne ikke slette brugeren fra admin login");
         }
     }
 
@@ -149,7 +149,7 @@ public class DatingUserMapper {
 
 
         } catch (SQLException ex) {
-            ex.getMessage();
+            System.out.println("Kunne ikke finde brugere");
         }
         return datingUsers;
     }
@@ -189,7 +189,7 @@ public class DatingUserMapper {
                 }
             }
         } catch (SQLException ex) {
-            ex.getMessage();
+            System.out.println("Kunne ikke opdater bruger");
         }
         return updated;
     }

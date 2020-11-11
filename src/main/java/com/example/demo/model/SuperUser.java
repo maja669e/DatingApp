@@ -6,6 +6,7 @@ public abstract class SuperUser {
     protected String email;
     protected String password;
     protected String role;
+    protected CandidateList candidateList;
 
     public SuperUser(String email, String password, String role) {
         this.email = email;
@@ -17,6 +18,7 @@ public abstract class SuperUser {
 
     }
 
+    public abstract CandidateList getCandidateList();
     public abstract int getID();
     public abstract String getRole();
     public abstract String setRole();

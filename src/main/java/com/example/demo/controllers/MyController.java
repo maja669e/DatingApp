@@ -34,12 +34,31 @@ public class MyController {
     @GetMapping("/matches")
     public String matches(@RequestParam("id") int id, WebRequest request, Model model) {
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION); //session of user
-        ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers(datingUser);
+        //ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers(datingUser);
+        CandidateList candidateList = new CandidateList();
+        ArrayList<DatingUser> candidates = candidateList.getCandidates();
 
+        model.addAttribute("candidates", candidates);
+        model.addAttribute("datingUser", datingUser);
         if (datingUser != null) {
             return "datinguserpages/matches";
         } else
             return "redirect:/";
+    }
+
+    @PostMapping("addToCandidates")
+    public String addToCandidates(WebRequest request) {
+        DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        int userid = Integer.parseInt(request.getParameter("userid"));
+        System.out.println(userid);
+        CandidateList candidateList = (CandidateList) request.getAttribute("candidateList", WebRequest.SCOPE_SESSION);
+
+        ArrayList<DatingUser> candidates = loginController.getAllDatingUsers(datingUser);
+        candidateList.addCandidate(candidates, userid);
+        System.out.println(candidates);
+        System.out.println(candidateList.getCandidates());
+
+        return "redirect:/udforsk";
     }
 
     @GetMapping("/admin")
@@ -82,10 +101,7 @@ public class MyController {
 
         model.addAttribute("datingUser", updatedDatingUser);
 
-        if (datingUser != null) {
-            return "datinguserpages/rediger";
-        } else
-            return "redirect:/";
+        return "datinguserpages/rediger";
     }
 
     @PostMapping("redigeretprofil")
@@ -104,7 +120,7 @@ public class MyController {
     public String delete(WebRequest request, RedirectAttributes redirectAttributes) throws LoginException {
         int userid = Integer.parseInt(request.getParameter("userid"));
         loginController.deleteUser(userid);
-        redirectAttributes.addFlashAttribute("message",  "ID nr: " + userid + " er nu slettet");
+        redirectAttributes.addFlashAttribute("message", "ID nr: " + userid + " er nu slettet");
         return "redirect:/admin";
     }
 
@@ -172,13 +188,6 @@ public class MyController {
     private void setSessionInfo(WebRequest request, SuperUser user) {
         request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
         request.setAttribute("role", user.getRole(), WebRequest.SCOPE_SESSION);
+        request.setAttribute("candidateList",user.getCandidateList(), WebRequest.SCOPE_SESSION);
     }
-
-
-   /* @ExceptionHandler(LoginException.class)
-    @PostMapping("/fejlside")
-    public String anotherError(Model model, Exception exception) {
-        model.addAttribute("message", exception.getMessage());
-        return "/fejlside";
-    }*/
 }
