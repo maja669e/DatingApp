@@ -32,11 +32,10 @@ public class MyController {
     }
 
     @GetMapping("/matches")
-    public String matches(@RequestParam("id") int id, WebRequest request, Model model) {
+    public String matches(WebRequest request, Model model) {
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION); //session of user
-        //ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers(datingUser);
-        CandidateList candidateList = new CandidateList();
-        ArrayList<DatingUser> candidates = candidateList.getCandidates();
+
+        ArrayList<DatingUser> candidates = CandidateList.getCandidates();
 
         model.addAttribute("candidates", candidates);
         model.addAttribute("datingUser", datingUser);
@@ -50,13 +49,9 @@ public class MyController {
     public String addToCandidates(WebRequest request) {
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
         int userid = Integer.parseInt(request.getParameter("userid"));
-        System.out.println(userid);
-        CandidateList candidateList = (CandidateList) request.getAttribute("candidateList", WebRequest.SCOPE_SESSION);
 
         ArrayList<DatingUser> candidates = loginController.getAllDatingUsers(datingUser);
-        candidateList.addCandidate(candidates, userid);
-        System.out.println(candidates);
-        System.out.println(candidateList.getCandidates());
+        CandidateList.addCandidate(candidates, userid);
 
         return "redirect:/udforsk";
     }
@@ -81,11 +76,10 @@ public class MyController {
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
 
         DatingUser updatedDatingUser = loginController.updateDatingUser(datingUser.getID());
-        System.out.println(updatedDatingUser);
 
         model.addAttribute("datingUser", updatedDatingUser);
 
-        if (datingUser != null) {
+        if (updatedDatingUser != null) {
             return "datinguserpages/profil";
         } else
             return "redirect:/";
@@ -97,7 +91,6 @@ public class MyController {
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
 
         DatingUser updatedDatingUser = loginController.updateDatingUser(datingUser.getID());
-        System.out.println(updatedDatingUser);
 
         model.addAttribute("datingUser", updatedDatingUser);
 
@@ -172,12 +165,11 @@ public class MyController {
     public String getDiscover(WebRequest request, Model model) {
         // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
-        setSessionInfo(request, datingUser);
+        //setSessionInfo(request, datingUser);
         ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers(datingUser);
 
         model.addAttribute("datingUsers", datingUsers);
-
-
+        
         if (datingUser != null) {
             return "datinguserpages/udforsk";
         } else
@@ -188,6 +180,5 @@ public class MyController {
     private void setSessionInfo(WebRequest request, SuperUser user) {
         request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
         request.setAttribute("role", user.getRole(), WebRequest.SCOPE_SESSION);
-        request.setAttribute("candidateList",user.getCandidateList(), WebRequest.SCOPE_SESSION);
     }
 }

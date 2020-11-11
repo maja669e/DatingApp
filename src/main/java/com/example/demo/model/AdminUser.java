@@ -5,11 +5,6 @@ public class AdminUser extends SuperUser {
         super(email, password, role);
     }
 
-    @Override
-    public CandidateList getCandidateList() {
-        return candidateList;
-    }
-
     public String getEmail(){
         return email;
     }

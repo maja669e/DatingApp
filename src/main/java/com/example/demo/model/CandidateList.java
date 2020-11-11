@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class CandidateList {
 
-    ArrayList<DatingUser> candidates = new ArrayList<>();
+    static ArrayList<DatingUser> candidates = new ArrayList<>();
 
     public void removeCandidate(int candidateNumber) {
         candidates.remove(candidateNumber);
     }
 
-    public boolean addCandidate(ArrayList<DatingUser> datingUsers, int id){
+    public static boolean addCandidate(ArrayList<DatingUser> datingUsers, int id){
         for (DatingUser datingUser : datingUsers) {
             if(datingUser.getID() == id){
                 candidates.add(datingUser);
@@ -20,7 +20,7 @@ public class CandidateList {
         return false;
     }
 
-    public ArrayList<DatingUser> getCandidates() {
+    public static ArrayList<DatingUser> getCandidates() {
         return candidates;
     }
 
