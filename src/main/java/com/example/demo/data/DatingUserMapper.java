@@ -93,16 +93,25 @@ public class DatingUserMapper {
     public void deleteUser(int userid) throws LoginException {
         try {
             Connection con = DBManager.getConnection();
-            String SQL = "DELETE FROM users WHERE userid = ?";
+            String SQL = "DELETE FROM messages WHERE senderid = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setInt(1, userid);
+            ps.setInt(1,userid);
             ps.executeUpdate();
 
+            String SQL1 = "DELETE FROM messages WHERE receiveid = ?";
+            PreparedStatement ps1 = con.prepareStatement(SQL1);
+            ps1.setInt(1,userid);
+            ps1.executeUpdate();
+
+            String SQL2 = "DELETE FROM users WHERE userid = ?";
+            PreparedStatement ps2 = con.prepareStatement(SQL2);
+            ps2.setInt(1, userid);
+            ps2.executeUpdate();
+            
         } catch (SQLException ex) {
             throw new LoginException(ex.getMessage());
         }
     }
-
 
     public ArrayList<DatingUser> getAllDatingUsers(SuperUser loginUser) {
         ArrayList<DatingUser> datingUsers = new ArrayList<>();
