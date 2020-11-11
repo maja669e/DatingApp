@@ -26,6 +26,15 @@ public class CandidateList {
         return false;
     }
 
+    public static DatingUser getCandidate(ArrayList<DatingUser> datingUsers, int id){
+        for (DatingUser datingUser : datingUsers) {
+            if(datingUser.getID() == id){
+                return datingUser;
+            }
+        }
+        return null;
+    }
+
     public static ArrayList<DatingUser> getCandidates() {
         return candidates;
     }

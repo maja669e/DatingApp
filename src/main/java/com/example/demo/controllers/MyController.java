@@ -187,6 +187,36 @@ public class MyController {
             return "redirect:/";
     }
 
+    @PostMapping("sendMessage")
+    public String sendMessage(WebRequest request, Model model) {
+        DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+
+        return "redirect:/beskeder";
+
+    }
+
+
+
+    @GetMapping("/beskeder")
+    public String messages(WebRequest request, Model model) {
+        DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        int userid = Integer.parseInt(request.getParameter("userid"));
+        model.addAttribute("datingUser", datingUser);
+
+        ArrayList<DatingUser> candidates = CandidateList.getCandidates();
+
+        DatingUser candidate = CandidateList.getCandidate(candidates, userid);
+
+        model.addAttribute("candidate", candidate);
+        System.out.println(userid);
+        System.out.println(candidate);
+
+        if (datingUser != null) {
+            return "datinguserpages/beskeder";
+        } else
+            return "redirect:/";
+    }
+
 
     private void setSessionInfo(WebRequest request, SuperUser user) {
         request.setAttribute("user", user, WebRequest.SCOPE_SESSION);

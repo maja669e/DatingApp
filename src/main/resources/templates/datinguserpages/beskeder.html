@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
@@ -18,37 +19,33 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="msapplication-config" content="myIcons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
-    <title>Matches</title>
+    <title>Beskeder</title>
 </head>
+
 <body>
 
 <div th:replace="fragments/header.html :: header"></div>
-<h1>Matches</h1>
+<h1>Beskeder</h1>
 <hr>
 
-    <div class="row">
-        <div class="column" th:each="candidate:${candidates}">
-            <img th:src="@{${'/images/' + candidate.pictureid + '.jpg'}}" alt="blank profile">
-            <p>Navn: <span th:text="${candidate.name}"></span></p>
-            <!-- <p>Fødselsdag:<span th:text="${datingUser.age}"></span></p>-->
-            <p>Køn: <span th:text="${candidate.gender}"></span></p>
-            <p>Om mig: <span th:text="${candidate.description}"></span></p>
+<div class="centerText_rediger">
 
 
-            <div class="buttonsUdforsk">
-                <form th:action="@{/sendMessage}" method="post" >
-               <button th:name="userid" th:value="${candidate.message}" class="likebtn" type="submit">Send besked
-               </button></form>
-                <form th:action="@{/removeCandidate}" method="post">
-                <button th:name="candidateid" th:value="${candidate.ID}" class="picsbtn" type="submit">Fjern match</button>
-                </form>
-            </div>
-        </div>
+  <p>Modtager: <br><input class="inputfelt" type="text" th:field="${candidate.ID}" name="userid"/></p>
+    <p>Besked:<br> <textarea class="inputfelt" id="myTextArea"
+                             rows="4"
+                             cols="60" th:field="${datingUser.message}"></textarea>
+    </p>
+
+    <div class="buttonsUdforsk">
+        <button class="picsbtn" type="submit">Send</button>
     </div>
+</div>
 
 
 <div th:replace="fragments/footer.html :: footer"></div>
 
 <script src="script.js"></script>
 </body>
+
 </html>
