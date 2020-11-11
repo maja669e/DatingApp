@@ -107,7 +107,7 @@ public class DatingUserMapper {
             PreparedStatement ps2 = con.prepareStatement(SQL2);
             ps2.setInt(1, userid);
             ps2.executeUpdate();
-            
+
         } catch (SQLException ex) {
             throw new LoginException(ex.getMessage());
         }
@@ -154,7 +154,9 @@ public class DatingUserMapper {
         return datingUsers;
     }
 
-    public DatingUser updateDatingUser(DatingUser datingUser, int userid) {
+    public DatingUser updateDatingUser(int userid) {
+        DatingUser updated = null;
+        
         try {
             Connection con = DBManager.getConnection();
             String SQL = "SELECT * FROM users " + "WHERE userid= ?";
@@ -163,29 +165,33 @@ public class DatingUserMapper {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                String role = rs.getString(datingUser.getRole());
-                int pictureid = rs.getInt(datingUser.getPictureid());
-                String password = rs.getString(datingUser.getPassword());
-                int id = rs.getInt(datingUser.getID());
+                String role = rs.getString("role");
+                int pictureid = rs.getInt("picture");
+                String password = rs.getString("password");
+                int id = rs.getInt("userid");
+
+                String temp = rs.getString("birthdate");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate birthDate = LocalDate.parse(temp, formatter);
 
                 String email = rs.getString("email");
                 String name = rs.getString("name");
                 String description = rs.getString("description");
                 String gender = rs.getString("gender");
 
-                datingUser = new DatingUser(name, email, password, datingUser.getBirthdate(), role, description, gender, pictureid);
-                datingUser.setID(id);
+                updated = new DatingUser(name, email, password, birthDate, role, description, gender, pictureid);
+                updated.setID(id);
 
                 if (pictureid != 0) {
-                    datingUser.setPictureid(id);
+                    updated.setPictureid(id);
                 } else {
-                    datingUser.setPictureid(0);
+                    updated.setPictureid(0);
                 }
             }
         } catch (SQLException ex) {
             ex.getMessage();
         }
-        return datingUser;
+        return updated;
     }
 
     public void sendMessage(String message, DatingUser datingUser) throws LoginException {

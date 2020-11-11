@@ -61,7 +61,7 @@ public class MyController {
     public String profile(WebRequest request, Model model) {
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
 
-        DatingUser updatedDatingUser= loginController.updateDatingUser(datingUser, datingUser.getID());
+        DatingUser updatedDatingUser = loginController.updateDatingUser(datingUser.getID());
         System.out.println(updatedDatingUser);
 
         model.addAttribute("datingUser", updatedDatingUser);
@@ -76,7 +76,11 @@ public class MyController {
     @GetMapping("/rediger")
     public String edit(WebRequest request, Model model) {
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
-        model.addAttribute("datingUser", datingUser);
+
+        DatingUser updatedDatingUser = loginController.updateDatingUser(datingUser.getID());
+        System.out.println(updatedDatingUser);
+
+        model.addAttribute("datingUser", updatedDatingUser);
 
         if (datingUser != null) {
             return "datinguserpages/rediger";

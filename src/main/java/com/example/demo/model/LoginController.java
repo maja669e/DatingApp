@@ -42,7 +42,7 @@ public class LoginController {
         return facade.getAllDatingUsers(loginUser);
     }
 
-    public DatingUser updateDatingUser(DatingUser datingUser,int userid){
-        return facade.updateDatingUser(datingUser, userid);
+    public DatingUser updateDatingUser(int userid){
+        return facade.updateDatingUser(userid);
     }
 }

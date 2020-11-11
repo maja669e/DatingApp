@@ -35,7 +35,7 @@ public class DataFacadeImpl implements DataFacade {
         userMapper.deleteUser(userid);
     }
 
-    public DatingUser updateDatingUser(DatingUser datingUser, int userid){
-        return userMapper.updateDatingUser(datingUser, userid);
+    public DatingUser updateDatingUser(int userid){
+        return userMapper.updateDatingUser(userid);
     }
 }
