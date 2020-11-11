@@ -126,17 +126,17 @@ public class DatingUserMapper {
                 String description = rs.getString("description");
                 String gender = rs.getString("gender");
                 int picture = rs.getInt("picture");
-                    if (role.equals("datinguser")) {
-                        datingUser = new DatingUser(ID, name, email, password, role, description, picture, gender);
-                        if (picture != 0) {
-                            datingUser.setPictureid(ID);
-                        }
+                if (role.equals("datinguser")) {
+                    datingUser = new DatingUser(ID, name, email, password, role, description, picture, gender);
+                    if (picture != 0) {
+                        datingUser.setPictureid(ID);
+                    }
 
-                        if(!(loginUser.getID() == datingUser.getID())){
-                            datingUsers.add(datingUser);
-                        }
+                    if (!(loginUser.getID() == datingUser.getID())) {
+                        datingUsers.add(datingUser);
                     }
                 }
+            }
 
 
         } catch (SQLException ex) {
@@ -145,23 +145,38 @@ public class DatingUserMapper {
         return datingUsers;
     }
 
-    public DatingUser removeDatingUser(DatingUser datingUser, String name) {
+    public DatingUser updateDatingUser(DatingUser datingUser, int userid) {
         try {
             Connection con = DBManager.getConnection();
-            String SQL = "DELETE from users where userid = ?";
+            String SQL = "SELECT * FROM users " + "WHERE userid= ?";
             PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setInt(1, datingUser.getID());
-            ps.executeUpdate();
+            ps.setInt(1, userid);
+            ResultSet rs = ps.executeQuery();
 
+            if (rs.next()) {
+                String role = rs.getString(datingUser.getRole());
+                int pictureid = rs.getInt(datingUser.getPictureid());
+                String password = rs.getString(datingUser.getPassword());
+                int id = rs.getInt(datingUser.getID());
+
+                String email = rs.getString("email");
+                String name = rs.getString("name");
+                String description = rs.getString("description");
+                String gender = rs.getString("gender");
+
+                datingUser = new DatingUser(name, email, password, datingUser.getBirthdate(), role, description, gender, pictureid);
+                datingUser.setID(id);
+
+                if (pictureid != 0) {
+                    datingUser.setPictureid(id);
+                } else {
+                    datingUser.setPictureid(0);
+                }
+            }
         } catch (SQLException ex) {
             ex.getMessage();
         }
         return datingUser;
-    }
-
-
-    public DatingUser editDatingUser() {
-        return null;
     }
 
     public void sendMessage(String message, DatingUser datingUser) throws LoginException {

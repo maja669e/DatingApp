@@ -57,7 +57,11 @@ public class MyController {
     @GetMapping("/profil")
     public String profile(WebRequest request, Model model) {
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
-        model.addAttribute("datingUser", datingUser);
+
+        DatingUser updatedDatingUser= loginController.updateDatingUser(datingUser, datingUser.getID());
+        System.out.println(updatedDatingUser);
+
+        model.addAttribute("datingUser", updatedDatingUser);
 
         if (datingUser != null) {
             return "datinguserpages/profil";

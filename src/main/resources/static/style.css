@@ -602,4 +602,10 @@ a.fa-twitter:before {
         font-size: 12px;
     }
 
+    .box {
+        margin: 10px;
+        padding: 10px;
+        font-size: 18px;
+    }
+
 }

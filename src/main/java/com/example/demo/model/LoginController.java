@@ -41,4 +41,8 @@ public class LoginController {
     public ArrayList<DatingUser> getAllDatingUsers(SuperUser loginUser){
         return facade.getAllDatingUsers(loginUser);
     }
+
+    public DatingUser updateDatingUser(DatingUser datingUser,int userid){
+        return facade.updateDatingUser(datingUser, userid);
+    }
 }
