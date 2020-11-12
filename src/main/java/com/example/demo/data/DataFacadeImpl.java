@@ -32,7 +32,7 @@ public class DataFacadeImpl implements DataFacade {
     }
 
     public void deleteUser(int userid) throws LoginException{
-        userMapper.deleteUser(userid);
+        adminMapper.deleteUser(userid);
     }
 
     public DatingUser updateDatingUser(int userid){
