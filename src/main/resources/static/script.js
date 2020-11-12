@@ -9,12 +9,15 @@ function burgerMenu() {
     } else {
         burger.className = "topnav";
     }
-
 }
 
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function close(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function close(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
     }
+}
+
+
+birthdate.max = new Date().toISOString().split("T")[0];
+

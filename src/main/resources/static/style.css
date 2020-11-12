@@ -139,9 +139,8 @@ header {
 }
 
 
-/* Full-width input fields */
 .container_logind input[type=text], .container_logind input[type=password] {
-    width: 100%;
+    width: 30vw;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
@@ -151,6 +150,7 @@ header {
 
 /* Set a style for all buttons */
 .btnlogin, .cancelbtn, .signupbtn, .btnopret {
+    text-align: center;
     background-color: #9076b3;
     color: white;
     padding: 14px 20px;
@@ -172,13 +172,32 @@ button:hover {
 }
 
 /* Full-width input fields */
-.container_register input[type=text], input[type=password] {
+.container_register input[type=text], input[type=password], input[type=date] {
     width: 100%;
     padding: 15px;
     margin: 5px 0 22px 0;
     display: inline-block;
     border: none;
     background: #f1f1f1;
+}
+
+::-webkit-calendar-picker-indicator:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+
+input[type=date] {
+    width: 30%;
+    color: #747474;
+}
+
+input[type=date]:focus {
+    color: black;
+}
+
+.clearfix {
+    text-align: center;
 }
 
 /* Extra styles for the cancel button */
@@ -195,6 +214,17 @@ button:hover {
 /* Add padding to container elements */
 .container_register {
     padding: 16px;
+    text-align: left;
+}
+
+.container_register label {
+    color: #525050;
+}
+
+.container_register p {
+    color: #525050;
+    text-align: center;
+    font-style: italic;
 }
 
 /* The Modal (background) */
@@ -204,7 +234,7 @@ button:hover {
     z-index: 1; /* Sit on top */
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
+    width: 90%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: #9b96a3;
@@ -217,7 +247,6 @@ button:hover {
     background-color: #fefefe;
     margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
     border: 1px solid #888;
-
 }
 
 
@@ -254,18 +283,41 @@ button:hover {
 }
 
 @keyframes shake {
-    0% {transform: translate(2px, 1px) rotate(0deg); }
-    10% {transform: translate(-1px, -2px) rotate(-2deg); }
-    20% {transform: translate(-3px, 0px) rotate(2deg); }
-    30% {transform: translate(0px, 2px) rotate(0deg); }
-    40% {transform: translate(1px, -1px) rotate(2deg); }
-    50% {transform: translate(-1px, 2px) rotate(-2deg); }
-    60% {transform: translate(-3px, 1px) rotate(0deg); }
-    70% {transform: translate(2px, 1px) rotate(-2deg); }
-    80% {transform: translate(-1px, -1px) rotate(2deg); }
-    90% {transform: translate(2px, 2px) rotate(0deg); }
-    100% {transform: translate(1px, -2px) rotate(-2deg); }
+    0% {
+        transform: translate(2px, 1px) rotate(0deg);
+    }
+    10% {
+        transform: translate(-1px, -2px) rotate(-2deg);
+    }
+    20% {
+        transform: translate(-3px, 0px) rotate(2deg);
+    }
+    30% {
+        transform: translate(0px, 2px) rotate(0deg);
+    }
+    40% {
+        transform: translate(1px, -1px) rotate(2deg);
+    }
+    50% {
+        transform: translate(-1px, 2px) rotate(-2deg);
+    }
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+    }
+    70% {
+        transform: translate(2px, 1px) rotate(-2deg);
+    }
+    80% {
+        transform: translate(-1px, -1px) rotate(2deg);
+    }
+    90% {
+        transform: translate(2px, 2px) rotate(0deg);
+    }
+    100% {
+        transform: translate(1px, -2px) rotate(-2deg);
+    }
 }
+
 .fejl {
     background-color: #ce4b41;
     border-radius: 5px;
@@ -282,17 +334,39 @@ button:hover {
 }
 
 @keyframes shake {
-    0% {transform: translate(2px, 1px) rotate(0deg); }
-    10% {transform: translate(-1px, -2px) rotate(-2deg); }
-    20% {transform: translate(-3px, 0px) rotate(2deg); }
-    30% {transform: translate(0px, 2px) rotate(0deg); }
-    40% {transform: translate(1px, -1px) rotate(2deg); }
-    50% {transform: translate(-1px, 2px) rotate(-2deg); }
-    60% {transform: translate(-3px, 1px) rotate(0deg); }
-    70% {transform: translate(2px, 1px) rotate(-2deg); }
-    80% {transform: translate(-1px, -1px) rotate(2deg); }
-    90% {transform: translate(2px, 2px) rotate(0deg); }
-    100% {transform: translate(1px, -2px) rotate(-2deg); }
+    0% {
+        transform: translate(2px, 1px) rotate(0deg);
+    }
+    10% {
+        transform: translate(-1px, -2px) rotate(-2deg);
+    }
+    20% {
+        transform: translate(-3px, 0px) rotate(2deg);
+    }
+    30% {
+        transform: translate(0px, 2px) rotate(0deg);
+    }
+    40% {
+        transform: translate(1px, -1px) rotate(2deg);
+    }
+    50% {
+        transform: translate(-1px, 2px) rotate(-2deg);
+    }
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+    }
+    70% {
+        transform: translate(2px, 1px) rotate(-2deg);
+    }
+    80% {
+        transform: translate(-1px, -1px) rotate(2deg);
+    }
+    90% {
+        transform: translate(2px, 2px) rotate(0deg);
+    }
+    100% {
+        transform: translate(1px, -2px) rotate(-2deg);
+    }
 }
 
 
@@ -351,7 +425,7 @@ tr:nth-child(odd) {
     font-style: italic;
 }
 
-.alert{
+.alert {
     color: transparent;
     margin-left: 10%;
     margin-right: 10%;
@@ -361,9 +435,11 @@ tr:nth-child(odd) {
     animation-name: slide;
     animation-duration: 5s;
 }
+
 .alert p {
     margin: 1vw;
 }
+
 @keyframes slide {
     0% {
         color: white;
@@ -375,13 +451,13 @@ tr:nth-child(odd) {
         left: 0;
         background-color: #ce4b41;
     }
-    90%{
+    90% {
         color: white;
         background-color: #ce4b41;
         opacity: 1;
     }
 
-    100%{
+    100% {
         opacity: 0;
         color: transparent;
     }
@@ -462,12 +538,13 @@ tr:nth-child(odd) {
 .picsbtn {
     background-color: #9076b3;
 }
-.likebtn:hover, .picsbtn:hover{
+
+.likebtn:hover, .picsbtn:hover {
     cursor: pointer;
     opacity: 0.8;
 }
 
-.addmatch{
+.addmatch {
     text-align: center;
     padding-bottom: 1vw;
     border-radius: 5px;
@@ -477,6 +554,7 @@ tr:nth-child(odd) {
     font-style: italic;
     animation: popup 3s;
 }
+
 @keyframes popup {
     0% {
         opacity: 0;
@@ -487,7 +565,7 @@ tr:nth-child(odd) {
     85% {
         opacity: 100%;
     }
-    100%{
+    100% {
         opacity: 0;
     }
 }
@@ -502,21 +580,12 @@ tr:nth-child(odd) {
     text-align: center;
 }
 
-#buttonsMatches{
+#buttonsMatches {
     display: flex;
     justify-content: space-between;
 }
 
-.knap .fjernbtn, .send{
-    border: none;
-    padding: 0.5vw;
-    margin: 1vw;
-    color: white;
-    border-radius: 15px;
-    width: 70%;
-
-}
-.knap .send{
+.knap .fjernbtn, .send {
     border: none;
     padding: 0.5vw;
     margin: 1vw;
@@ -526,16 +595,27 @@ tr:nth-child(odd) {
 
 }
 
-.fjernbtn{
+.knap .send {
+    border: none;
+    padding: 0.5vw;
+    margin: 1vw;
+    color: white;
+    border-radius: 15px;
+    width: 70%;
+
+}
+
+.fjernbtn {
     background-color: #b75851;
     width: 35%;
 }
 
-.send{
+.send {
     background-color: #9076b3;
     width: 35%;
 }
-.send:hover, .fjernbtn:hover{
+
+.send:hover, .fjernbtn:hover {
     cursor: pointer;
     opacity: 0.8;
 }
@@ -656,6 +736,7 @@ a.fa-twitter:before {
     box-shadow: 2px 4px 4px 1px rgba(0, 0, 0, 0.1);
     padding: 1vw;
 }
+
 /*--------Beskeder-----*/
 .centerText_beskeder {
     display: flex;
@@ -671,9 +752,11 @@ a.fa-twitter:before {
     padding: 1vw;
     background-color: white;
 }
-.centerText_beskeder p{
+
+.centerText_beskeder p {
     width: 50%;
 }
+
 /*-------Media queries-------*/
 
 @media screen and (max-width: 700px) {
@@ -711,6 +794,10 @@ a.fa-twitter:before {
         opacity: 0.7;
     }
 
+    .container_logind input[type=text], .container_logind input[type=password] {
+        width: 60vw;
+    }
+
     .cancelbtn, .signupbtn {
         width: 40%;
         margin: 3vw;
@@ -744,6 +831,9 @@ a.fa-twitter:before {
         width: 100%;
     }
 
+    input[type=date] {
+        width: 100%;
+    }
 }
 
 
