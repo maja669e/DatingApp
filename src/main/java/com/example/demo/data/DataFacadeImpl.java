@@ -26,8 +26,8 @@ public class DataFacadeImpl implements DataFacade {
         return userMapper.getAllDatingUsers(loginUser);
     }
 
-    public void editUserInfo(DatingUser datingUser, String name, String email, String gender, String description){
-        userMapper.editUserInfo(datingUser, name,email,gender,description);
+    public void editUserInfo(DatingUser datingUser, String name, String email, String password, String gender, String description){
+        userMapper.editUserInfo(datingUser, name, email, password, gender, description);
     }
 
     public void deleteUser(int userid){

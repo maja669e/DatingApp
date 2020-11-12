@@ -72,17 +72,18 @@ public class DatingUserMapper {
         }
     }
 
-    public void editUserInfo(DatingUser datingUser, String name, String email, String gender, String description){
+    public void editUserInfo(DatingUser datingUser, String name, String email, String password, String gender, String description){
         try {
             Connection con = DBManager.getConnection();
-            String SQL = "UPDATE users set email = ?, name = ?, gender = ?, description= ? WHERE userid = ?";
+            String SQL = "UPDATE users set email = ?, name = ?, gender = ?, description= ?, password= ? WHERE userid = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, email);
             ps.setString(2, name);
             ps.setString(3, gender);
             ps.setString(4, description);
+            ps.setString(5, password);
             int userid = datingUser.getID();
-            ps.setInt(5, userid);
+            ps.setInt(6, userid);
             ps.executeUpdate();
 
         } catch (SQLException ex) {

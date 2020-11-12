@@ -30,8 +30,8 @@ public class UserController {
         return datingUser;
     }
 
-    public void editUserInfo(DatingUser datingUser, String name, String email, String gender, String description){
-       facade.editUserInfo(datingUser, name,email,gender,description);
+    public void editUserInfo(DatingUser datingUser, String name, String email, String password, String gender, String description){
+       facade.editUserInfo(datingUser, name, email, password, gender, description);
     }
 
     public void deleteUser(int userid){

@@ -137,10 +137,11 @@ public class MyController {
         //Retrieve values from HTML form via WebRequest
         String name = request.getParameter("name");
         String email = request.getParameter("email");
+        String password = request.getParameter("password");
         String gender = request.getParameter("gender");
         String decription = request.getParameter("description");
 
-        userController.editUserInfo(datingUser, name, email, gender, decription);
+        userController.editUserInfo(datingUser, name, email, password, gender, decription);
 
         return "redirect:/profil";
     }
