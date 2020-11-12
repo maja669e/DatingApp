@@ -2,13 +2,11 @@ package com.example.demo.controllers;
 
 import com.example.demo.data.DataFacadeImpl;
 import com.example.demo.model.*;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -16,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Objects;
 
 @Controller
 public class MyController {
@@ -34,35 +31,40 @@ public class MyController {
     @GetMapping("/matches")
     public String matches(WebRequest request, Model model) {
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION); //session of user
+        CandidateList candidateList = (CandidateList) request.getAttribute("candidateList", WebRequest.SCOPE_SESSION);
 
-        ArrayList<DatingUser> candidates = CandidateList.getCandidates();
-
-        model.addAttribute("candidates", candidates);
-        model.addAttribute("datingUser", datingUser);
-        if (datingUser != null) {
-            return "datinguserpages/matches";
-        } else
+        if (datingUser == null) {
             return "redirect:/";
+        } else{
+            ArrayList<DatingUser> candidates = candidateList.getCandidates();
+
+            model.addAttribute("candidates", candidates);
+            model.addAttribute("datingUser", datingUser);
+            return "datinguserpages/matches";
+        }
     }
 
     @PostMapping("addToCandidates")
     public String addToCandidates(WebRequest request, RedirectAttributes redirectAttributes) {
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        CandidateList candidateList = (CandidateList) request.getAttribute("candidateList", WebRequest.SCOPE_SESSION);
         int userid = Integer.parseInt(request.getParameter("userid"));
 
-        ArrayList<DatingUser> candidates = loginController.getAllDatingUsers(datingUser);
-        CandidateList.addCandidate(candidates, userid);
-        DatingUser candidate = CandidateList.getCandidate(candidates, userid);
+        ArrayList<DatingUser> allDatingUsers = loginController.getAllDatingUsers(datingUser);
+        candidateList.addCandidate(allDatingUsers, userid);
+
+        DatingUser candidate = candidateList.getCandidate(allDatingUsers, userid);
         redirectAttributes.addFlashAttribute("message", candidate.getName() + " er nu tilføjet til matches");
         return "redirect:/udforsk";
     }
 
     @PostMapping("removeCandidate")
     public String removeCandidate(WebRequest request) {
+        CandidateList candidateList = (CandidateList) request.getAttribute("candidateList", WebRequest.SCOPE_SESSION);
         int candidateid = Integer.parseInt(request.getParameter("candidateid"));
 
-        ArrayList<DatingUser> candidates = CandidateList.getCandidates();
-        CandidateList.removeCandidate(candidates, candidateid);
+        ArrayList<DatingUser> candidates = candidateList.getCandidates();
+        candidateList.removeCandidate(candidates, candidateid);
 
         return "redirect:/matches";
     }
@@ -136,8 +138,9 @@ public class MyController {
 
         if (!email.equals("admin@gmail.com")) {
             DatingUser datingUser = loginController.datingLogin(email, password);
+            CandidateList candidateList = new CandidateList();
+            setSessionCandidates(request, candidateList);
             setSessionInfo(request, datingUser);
-            CandidateList.getCandidates().clear();
             return "redirect:/udforsk";
         } else {
             AdminUser adminUser = loginController.adminLogin(email, password);
@@ -207,14 +210,15 @@ public class MyController {
     @GetMapping("/beskeder")
     public String messages(WebRequest request, Model model) {
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        CandidateList candidateList = (CandidateList) request.getAttribute("candidateList", WebRequest.SCOPE_SESSION);
 
         if (datingUser == null) {
             return "redirect:/";
         } else {
 
             int candidateid = Integer.parseInt(request.getParameter("candidateid"));
-            ArrayList<DatingUser> candidates = CandidateList.getCandidates();
-            DatingUser candidate = CandidateList.getCandidate(candidates, candidateid);
+            ArrayList<DatingUser> candidates = candidateList.getCandidates();
+            DatingUser candidate = candidateList.getCandidate(candidates, candidateid);
 
             model.addAttribute("datingUser", datingUser);
             model.addAttribute("candidate", candidate);
@@ -225,5 +229,9 @@ public class MyController {
 
     private void setSessionInfo(WebRequest request, SuperUser user) {
         request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
+    }
+
+    private void setSessionCandidates(WebRequest request, CandidateList candidateList) {
+        request.setAttribute("candidateList", candidateList, WebRequest.SCOPE_SESSION);
     }
 }
