@@ -196,6 +196,7 @@ public class MyController {
         if (password1.equals(password2)) {
             DatingUser datingUser = userController.createDatingUser(name, email, password1, birthDate);
             setSessionInfo(request, datingUser);
+            System.out.println(datingUser);
             return "redirect:/udforsk";
 
         } else {

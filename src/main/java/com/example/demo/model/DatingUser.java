@@ -92,6 +92,22 @@ public class DatingUser extends SuperUser {
     }
 
     @Override
+    public String toString() {
+        return "DatingUser{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", birthdate=" + birthdate +
+                ", gender='" + gender + '\'' +
+                ", message='" + message + '\'' +
+                ", pictureid=" + pictureid +
+                ", ID=" + ID +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                '}';
+    }
+
+    @Override
     public String getRole() {
         return this.role;
     }
