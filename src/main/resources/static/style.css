@@ -495,6 +495,13 @@ tr:nth-child(odd) {
 
 /*-----Matches-----*/
 
+.emptymatch {
+    font-size: 22px;
+    font-style: italic;
+    color: #525050;
+    text-align: center;
+}
+
 #buttonsMatches{
     display: flex;
     justify-content: space-between;

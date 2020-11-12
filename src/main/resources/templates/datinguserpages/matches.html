@@ -26,6 +26,11 @@
 <h1>Matches</h1>
 <hr>
 
+<div class="emptymatch" th:if="${candidates.empty}">
+    <p>Du har ingen matches endnu</p>
+</div>
+
+
 <div class="row">
     <div class="column" th:each="candidate:${candidates}">
         <img th:src="@{${'/images/' + candidate.pictureid + '.jpg'}}" alt="blank profile">
