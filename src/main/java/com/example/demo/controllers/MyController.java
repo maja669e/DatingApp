@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class MyController {
 
     //use case controller (GRASP Controller) - injects concrete facade instance into controller
-    private LoginController loginController = new LoginController(new DataFacadeImpl());
+    private UserController userController = new UserController(new DataFacadeImpl());
 
     @ExceptionHandler(LoginException.class)
     @GetMapping("/")
@@ -28,11 +28,13 @@ public class MyController {
         return "index";
     }
 
-    @GetMapping("/matches")
-    public String matches(WebRequest request, Model model) {
+    @GetMapping("/kandidater")
+    public String candidates(WebRequest request, Model model) {
+        // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION); //session of user
         CandidateList candidateList = (CandidateList) request.getAttribute("candidateList", WebRequest.SCOPE_SESSION);
 
+        //Checks if user is logged in
         if (datingUser == null) {
             return "redirect:/";
         } else{
@@ -40,43 +42,56 @@ public class MyController {
 
             model.addAttribute("candidates", candidates);
             model.addAttribute("datingUser", datingUser);
-            return "datinguserpages/matches";
+
+            return "datinguserpages/kandidater";
         }
     }
 
     @PostMapping("addToCandidates")
     public String addToCandidates(WebRequest request, RedirectAttributes redirectAttributes) {
+        // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
         CandidateList candidateList = (CandidateList) request.getAttribute("candidateList", WebRequest.SCOPE_SESSION);
-        int userid = Integer.parseInt(request.getParameter("userid"));
+        //Retrieve values from HTML form via WebRequest
+        int candidateid = Integer.parseInt(request.getParameter("candidateid"));
 
-        ArrayList<DatingUser> allDatingUsers = loginController.getAllDatingUsers(datingUser);
-        candidateList.addCandidate(allDatingUsers, userid);
+        //Get all datingusers, excludes the logged in user
+        ArrayList<DatingUser> allDatingUsers = userController.getAllDatingUsers(datingUser);
 
-        DatingUser candidate = candidateList.getCandidate(allDatingUsers, userid);
-        redirectAttributes.addFlashAttribute("message", candidate.getName() + " er nu tilføjet til matches");
+        //add candidate if the candidateid equals a datinguser
+        candidateList.addCandidate(allDatingUsers,candidateid);
+
+        DatingUser candidate = candidateList.getCandidate(allDatingUsers, candidateid);
+
+        //returns a message, when candidate is added
+        redirectAttributes.addFlashAttribute("message", candidate.getName() + " er nu tilføjet til kandidater");
         return "redirect:/udforsk";
     }
 
     @PostMapping("removeCandidate")
     public String removeCandidate(WebRequest request) {
+        // Retrieve user object from web request (session scope)
         CandidateList candidateList = (CandidateList) request.getAttribute("candidateList", WebRequest.SCOPE_SESSION);
+        //Retrieve values from HTML form via WebRequest
         int candidateid = Integer.parseInt(request.getParameter("candidateid"));
 
         ArrayList<DatingUser> candidates = candidateList.getCandidates();
         candidateList.removeCandidate(candidates, candidateid);
 
-        return "redirect:/matches";
+        return "redirect:/kandidater";
     }
 
     @GetMapping("/admin")
     public String admin(WebRequest request, Model model) {
+        // Retrieve user object from web request (session scope)
         AdminUser adminUser = (AdminUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
 
+        //Checks if user is logged in
         if (adminUser == null) {
             return "redirect:/";
         } else {
-            ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers(adminUser);
+            //Get all datingusers, excludes the logged in user
+            ArrayList<DatingUser> datingUsers = userController.getAllDatingUsers(adminUser);
 
             model.addAttribute("datingUsers", datingUsers);
             model.addAttribute("adminUser", adminUser);
@@ -86,12 +101,15 @@ public class MyController {
 
     @GetMapping("/profil")
     public String profile(WebRequest request, Model model) {
+        // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
 
+        //Checks if user is logged in
         if (datingUser == null) {
             return "redirect:/";
         } else {
-            DatingUser updatedDatingUser = loginController.updateDatingUser(datingUser.getID());
+            //update datinguser info
+            DatingUser updatedDatingUser = userController.updateDatingUser(datingUser.getID());
 
             model.addAttribute("datingUser", updatedDatingUser);
 
@@ -101,9 +119,11 @@ public class MyController {
 
     @GetMapping("/rediger")
     public String edit(WebRequest request, Model model) {
+        // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
 
-        DatingUser updatedDatingUser = loginController.updateDatingUser(datingUser.getID());
+        //update datinguser info
+        DatingUser updatedDatingUser = userController.updateDatingUser(datingUser.getID());
 
         model.addAttribute("datingUser", updatedDatingUser);
 
@@ -111,22 +131,30 @@ public class MyController {
     }
 
     @PostMapping("redigeretprofil")
-    public String postEdit(WebRequest request) throws LoginException {
+    public String postEdit(WebRequest request){
+        // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        //Retrieve values from HTML form via WebRequest
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String gender = request.getParameter("gender");
         String decription = request.getParameter("description");
-        loginController.editUser(datingUser, name, email, gender, decription);
+
+        userController.editUserInfo(datingUser, name, email, gender, decription);
 
         return "redirect:/profil";
     }
 
     @PostMapping("deleteDatingUser")
-    public String delete(WebRequest request, RedirectAttributes redirectAttributes) throws LoginException {
+    public String delete(WebRequest request, RedirectAttributes redirectAttributes){
+        //Retrieve values from HTML form via WebRequest
         int userid = Integer.parseInt(request.getParameter("userid"));
-        loginController.deleteUser(userid);
+
+        userController.deleteUser(userid);
+
+        //returns a message, when datinguser is removed
         redirectAttributes.addFlashAttribute("message", "ID nr: " + userid + " er nu slettet");
+
         return "redirect:/admin";
     }
 
@@ -137,13 +165,13 @@ public class MyController {
         String password = request.getParameter("password");
 
         if (!email.equals("admin@gmail.com")) {
-            DatingUser datingUser = loginController.datingLogin(email, password);
-            CandidateList candidateList = new CandidateList();
+            DatingUser datingUser = userController.datingLogin(email, password);
+            CandidateList candidateList = new CandidateList(); //When user logs in candidatelist is empty (database could be used instead)
             setSessionCandidates(request, candidateList);
             setSessionInfo(request, datingUser);
             return "redirect:/udforsk";
         } else {
-            AdminUser adminUser = loginController.adminLogin(email, password);
+            AdminUser adminUser = userController.adminLogin(email, password);
             setSessionInfo(request, adminUser);
             return "redirect:/" + adminUser.getRole();
         }
@@ -165,7 +193,7 @@ public class MyController {
 
         // If passwords match, work + data is delegated to logic controller
         if (password1.equals(password2)) {
-            DatingUser datingUser = loginController.createDatingUser(name, email, password1, birthDate);
+            DatingUser datingUser = userController.createDatingUser(name, email, password1, birthDate);
             setSessionInfo(request, datingUser);
             return "redirect:/udforsk";
 
@@ -181,10 +209,12 @@ public class MyController {
         // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
 
+        //Checks if user is logged in
         if (datingUser == null) {
             return "redirect:/";
         } else {
-            ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers(datingUser);
+            //Get all datingusers, excludes the logged in user
+            ArrayList<DatingUser> datingUsers = userController.getAllDatingUsers(datingUser);
 
             model.addAttribute("datingUsers", datingUsers);
 
@@ -195,28 +225,33 @@ public class MyController {
 
     @PostMapping("sendMessage")
     public String sendMessage(WebRequest request) {
+        // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        //Retrieve values from HTML form via WebRequest
         String message = request.getParameter("message");
         int candidateid = Integer.parseInt(request.getParameter("candidateid"));
-        System.out.println(candidateid);
 
-        loginController.sendMessage(message, datingUser.getID(), candidateid);
+        userController.sendMessage(message, datingUser.getID(), candidateid);
 
-        return "redirect:/matches";
+        return "redirect:/kandidater";
 
     }
 
 
     @GetMapping("/beskeder")
     public String messages(WebRequest request, Model model) {
+        // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
         CandidateList candidateList = (CandidateList) request.getAttribute("candidateList", WebRequest.SCOPE_SESSION);
 
+        //Checks if user is logged in
         if (datingUser == null) {
             return "redirect:/";
         } else {
-
+            // Retrieve user object from web request (session scope)
             int candidateid = Integer.parseInt(request.getParameter("candidateid"));
+
+            //sends message through candidates
             ArrayList<DatingUser> candidates = candidateList.getCandidates();
             DatingUser candidate = candidateList.getCandidate(candidates, candidateid);
 
@@ -225,7 +260,6 @@ public class MyController {
             return "datinguserpages/beskeder";
         }
     }
-
 
     private void setSessionInfo(WebRequest request, SuperUser user) {
         request.setAttribute("user", user, WebRequest.SCOPE_SESSION);

@@ -13,9 +13,6 @@ public abstract class SuperUser {
         this.role = role;
     }
 
-    public SuperUser(){
-    }
-
     public abstract int getID();
     public abstract String getRole();
     public abstract String setRole();

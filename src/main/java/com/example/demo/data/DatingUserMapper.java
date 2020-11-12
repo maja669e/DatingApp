@@ -32,7 +32,7 @@ public class DatingUserMapper {
             datingUser.setID(id);
 
         } catch (SQLException ex) {
-            throw new LoginException(ex.getMessage());
+            throw new LoginException("Email eksisterer allerede - prøv igen");
         }
     }
 
@@ -72,7 +72,7 @@ public class DatingUserMapper {
         }
     }
 
-    public void editUser(DatingUser datingUser, String name, String email, String gender, String description) throws LoginException {
+    public void editUserInfo(DatingUser datingUser, String name, String email, String gender, String description){
         try {
             Connection con = DBManager.getConnection();
             String SQL = "UPDATE users set email = ?, name = ?, gender = ?, description= ? WHERE userid = ?";
@@ -86,7 +86,7 @@ public class DatingUserMapper {
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            throw new LoginException("Kunne ikke redigere brugeren");
+            System.out.println("Kunne ikke redigere brugeren");
         }
     }
 

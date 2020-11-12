@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class CandidateList {
 
-    ArrayList<DatingUser> candidates = new ArrayList<>();
+    private ArrayList<DatingUser> candidates = new ArrayList<>();
 
-    public boolean removeCandidate(ArrayList<DatingUser> candidates, int candidateNumber) {
+    public boolean removeCandidate(ArrayList<DatingUser> candidates, int id) {
         for (DatingUser datingUser : candidates) {
-            if(datingUser.getID() == candidateNumber){
+            if(datingUser.getID() == id){
                 candidates.remove(datingUser);
                 return true;
             }
@@ -16,9 +16,11 @@ public class CandidateList {
         return false;
     }
 
+    //takes a list of alldatingusers and loop through it, to check if datingusers id equals the to id
     public boolean addCandidate(ArrayList<DatingUser> datingUsers, int id){
         for (DatingUser datingUser : datingUsers) {
-            if(datingUser.getID() == id){
+            if(datingUser.getID() == id && !candidates.contains(datingUser)){
+                System.out.println(candidates);
                 candidates.add(datingUser);
                 return true;
             }
@@ -26,6 +28,7 @@ public class CandidateList {
         return false;
     }
 
+    //Loop through candidate list and check if id is equal
     public DatingUser getCandidate(ArrayList<DatingUser> datingUsers, int id){
         for (DatingUser datingUser : datingUsers) {
             if(datingUser.getID() == id){

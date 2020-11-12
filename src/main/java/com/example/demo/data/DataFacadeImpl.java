@@ -18,7 +18,6 @@ public class DataFacadeImpl implements DataFacade {
         return datingUser;
     }
 
-
     public AdminUser adminLogin(String email, String password) throws LoginException {
         return  adminMapper.adminLogin(email, password);
     }
@@ -27,11 +26,11 @@ public class DataFacadeImpl implements DataFacade {
         return userMapper.getAllDatingUsers(loginUser);
     }
 
-    public void editUser(DatingUser datingUser, String name, String email, String gender, String description) throws LoginException {
-        userMapper.editUser(datingUser, name,email,gender,description);
+    public void editUserInfo(DatingUser datingUser, String name, String email, String gender, String description){
+        userMapper.editUserInfo(datingUser, name,email,gender,description);
     }
 
-    public void deleteUser(int userid) throws LoginException{
+    public void deleteUser(int userid){
         adminMapper.deleteUser(userid);
     }
 

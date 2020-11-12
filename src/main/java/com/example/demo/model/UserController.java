@@ -6,12 +6,12 @@ package com.example.demo.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class LoginController {
+public class UserController {
 
     // facade to datasource layer
     private DataFacade facade = null;
 
-    public LoginController(DataFacade facade) {
+    public UserController(DataFacade facade) {
         this.facade = facade;
     }
 
@@ -30,11 +30,11 @@ public class LoginController {
         return datingUser;
     }
 
-    public void editUser(DatingUser datingUser, String name, String email, String gender, String description) throws LoginException {
-       facade.editUser(datingUser, name,email,gender,description);
+    public void editUserInfo(DatingUser datingUser, String name, String email, String gender, String description){
+       facade.editUserInfo(datingUser, name,email,gender,description);
     }
 
-    public void deleteUser(int userid) throws LoginException{
+    public void deleteUser(int userid){
         facade.deleteUser(userid);
     }
 

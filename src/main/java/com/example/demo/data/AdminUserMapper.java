@@ -33,14 +33,16 @@ public class AdminUserMapper {
     }
 
 
-    public void deleteUser(int userid) throws LoginException {
+    public void deleteUser(int userid){
         try {
             Connection con = DBManager.getConnection();
+            //Need to delete this first because of primary key userid
             String SQL = "DELETE FROM messages WHERE senderid = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1,userid);
             ps.executeUpdate();
 
+            //Need to delete this first because of primary key userid
             String SQL1 = "DELETE FROM messages WHERE receiveid = ?";
             PreparedStatement ps1 = con.prepareStatement(SQL1);
             ps1.setInt(1,userid);
@@ -52,7 +54,7 @@ public class AdminUserMapper {
             ps2.executeUpdate();
 
         } catch (SQLException ex) {
-            throw new LoginException("Kunne ikke slette brugeren fra admin login");
+            System.out.println("Kunne ikke slette brugeren fra admin login");
         }
     }
 
