@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 public class CandidateList {
 
@@ -8,7 +10,7 @@ public class CandidateList {
 
     public boolean removeCandidate(ArrayList<DatingUser> candidates, int id) {
         for (DatingUser datingUser : candidates) {
-            if(datingUser.getID() == id){
+            if (datingUser.getID() == id) {
                 candidates.remove(datingUser);
                 return true;
             }
@@ -17,21 +19,25 @@ public class CandidateList {
     }
 
     //takes a list of alldatingusers and loop through it, to check if datingusers id equals the to id
-    public boolean addCandidate(ArrayList<DatingUser> datingUsers, int id){
-        for (DatingUser datingUser : datingUsers) {
-            if(datingUser.getID() == id && !candidates.contains(datingUser)){
-                candidates.add(datingUser);
-                //System.out.println(datingUser);
-                return true;
+    public boolean addCandidate(DatingUser candidate) {
+        if (candidates.isEmpty()) {
+            candidates.add(candidate);
+            return true;
+        } else {
+            for (int i = 0; i < candidates.size(); i++) {
+                if (candidate.getID() == candidates.get(i).getID()) {
+                    return false;
+                }
             }
+            candidates.add(candidate);
         }
         return false;
     }
 
     //Loop through candidate list and check if id is equal
-    public DatingUser getCandidate(ArrayList<DatingUser> datingUsers, int id){
-        for (DatingUser datingUser : datingUsers) {
-            if(datingUser.getID() == id){
+    public DatingUser getCandidate(int id) {
+        for (DatingUser datingUser : candidates) {
+            if (datingUser.getID() == id) {
                 return datingUser;
             }
         }
@@ -41,14 +47,4 @@ public class CandidateList {
     public ArrayList<DatingUser> getCandidates() {
         return candidates;
     }
-/*
-    public void addCandidate(int userid) {
-        for (DatingUser datingUser : candidates) {
-            if(datingUser.getID() == userid){
-               candidates.add(datingUser);
-            }
-        }
-    }
-
- */
 }

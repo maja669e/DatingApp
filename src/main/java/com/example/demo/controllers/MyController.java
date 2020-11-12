@@ -37,7 +37,7 @@ public class MyController {
         //Checks if user is logged in
         if (datingUser == null) {
             return "redirect:/";
-        } else{
+        } else {
             ArrayList<DatingUser> candidates = candidateList.getCandidates();
 
             model.addAttribute("candidates", candidates);
@@ -57,11 +57,12 @@ public class MyController {
 
         //Get all datingusers, excludes the logged in user
         ArrayList<DatingUser> allDatingUsers = userController.getAllDatingUsers(datingUser);
-
-        //add candidate if the candidateid equals a datinguser
-        candidateList.addCandidate(allDatingUsers,candidateid);
-
-        DatingUser candidate = candidateList.getCandidate(allDatingUsers, candidateid);
+        for (DatingUser candidate : allDatingUsers) {
+            if (candidate.getID() == candidateid) {
+                candidateList.addCandidate(candidate);
+            }
+        }
+        DatingUser candidate = candidateList.getCandidate(candidateid);
 
         //returns a message, when candidate is added
         redirectAttributes.addFlashAttribute("message", candidate.getName() + " er nu tilføjet til kandidater");
@@ -131,7 +132,7 @@ public class MyController {
     }
 
     @PostMapping("redigeretprofil")
-    public String postEdit(WebRequest request){
+    public String postEdit(WebRequest request) {
         // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
         //Retrieve values from HTML form via WebRequest
@@ -147,7 +148,7 @@ public class MyController {
     }
 
     @PostMapping("deleteDatingUser")
-    public String delete(WebRequest request, RedirectAttributes redirectAttributes){
+    public String delete(WebRequest request, RedirectAttributes redirectAttributes) {
         //Retrieve values from HTML form via WebRequest
         int userid = Integer.parseInt(request.getParameter("userid"));
 
@@ -195,8 +196,9 @@ public class MyController {
         // If passwords match, work + data is delegated to logic controller
         if (password1.equals(password2)) {
             DatingUser datingUser = userController.createDatingUser(name, email, password1, birthDate);
+            CandidateList candidateList = new CandidateList(); //When user logs in candidatelist is empty (database could be used instead)
+            setSessionCandidates(request, candidateList);
             setSessionInfo(request, datingUser);
-            System.out.println(datingUser);
             return "redirect:/udforsk";
 
         } else {
@@ -254,8 +256,7 @@ public class MyController {
             int candidateid = Integer.parseInt(request.getParameter("candidateid"));
 
             //sends message through candidates
-            ArrayList<DatingUser> candidates = candidateList.getCandidates();
-            DatingUser candidate = candidateList.getCandidate(candidates, candidateid);
+            DatingUser candidate = candidateList.getCandidate(candidateid);
 
             model.addAttribute("datingUser", datingUser);
             model.addAttribute("candidate", candidate);
