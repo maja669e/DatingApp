@@ -52,8 +52,8 @@ public class MyController {
 
         ArrayList<DatingUser> candidates = loginController.getAllDatingUsers(datingUser);
         CandidateList.addCandidate(candidates, userid);
-       DatingUser datingUser1 = CandidateList.getCandidate(candidates, userid);
-        redirectAttributes.addFlashAttribute("message",  datingUser1.getName() + " er nu tilføjet til matches");
+        DatingUser candidate = CandidateList.getCandidate(candidates, userid);
+        redirectAttributes.addFlashAttribute("message", candidate.getName() + " er nu tilføjet til matches");
         return "redirect:/udforsk";
     }
 
@@ -71,27 +71,30 @@ public class MyController {
     public String admin(WebRequest request, Model model) {
         AdminUser adminUser = (AdminUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
 
-        ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers(adminUser);
-
-        model.addAttribute("datingUsers", datingUsers);
-        model.addAttribute("adminUser", adminUser);
-
-        if (adminUser != null) {
-            return "adminuserpages/" + adminUser.getRole();
-        } else
+        if (adminUser == null) {
             return "redirect:/";
+        } else {
+            ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers(adminUser);
+
+            model.addAttribute("datingUsers", datingUsers);
+            model.addAttribute("adminUser", adminUser);
+            return "adminuserpages/" + adminUser.getRole();
+        }
     }
 
     @GetMapping("/profil")
     public String profile(WebRequest request, Model model) {
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
 
-        DatingUser updatedDatingUser = loginController.updateDatingUser(datingUser.getID());
+        if (datingUser == null) {
+            return "redirect:/";
+        } else {
+            DatingUser updatedDatingUser = loginController.updateDatingUser(datingUser.getID());
 
-        model.addAttribute("datingUser", updatedDatingUser);
+            model.addAttribute("datingUser", updatedDatingUser);
 
-        return "datinguserpages/profil";
-
+            return "datinguserpages/profil";
+        }
     }
 
     @GetMapping("/rediger")
@@ -174,15 +177,18 @@ public class MyController {
     public String getDiscover(WebRequest request, Model model) {
         // Retrieve user object from web request (session scope)
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
-        ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers(datingUser);
 
-        model.addAttribute("datingUsers", datingUsers);
-
-        if (datingUser != null) {
-            return "datinguserpages/udforsk";
-        } else
+        if (datingUser == null) {
             return "redirect:/";
+        } else {
+            ArrayList<DatingUser> datingUsers = loginController.getAllDatingUsers(datingUser);
+
+            model.addAttribute("datingUsers", datingUsers);
+
+            return "datinguserpages/udforsk";
+        }
     }
+
 
     @PostMapping("sendMessage")
     public String sendMessage(WebRequest request) {
@@ -191,7 +197,7 @@ public class MyController {
         int candidateid = Integer.parseInt(request.getParameter("candidateid"));
         System.out.println(candidateid);
 
-        loginController.sendMessage(message,datingUser.getID(),candidateid);
+        loginController.sendMessage(message, datingUser.getID(), candidateid);
 
         return "redirect:/matches";
 
@@ -202,22 +208,22 @@ public class MyController {
     public String messages(WebRequest request, Model model) {
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
 
-        int candidateid = Integer.parseInt(request.getParameter("candidateid"));
-        ArrayList<DatingUser> candidates = CandidateList.getCandidates();
-        DatingUser candidate = CandidateList.getCandidate(candidates, candidateid);
-
-        model.addAttribute("datingUser", datingUser);
-        model.addAttribute("candidate", candidate);
-
-        if (datingUser != null) {
-            return "datinguserpages/beskeder";
-        } else
+        if (datingUser == null) {
             return "redirect:/";
+        } else {
+
+            int candidateid = Integer.parseInt(request.getParameter("candidateid"));
+            ArrayList<DatingUser> candidates = CandidateList.getCandidates();
+            DatingUser candidate = CandidateList.getCandidate(candidates, candidateid);
+
+            model.addAttribute("datingUser", datingUser);
+            model.addAttribute("candidate", candidate);
+            return "datinguserpages/beskeder";
+        }
     }
 
 
     private void setSessionInfo(WebRequest request, SuperUser user) {
         request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
-        request.setAttribute("role", user.getRole(), WebRequest.SCOPE_SESSION);
     }
 }
