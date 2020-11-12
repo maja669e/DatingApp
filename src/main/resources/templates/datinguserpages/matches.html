@@ -35,13 +35,16 @@
         <p>Om mig: <span th:text="${candidate.description}"></span></p>
 
 
-        <div class="buttonsUdforsk">
-            <form th:action="@{/beskeder}" method="get">
-                <button th:name="candidateid" th:value="${candidate.ID}" class="likebtn" type="submit">Send besked</button>
+        <div id="buttonsMatches">
+
+            <form class="knap" th:action="@{/beskeder}" method="get">
+                <button th:name="candidateid" th:value="${candidate.ID}" class="send" type="submit">Send besked</button>
             </form>
-            <form th:action="@{/removeCandidate}" method="post">
-                <button th:name="candidateid" th:value="${candidate.ID}" class="picsbtn" type="submit">Fjern match</button>
+
+            <form class="knap" th:action="@{/removeCandidate}" method="post">
+                <button th:name="candidateid" th:value="${candidate.ID}" class="fjernbtn" type="submit">Fjern match</button>
             </form>
+
         </div>
     </div>
 </div>

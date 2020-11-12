@@ -28,15 +28,16 @@
 <h1>Beskeder</h1>
 <hr>
 
-<div class="centerText_rediger">
+<div class="centerText_beskeder">
     <form th:action="@{/sendMessage}" method="post">
-        <p>Modtager: <br><input class="inputfelt" type="text" th:field="${candidate.name}" name="candidateName"/></p>
-        <p>Besked:<br> <textarea class="inputfelt" id="myTextArea"
+
+        <p><b>Modtager:<br></b><p type="text" th:text="${candidate.name}" name="candidateName" class="inputfelt"></p></p>
+        <p><textarea class="inputfelt" id="myTextArea"
                                  rows="4"
-                                 cols="60" th:field="${datingUser.message}" name="message"></textarea>
+                                 cols="60" th:field="${datingUser.message}" placeholder="Skriv din besked her..." name="message"></textarea>
         </p>
 
-        <div class="buttonsUdforsk">
+        <div class="buttonsBeskeder">
             <button th:name="candidateid" th:value="${candidate.ID}" class="picsbtn" type="submit">Send</button>
         </div>
     </form>

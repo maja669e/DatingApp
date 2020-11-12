@@ -112,6 +112,7 @@ header {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
     filter: blur(3px);
 }
 
@@ -238,7 +239,7 @@ button:hover {
 
 
 .fejl {
-    background-color: #ec7428;
+    background-color: #ce4b41;
     border-radius: 5px;
     width: 50%;
     padding: 0.05vw;
@@ -266,7 +267,7 @@ button:hover {
     100% {transform: translate(1px, -2px) rotate(-2deg); }
 }
 .fejl {
-    background-color: #ec7428;
+    background-color: #ce4b41;
     border-radius: 5px;
     width: 50%;
     padding: 0.05vw;
@@ -355,28 +356,28 @@ tr:nth-child(odd) {
     margin-left: 10%;
     margin-right: 10%;
     padding: 0.2vw;
-    border-radius: 15px;
+    border-radius: 10px;
     position: relative;
-    animation-name: example;
-    animation-duration: 6s;
+    animation-name: slide;
+    animation-duration: 5s;
 }
 .alert p {
     margin: 1vw;
 }
-@keyframes example {
+@keyframes slide {
     0% {
         color: white;
-        left: -700px;
-        background-color: #ec7428;
+        left: -1100px;
+        background-color: #ce4b41;
     }
     40% {
         color: white;
         left: 0;
-        background-color: #ec7428;
+        background-color: #ce4b41;
     }
     90%{
         color: white;
-        background-color: #ec7428;
+        background-color: #ce4b41;
         opacity: 1;
     }
 
@@ -445,7 +446,7 @@ tr:nth-child(odd) {
     justify-content: space-between;
 }
 
-.buttonsUdforsk .likebtn, .buttonsUdforsk .picsbtn {
+.likebtn, .picsbtn {
     border: none;
     padding: 0.5vw;
     margin: 1vw;
@@ -461,14 +462,83 @@ tr:nth-child(odd) {
 .picsbtn {
     background-color: #9076b3;
 }
+.likebtn:hover, .picsbtn:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
 
+.addmatch{
+    text-align: center;
+    padding-bottom: 1vw;
+    border-radius: 5px;
+    color: #525050;
+    opacity: 0;
+    font-size: 15px;
+    font-style: italic;
+    animation: popup 3s;
+}
+@keyframes popup {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 100%;
+    }
+    85% {
+        opacity: 100%;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+
+/*-----Matches-----*/
+
+#buttonsMatches{
+    display: flex;
+    justify-content: space-between;
+}
+
+.knap .fjernbtn, .send{
+    border: none;
+    padding: 0.5vw;
+    margin: 1vw;
+    color: white;
+    border-radius: 15px;
+    width: 70%;
+
+}
+.knap .send{
+    border: none;
+    padding: 0.5vw;
+    margin: 1vw;
+    color: white;
+    border-radius: 15px;
+    width: 70%;
+
+}
+
+.fjernbtn{
+    background-color: #b75851;
+    width: 35%;
+}
+
+.send{
+    background-color: #9076b3;
+    width: 35%;
+}
+.send:hover, .fjernbtn:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
 
 
 /*-------Footer-------*/
 footer {
     margin-top: 8vw;
     width: 100%;
-    background-color: #f2f2f2;
+    background-color: inherit;
     color: #525050;
     bottom: 0;
     padding-top: 1vw;
@@ -570,6 +640,7 @@ a.fa-twitter:before {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    color: #525050;
 }
 
 .inputfelt {
@@ -578,7 +649,24 @@ a.fa-twitter:before {
     box-shadow: 2px 4px 4px 1px rgba(0, 0, 0, 0.1);
     padding: 1vw;
 }
+/*--------Beskeder-----*/
+.centerText_beskeder {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: #525050;
+}
 
+.centerText_beskeder .inputfelt {
+    border-radius: 15px;
+    border: none;
+    box-shadow: 2px 4px 4px 1px rgba(0, 0, 0, 0.1);
+    padding: 1vw;
+    background-color: white;
+}
+.centerText_beskeder p{
+    width: 50%;
+}
 /*-------Media queries-------*/
 
 @media screen and (max-width: 700px) {
@@ -641,7 +729,7 @@ a.fa-twitter:before {
         height: 40vw;
     }
 
-    .buttonsUdforsk .likebtn, .buttonsUdforsk .picsbtn {
+    .likebtn, .picsbtn {
         padding: 1.4vw;
     }
 

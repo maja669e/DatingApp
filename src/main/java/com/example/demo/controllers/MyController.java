@@ -46,13 +46,14 @@ public class MyController {
     }
 
     @PostMapping("addToCandidates")
-    public String addToCandidates(WebRequest request) {
+    public String addToCandidates(WebRequest request, RedirectAttributes redirectAttributes) {
         DatingUser datingUser = (DatingUser) request.getAttribute("user", WebRequest.SCOPE_SESSION);
         int userid = Integer.parseInt(request.getParameter("userid"));
 
         ArrayList<DatingUser> candidates = loginController.getAllDatingUsers(datingUser);
         CandidateList.addCandidate(candidates, userid);
-
+       DatingUser datingUser1 = CandidateList.getCandidate(candidates, userid);
+        redirectAttributes.addFlashAttribute("message",  datingUser1.getName() + " er nu tilføjet til matches");
         return "redirect:/udforsk";
     }
 
@@ -195,7 +196,6 @@ public class MyController {
         return "redirect:/matches";
 
     }
-
 
 
     @GetMapping("/beskeder")

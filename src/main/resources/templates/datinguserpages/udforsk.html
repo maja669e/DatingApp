@@ -27,6 +27,9 @@
 
 <h1>Udforsk</h1>
 <hr>
+<div th:if="${message}" class="addmatch">
+    <p th:text="${message}"></p>
+</div>
 
 <form th:action="@{/addToCandidates}" method="post">
     <div class="row">
