@@ -103,17 +103,20 @@ public class DatingUserMapper {
 
             // Get data from database.
             while (rs.next()) {
-
-                int ID = rs.getInt("userid");
-                String email = rs.getString("email");
                 String role = rs.getString("role");
-                String name = rs.getString("name");
-                String password = rs.getString("password");
-                String description = rs.getString("description");
-                String gender = rs.getString("gender");
-                int picture = rs.getInt("picture");
                 if (role.equals("datinguser")) {
-                    datingUser = new DatingUser(ID, name, email, password, role, description, picture, gender);
+                    int ID = rs.getInt("userid");
+                    String temp = rs.getString("birthdate");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    LocalDate birthDate = LocalDate.parse(temp, formatter);
+                    String email = rs.getString("email");
+                    String name = rs.getString("name");
+                    String password = rs.getString("password");
+                    String description = rs.getString("description");
+                    String gender = rs.getString("gender");
+                    int picture = rs.getInt("picture");
+                    datingUser = new DatingUser(name, email, password, birthDate, role, description, gender, picture);
+                    datingUser.setID(ID);
                     if (picture != 0) {
                         datingUser.setPictureid(ID);
                     }
@@ -133,7 +136,7 @@ public class DatingUserMapper {
 
     public DatingUser updateDatingUser(int userid) {
         DatingUser updated = null;
-        
+
         try {
             Connection con = DBManager.getConnection();
             String SQL = "SELECT * FROM users " + "WHERE userid= ?";
@@ -171,13 +174,13 @@ public class DatingUserMapper {
         return updated;
     }
 
-    public void sendMessage(String message, int senderid, int receiveid){
+    public void sendMessage(String message, int senderid, int receiveid) {
         try {
             Connection con = DBManager.getConnection();
             String SQL = "INSERT INTO messages (senderid, receiveid, message) VALUES (?,?,?)";
             PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setInt(1,senderid);
-            ps.setInt(2,receiveid);
+            ps.setInt(1, senderid);
+            ps.setInt(2, receiveid);
             ps.setString(3, message);
             ps.executeUpdate();
 

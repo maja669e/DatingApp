@@ -20,8 +20,8 @@ public class CandidateList {
     public boolean addCandidate(ArrayList<DatingUser> datingUsers, int id){
         for (DatingUser datingUser : datingUsers) {
             if(datingUser.getID() == id && !candidates.contains(datingUser)){
-                System.out.println(candidates);
                 candidates.add(datingUser);
+                //System.out.println(datingUser);
                 return true;
             }
         }
