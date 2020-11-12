@@ -35,7 +35,7 @@
     <div class="column" th:each="candidate:${candidates}">
         <img th:src="@{${'/images/' + candidate.pictureid + '.jpg'}}" alt="blank profile">
         <p>Navn: <span th:text="${candidate.name}"></span></p>
-        <p>Alder: <span th:text="${datingUser.age}"></span></p>
+        <p>Alder: <span th:text="${candidate.age}"></span></p>
         <p>Køn: <span th:text="${candidate.gender}"></span></p>
         <p>Om mig: <span th:text="${candidate.description}"></span></p>
 

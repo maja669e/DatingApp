@@ -48,7 +48,8 @@
     </form>
 
     <p>Ikke medlem endnu? Opret dig som bruger allerede nu.</p>
-    <button  class="btnopret" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Opret bruger
+    <button class="btnopret" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Opret
+        bruger
     </button>
 
     <div id="id01" class="modal">
@@ -68,9 +69,10 @@
                     <label><b>Email</b></label>
                     <input type="text" placeholder="Indtast email" name="email" required>
 
-                    <label><b>Fødselsdag</b></label>
-                    <input type="text" placeholder="Eks: 1998-06-06" name="birthdate" required>
-
+                    <label><b>Fødselsdato</b></label>
+                    <br>
+                    <input id="birthdate" type="date"  min="1900-01-01" max="2000-01-01" name="birthdate"  required>
+                    <br>
                     <label><b>Kodeord</b></label>
                     <input type="password" placeholder="Indtast kodeord" name="password1" required>
 
