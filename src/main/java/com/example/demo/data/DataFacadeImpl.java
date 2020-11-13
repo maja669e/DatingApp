@@ -3,6 +3,7 @@ package com.example.demo.data;
 import com.example.demo.model.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class DataFacadeImpl implements DataFacade {
@@ -22,7 +23,7 @@ public class DataFacadeImpl implements DataFacade {
         return  adminMapper.adminLogin(email, password);
     }
 
-    public ArrayList<DatingUser> getAllDatingUsers(SuperUser loginUser) {
+    public List<DatingUser> getAllDatingUsers(SuperUser loginUser) {
         return userMapper.getAllDatingUsers(loginUser);
     }
 

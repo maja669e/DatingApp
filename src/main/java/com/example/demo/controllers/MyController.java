@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class MyController {
@@ -38,7 +39,7 @@ public class MyController {
         if (datingUser == null) {
             return "redirect:/";
         } else {
-            ArrayList<DatingUser> candidates = candidateList.getCandidates();
+            List<DatingUser> candidates = candidateList.getCandidates();
 
             model.addAttribute("candidates", candidates);
             model.addAttribute("datingUser", datingUser);
@@ -56,7 +57,7 @@ public class MyController {
         int candidateid = Integer.parseInt(request.getParameter("candidateid"));
 
         //Get all datingusers, excludes the logged in user
-        ArrayList<DatingUser> allDatingUsers = userController.getAllDatingUsers(datingUser);
+        List<DatingUser> allDatingUsers = userController.getAllDatingUsers(datingUser);
         for (DatingUser candidate : allDatingUsers) {
             if (candidate.getID() == candidateid) {
                 candidateList.addCandidate(candidate);
@@ -76,7 +77,7 @@ public class MyController {
         //Retrieve values from HTML form via WebRequest
         int candidateid = Integer.parseInt(request.getParameter("candidateid"));
 
-        ArrayList<DatingUser> candidates = candidateList.getCandidates();
+        List<DatingUser> candidates = candidateList.getCandidates();
         candidateList.removeCandidate(candidates, candidateid);
 
         return "redirect:/kandidater";
@@ -92,7 +93,7 @@ public class MyController {
             return "redirect:/";
         } else {
             //Get all datingusers, excludes the logged in user
-            ArrayList<DatingUser> datingUsers = userController.getAllDatingUsers(adminUser);
+            List<DatingUser> datingUsers = userController.getAllDatingUsers(adminUser);
 
             model.addAttribute("datingUsers", datingUsers);
             model.addAttribute("adminUser", adminUser);
@@ -218,7 +219,7 @@ public class MyController {
             return "redirect:/";
         } else {
             //Get all datingusers, excludes the logged in user
-            ArrayList<DatingUser> datingUsers = userController.getAllDatingUsers(datingUser);
+            List<DatingUser> datingUsers = userController.getAllDatingUsers(datingUser);
 
             model.addAttribute("datingUsers", datingUsers);
 

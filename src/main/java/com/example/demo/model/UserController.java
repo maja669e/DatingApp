@@ -5,6 +5,7 @@ package com.example.demo.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserController {
 
@@ -38,7 +39,7 @@ public class UserController {
         facade.deleteUser(userid);
     }
 
-    public ArrayList<DatingUser> getAllDatingUsers(SuperUser loginUser){
+    public List<DatingUser> getAllDatingUsers(SuperUser loginUser){
         return facade.getAllDatingUsers(loginUser);
     }
 

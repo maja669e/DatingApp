@@ -10,6 +10,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatingUserMapper {
 
@@ -91,8 +92,8 @@ public class DatingUserMapper {
         }
     }
 
-    public ArrayList<DatingUser> getAllDatingUsers(SuperUser loginUser) {
-        ArrayList<DatingUser> datingUsers = new ArrayList<>();
+    public List<DatingUser> getAllDatingUsers(SuperUser loginUser) {
+        List<DatingUser> datingUsers = new ArrayList<>();
         DatingUser datingUser;
 
         try {

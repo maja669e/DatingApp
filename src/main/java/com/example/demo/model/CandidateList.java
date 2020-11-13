@@ -1,14 +1,13 @@
 package com.example.demo.model;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class CandidateList {
 
-    private ArrayList<DatingUser> candidates = new ArrayList<>();
+    private List<DatingUser> candidates = new ArrayList<>();
+    //private Set<DatingUser> candidates = new HashSet<>();
 
-    public boolean removeCandidate(ArrayList<DatingUser> candidates, int id) {
+    public boolean removeCandidate(List<DatingUser> candidates, int id) {
         for (DatingUser datingUser : candidates) {
             if (datingUser.getID() == id) {
                 candidates.remove(datingUser);
@@ -44,7 +43,7 @@ public class CandidateList {
         return null;
     }
 
-    public ArrayList<DatingUser> getCandidates() {
+    public List<DatingUser> getCandidates() {
         return candidates;
     }
 }

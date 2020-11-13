@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import java.util.Objects;
+
 public abstract class SuperUser {
     protected int ID;
 
@@ -11,6 +13,19 @@ public abstract class SuperUser {
         this.email = email;
         this.password = password;
         this.role = role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuperUser)) return false;
+        SuperUser superUser = (SuperUser) o;
+        return ID == superUser.ID;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID);
     }
 
     public abstract int getID();
